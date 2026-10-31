@@ -28,7 +28,7 @@ add_shortcode(
 			if ( ! $url ) {
 				continue;
 			}
-			$links .= '<a href="' . esc_url( $url ) . '" target="_blank" rel="nofollow noopener noreferrer" aria-label="' . esc_attr( $label ) . '">' . get_icon( $slug ) . '</a>';
+			$links .= '<li><a href="' . esc_url( $url ) . '" target="_blank" rel="nofollow noopener noreferrer" aria-label="' . esc_attr( $label ) . '">' . get_icon( $slug ) . '</a></li>';
 		}
 
 		if ( ! $links ) {
@@ -37,6 +37,6 @@ add_shortcode(
 
 		$classes = trim( 'social-icons ' . sanitize_html_class( $atts['class'] ) );
 
-		return '<div class="' . esc_attr( $classes ) . '">' . $links . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $links built from esc_url()/esc_attr() above plus get_icon()'s already-sanitised theme SVGs.
+		return '<ul class="' . esc_attr( $classes ) . '" aria-label="' . esc_attr__( 'Social media', 'lc-mdsx2026' ) . '">' . $links . '</ul>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $links built from esc_url()/esc_attr() above plus get_icon()'s already-sanitised theme SVGs.
 	}
 );
