@@ -3591,16 +3591,20 @@ a.link-list__row:hover .arrow {
 	color: var(--col-text-subtle);
 }
 .press-names__list a {
-	text-decoration: none;
-	transition: color var(--t-fast);
+	/* The underline is always there but transparent, so its colour can fade in on the same
+	   timing as the text colour (text-decoration itself can't be transitioned on/off). */
+	text-decoration: underline;
+	text-decoration-color: transparent;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.3em;
+	transition:
+		color var(--t-fast),
+		text-decoration-color var(--t-fast);
 }
 .press-names__list a:hover,
 .press-names__list a:focus-visible {
 	color: var(--col-solitude);
-	text-decoration: underline;
 	text-decoration-color: var(--accent);
-	text-decoration-thickness: 2px;
-	text-underline-offset: 0.3em;
 }
 
 /* --- src/blocks/process-steps.css --- */
