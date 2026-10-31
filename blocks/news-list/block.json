@@ -1,0 +1,38 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/news-list",
+	"title": "News List",
+	"category": "lc-mdsx2026",
+	"icon": "megaphone",
+	"description": "Automatic grid of the newest News articles: image, date, title and excerpt.",
+	"attributes": {
+		"backgroundColor": {
+			"type": "string",
+			"default": "nero"
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"count": {
+			"type": "number",
+			"default": 12
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false,
+		"color": {
+			"background": true,
+			"text": false,
+			"gradients": false,
+			"link": false,
+			"heading": false,
+			"button": false
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

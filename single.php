@@ -2,26 +2,19 @@
 /**
  * Single post template.
  *
+ * News articles are built from blocks (page hero, article body, press coverage…),
+ * each rendering its own full-bleed section and .container, so — like page.php —
+ * there is no wrapper, title or date here; the Page Hero block carries the h1 and
+ * the Article Body block shows the date.
+ *
  * @package lc-mdsx2026
  */
 
 get_header();
-?>
 
-<div class="container pt-nav">
-	<?php
-	while ( have_posts() ) {
-		the_post();
-		?>
-		<article <?php post_class(); ?>>
-			<h1><?php the_title(); ?></h1>
-			<p class="visually-hidden"><?php echo esc_html( get_the_date() ); ?></p>
-			<?php the_content(); ?>
-		</article>
-		<?php
-	}
-	?>
-</div>
+while ( have_posts() ) {
+	the_post();
+	the_content();
+}
 
-<?php
 get_footer();

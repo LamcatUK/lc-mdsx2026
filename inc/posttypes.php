@@ -50,11 +50,10 @@ function lc_mdsx2026_register_post_types() {
 	);
 	*/
 
-	// Index pages (/portfolio/, /team/, /news/) are regular pages, so no CPT archives.
+	// Index pages (/portfolio/, /team/) are regular pages, so no CPT archives. News uses the default post type.
 	$types = array(
 		'portfolio' => array( 'Portfolio', 'Project', 'Projects', 'dashicons-portfolio', 26 ),
 		'team'      => array( 'Team', 'Team Member', 'Team Members', 'dashicons-groups', 27 ),
-		'news'      => array( 'News', 'News Article', 'News Articles', 'dashicons-megaphone', 28 ),
 	);
 
 	foreach ( $types as $slug => $t ) {
