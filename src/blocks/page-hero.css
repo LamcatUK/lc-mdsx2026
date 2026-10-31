@@ -74,3 +74,29 @@
 		grid-template-columns: 1fr;
 	}
 }
+
+/*
+ * Entrance, as in the concept: copy rises 30px and fades in, staggered after a 0.2s delay;
+ * the angled image wipes in from the right edge over 1.2s.
+ */
+.js .page-hero .reveal {
+	transform: translateY(30px);
+	transition-duration: 0.8s;
+	transition-delay: calc(0.2s + var(--i, 0) * 0.1s);
+}
+.js .page-hero .reveal.is-in {
+	transform: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+	.page-hero--split .page-hero__image > div {
+		animation: page-hero-wipe 1.2s cubic-bezier(0.65, 0, 0.35, 1) both;
+	}
+}
+@keyframes page-hero-wipe {
+	from {
+		clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+	}
+	to {
+		clip-path: polygon(calc(var(--slope-half) * 100cqw) 0, 100% 0, 100% 100%, 0 100%);
+	}
+}

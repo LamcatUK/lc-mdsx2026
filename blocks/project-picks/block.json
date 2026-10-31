@@ -1,0 +1,41 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/project-picks",
+	"title": "Project Picks",
+	"category": "lc-mdsx2026",
+	"icon": "portfolio",
+	"description": "A hand-picked, ordered grid of portfolio projects (for example the projects a person worked on).",
+	"attributes": {
+		"backgroundColor": {
+			"type": "string",
+			"default": "nero"
+		},
+		"heading": {
+			"type": "string",
+			"default": "Selected projects"
+		},
+		"projects": {
+			"type": "array",
+			"items": {
+				"type": "number"
+			},
+			"default": []
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false,
+		"color": {
+			"background": true,
+			"text": false,
+			"gradients": false,
+			"link": false,
+			"heading": false,
+			"button": false
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

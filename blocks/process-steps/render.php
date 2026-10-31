@@ -21,7 +21,7 @@ $steps   = array_values( array_filter( (array) ( $attributes['steps'] ?? array()
 		<ol class="process-steps__list">
 			<?php foreach ( $steps as $i => $step ) { ?>
 				<li class="reveal" style="--i:<?php echo (int) $i; ?>">
-					<span class="process-steps__num" aria-hidden="true"><?php echo esc_html( str_pad( (string) ( $i + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></span>
+					<span class="process-steps__chevron" aria-hidden="true"></span>
 					<h3><?php echo esc_html( $step['title'] ?? '' ); ?></h3>
 					<?php if ( ! empty( $step['text'] ) ) { ?>
 						<p><?php echo esc_html( $step['text'] ); ?></p>

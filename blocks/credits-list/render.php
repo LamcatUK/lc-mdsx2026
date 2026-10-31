@@ -12,6 +12,14 @@ $items   = array_filter( (array) ( $attributes['items'] ?? array() ), static fn(
 if ( ! $items ) {
 	return;
 }
+
+// Optionally link each name to the matching Team member's profile (exact name match).
+$bios = array();
+if ( $attributes['linkPeople'] ?? true ) {
+	foreach ( get_posts( array( 'post_type' => 'team', 'post_status' => 'publish', 'posts_per_page' => -1 ) ) as $member ) {
+		$bios[ strtolower( trim( $member->post_title ) ) ] = get_permalink( $member );
+	}
+}
 ?>
 <section <?php echo lc_mdsx2026_wrapper( 'credits-list section', $surface ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?>>
 	<div class="container">
@@ -20,7 +28,18 @@ if ( ! $items ) {
 		<?php } ?>
 		<ul class="credits-list__list">
 			<?php foreach ( $items as $item ) { ?>
-				<li><b><?php echo esc_html( $item['role'] ?? '' ); ?></b><?php echo esc_html( $item['name'] ?? '' ); ?></li>
+				<?php
+				$person = trim( $item['name'] ?? '' );
+				$bio    = $bios[ strtolower( $person ) ] ?? '';
+				?>
+				<li>
+					<b><?php echo esc_html( $item['role'] ?? '' ); ?></b>
+					<?php if ( $bio ) { ?>
+						<a href="<?php echo esc_url( $bio ); ?>"><?php echo esc_html( $person ); ?></a>
+					<?php } else { ?>
+						<?php echo esc_html( $person ); ?>
+					<?php } ?>
+				</li>
 			<?php } ?>
 		</ul>
 	</div>

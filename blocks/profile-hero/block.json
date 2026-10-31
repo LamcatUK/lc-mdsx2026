@@ -1,0 +1,62 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/profile-hero",
+	"title": "Profile Hero",
+	"category": "lc-mdsx2026",
+	"icon": "id",
+	"description": "Team member introduction: headshot (shown as supplied), name, role and bio.",
+	"attributes": {
+		"backgroundColor": {
+			"type": "string",
+			"default": "nero"
+		},
+		"crumbText": {
+			"type": "string",
+			"default": "Team"
+		},
+		"crumbUrl": {
+			"type": "string",
+			"default": "/team/"
+		},
+		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"role": {
+			"type": "string",
+			"default": ""
+		},
+		"photoId": {
+			"type": "number",
+			"default": 0
+		},
+		"photoUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"photoAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"bio": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false,
+		"color": {
+			"background": true,
+			"text": false,
+			"gradients": false,
+			"link": false,
+			"heading": false,
+			"button": false
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

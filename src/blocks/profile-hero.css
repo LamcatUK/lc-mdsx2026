@@ -1,0 +1,40 @@
+.profile-hero {
+	padding-top: calc(var(--nav-height) + clamp(48px, 7vw, 96px));
+	padding-bottom: clamp(56px, 7vw, 100px);
+}
+.profile-hero__grid {
+	display: grid;
+	grid-template-columns: minmax(220px, 0.8fr) 1.6fr;
+	gap: clamp(32px, 6vw, 96px);
+	align-items: end;
+}
+.profile-hero__grid.is-no-photo {
+	grid-template-columns: 1fr;
+}
+.profile-hero__photo img {
+	width: 100%;
+	max-width: 420px;
+	height: auto;
+}
+.profile-hero h1 {
+	font-size: var(--fs-h2);
+}
+.profile-hero__role {
+	margin: 12px 0 28px;
+	font-size: var(--fs-lede);
+}
+.profile-hero__bio {
+	max-width: 44em;
+}
+.profile-hero__bio p {
+	margin-bottom: 1.2em;
+}
+@media (max-width: 760px) {
+	.profile-hero__grid {
+		grid-template-columns: 1fr;
+		align-items: start;
+	}
+	.profile-hero__photo img {
+		max-width: 240px;
+	}
+}

@@ -2124,6 +2124,16 @@ select {
 	}
 }
 
+.credits-list__list a {
+	text-decoration: underline;
+	text-decoration-color: var(--accent);
+	text-underline-offset: 0.25em;
+	text-decoration-thickness: 2px;
+}
+.credits-list__list a:hover {
+	color: var(--accent);
+}
+
 /* --- src/blocks/cta-band.css --- */
 .cta-band {
 	padding-block: clamp(72px, 9vw, 130px);
@@ -2747,6 +2757,32 @@ a.link-list__row:hover .arrow {
 	}
 }
 
+/*
+ * Entrance, as in the concept: copy rises 30px and fades in, staggered after a 0.2s delay;
+ * the angled image wipes in from the right edge over 1.2s.
+ */
+.js .page-hero .reveal {
+	transform: translateY(30px);
+	transition-duration: 0.8s;
+	transition-delay: calc(0.2s + var(--i, 0) * 0.1s);
+}
+.js .page-hero .reveal.is-in {
+	transform: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+	.page-hero--split .page-hero__image > div {
+		animation: page-hero-wipe 1.2s cubic-bezier(0.65, 0, 0.35, 1) both;
+	}
+}
+@keyframes page-hero-wipe {
+	from {
+		clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+	}
+	to {
+		clip-path: polygon(calc(var(--slope-half) * 100cqw) 0, 100% 0, 100% 100%, 0 100%);
+	}
+}
+
 /* --- src/blocks/people-strip.css --- */
 .people-strip__list {
 	display: grid;
@@ -2898,11 +2934,14 @@ a.link-list__row:hover .arrow {
 .process-steps.s-nero li::before {
 	background: var(--col-charcoal);
 }
-.process-steps__num {
+.process-steps__chevron {
 	display: block;
-	margin-bottom: 14px;
-	font: var(--fw-700) 15px / 1 var(--f-display);
-	color: var(--col-crusta);
+	width: 26px;
+	height: 58px;
+	margin-bottom: 18px;
+	background: var(--motif, var(--col-sea));
+	/* the brand chevron: a notched arrow made of two angled bars */
+	clip-path: polygon(0 0, 50% 0, 100% 50%, 50% 100%, 0 100%, 48% 50%);
 }
 .process-steps__list h3 {
 	margin-bottom: 10px;
@@ -2912,6 +2951,48 @@ a.link-list__row:hover .arrow {
 	margin: 0;
 	font-size: var(--fs-small);
 	color: var(--muted);
+}
+
+/* --- src/blocks/profile-hero.css --- */
+.profile-hero {
+	padding-top: calc(var(--nav-height) + clamp(48px, 7vw, 96px));
+	padding-bottom: clamp(56px, 7vw, 100px);
+}
+.profile-hero__grid {
+	display: grid;
+	grid-template-columns: minmax(220px, 0.8fr) 1.6fr;
+	gap: clamp(32px, 6vw, 96px);
+	align-items: end;
+}
+.profile-hero__grid.is-no-photo {
+	grid-template-columns: 1fr;
+}
+.profile-hero__photo img {
+	width: 100%;
+	max-width: 420px;
+	height: auto;
+}
+.profile-hero h1 {
+	font-size: var(--fs-h2);
+}
+.profile-hero__role {
+	margin: 12px 0 28px;
+	font-size: var(--fs-lede);
+}
+.profile-hero__bio {
+	max-width: 44em;
+}
+.profile-hero__bio p {
+	margin-bottom: 1.2em;
+}
+@media (max-width: 760px) {
+	.profile-hero__grid {
+		grid-template-columns: 1fr;
+		align-items: start;
+	}
+	.profile-hero__photo img {
+		max-width: 240px;
+	}
 }
 
 /* --- src/blocks/project-intro.css --- */
@@ -2952,6 +3033,16 @@ a.link-list__row:hover .arrow {
 	.project-intro__grid {
 		grid-template-columns: 1fr;
 	}
+}
+
+/* --- src/blocks/project-picks.css --- */
+.project-picks__list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+	gap: 56px 40px;
+	margin: 48px 0 0;
+	padding: 0;
+	list-style: none;
 }
 
 /* --- src/blocks/quote-block.css --- */

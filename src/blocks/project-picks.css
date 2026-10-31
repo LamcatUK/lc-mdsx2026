@@ -1,0 +1,8 @@
+.project-picks__list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+	gap: 56px 40px;
+	margin: 48px 0 0;
+	padding: 0;
+	list-style: none;
+}
