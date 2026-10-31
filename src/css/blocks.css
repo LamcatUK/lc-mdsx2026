@@ -1448,8 +1448,9 @@ a.link-list__row:hover .arrow {
 		grid-template-columns: 1fr;
 		align-items: start;
 	}
+	/* the headshot fills the width on small screens, as in the team grid */
 	.profile-hero__photo img {
-		max-width: 240px;
+		max-width: min(100%, 420px);
 	}
 }
 
