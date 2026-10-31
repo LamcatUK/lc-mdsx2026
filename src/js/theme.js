@@ -7,6 +7,7 @@ import { initReveal } from './reveal';
 import { initContactForm } from './contact-form';
 import { initHeaderScroll } from './header-scroll';
 import { initLenis } from './lenis';
+import { initWorkCursor } from './work-cursor';
 
 document.addEventListener('DOMContentLoaded', () => {
 	initNavToggle();
@@ -18,4 +19,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	initContactForm();
 	initHeaderScroll();
 	initLenis();
+	initWorkCursor();
 });
