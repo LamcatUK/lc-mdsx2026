@@ -40,8 +40,17 @@
 	transform: none;
 }
 /* centre the content in the shorter bar: (5.75rem - 4.5rem) / 2 */
-#masthead.is-scrolled .navbar {
-	transform: translateY(-0.625rem);
+#masthead.is-scrolled .navbar-brand,
+#masthead.is-scrolled .navbar-toggler {
+	translate: 0 -0.625rem;
+}
+@media (min-width: 992px) {
+	.navbar-collapse {
+		transition: translate var(--t-med) var(--ease-out);
+	}
+	#masthead.is-scrolled .navbar-collapse {
+		translate: 0 -0.625rem;
+	}
 }
 
 /* anchors and #fragment jumps must clear the sticky header */
@@ -59,7 +68,6 @@ html {
 	align-items: center;
 	justify-content: space-between;
 	height: var(--nav-height);
-	transition: transform var(--t-med) var(--ease-out);
 }
 
 .navbar-brand {
@@ -67,7 +75,9 @@ html {
 	display: block;
 	line-height: 0;
 	transform-origin: left center;
-	transition: transform var(--t-med) var(--ease-out);
+	transition:
+		transform var(--t-med) var(--ease-out),
+		translate var(--t-med) var(--ease-out);
 }
 
 .navbar-brand img {
@@ -101,6 +111,7 @@ html {
 	background: none;
 	color: inherit;
 	cursor: pointer;
+	transition: translate var(--t-med) var(--ease-out);
 }
 
 /*
@@ -233,8 +244,9 @@ html {
 		background: var(--col-white);
 		transform: none;
 	}
-	#masthead.menu-open .navbar {
-		transform: none;
+	#masthead.menu-open .navbar-brand,
+	#masthead.menu-open .navbar-toggler {
+		translate: none;
 	}
 	#masthead.menu-open .navbar-brand .logo-light {
 		opacity: 0;
