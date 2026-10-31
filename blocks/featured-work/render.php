@@ -9,16 +9,19 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$count    = max( 1, min( 12, (int) ( $attributes['count'] ?? 6 ) ) );
-$projects = get_posts(
-	array(
-		'post_type'      => 'portfolio',
-		'post_status'    => 'publish',
-		'posts_per_page' => $count,
-		'meta_key'       => '_thumbnail_id', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- only projects with an image make a tile.
-		'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
-	)
+$count      = max( 1, min( 12, (int) ( $attributes['count'] ?? 6 ) ) );
+$discipline = sanitize_title( $attributes['discipline'] ?? '' );
+$query_args = array(
+	'post_type'      => 'portfolio',
+	'post_status'    => 'publish',
+	'posts_per_page' => $count,
+	'meta_key'       => '_thumbnail_id', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- only projects with an image make a tile.
+	'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
 );
+if ( $discipline ) {
+	$query_args['tax_query'] = array( array( 'taxonomy' => 'discipline', 'field' => 'slug', 'terms' => $discipline ) ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- small, filtered portfolio set.
+}
+$projects = get_posts( $query_args );
 
 $tile = static function ( $project, $extra = '' ) {
 	?>

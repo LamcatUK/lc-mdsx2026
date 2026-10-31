@@ -3,8 +3,10 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { TextControl } from '@wordpress/components';
 import EditorBlockShell from '../../_shared/EditorBlockShell';
 
+import TermSelect from '../../_shared/TermSelect';
+
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { heading, ctaText, ctaUrl, count } = attributes;
+	const { heading, ctaText, ctaUrl, count, discipline } = attributes;
 	const blockProps = useBlockProps( { className: 'container lc-mdsx2026-editor-block' } );
 
 	return (
@@ -16,6 +18,8 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 			</div>
 			<TextControl type="number" label={ __( "Number of projects", 'lc-mdsx2026' ) } value={ count } onChange={ ( value ) => setAttributes( { count: Number( value ) } ) }
 				help={ __( "Newest published projects first. Groups of three; use 3, 6 or 9.", 'lc-mdsx2026' ) } />
+			<TermSelect label={ __( "Only show this discipline", 'lc-mdsx2026' ) } taxonomy="discipline" value={ discipline } onChange={ ( slug ) => setAttributes( { discipline: slug } ) }
+				help={ __( "Leave on All for every project.", 'lc-mdsx2026' ) } />
 		</EditorBlockShell>
 	);
 }
