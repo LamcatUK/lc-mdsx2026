@@ -6,21 +6,18 @@
 .page-hero h1 {
 	max-width: 10em;
 }
-.page-hero__crumb {
-	display: table;
-	margin-bottom: 20px;
-	font: var(--fw-600) 15px / 1 var(--f-sub);
-	color: var(--accent);
-	text-decoration: none;
-}
 .page-hero__intro {
 	margin-top: 28px;
 }
 .page-hero__intro p {
 	margin-bottom: 1em;
 }
-.page-hero .btn {
-	margin-top: 12px;
+.page-hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 32px;
+	margin-top: 36px;
 }
 
 /* full-bleed image with title overlaid */
@@ -54,30 +51,59 @@
 	font-size: var(--fs-h1);
 }
 
-/* split: copy left, angled image right */
-.page-hero--split .page-hero__inner {
+/*
+ * Split (service pillar), as in the Concept A service page: a two-column grid with no container.
+ * The copy sits bottom-left, aligned to the page edge; the image runs full height to the top
+ * and right edges of the viewport (behind the transparent header) with an angled left edge.
+ */
+.page-hero--split {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: clamp(32px, 5vw, 80px);
-	align-items: center;
+	min-height: min(88svh, 860px);
+	padding: 0;
+}
+.page-hero--split .page-hero__copy {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	padding: calc(var(--nav-height) + 108px) clamp(24px, 5vw, 80px) 80px max(var(--container-padding), calc((100vw - var(--container-max-width)) / 2 + var(--container-padding)));
 }
 .page-hero--split h1 {
-	font-size: var(--fs-h2);
+	/* the concept used 6.4vw for a two-word title; these headlines carry the search keywords, so a touch smaller keeps the buttons above the fold */
+	font-size: clamp(44px, 4.8vw, 84px);
+	max-width: none;
+}
+.page-hero--split .page-hero__image {
+	height: 100%;
+}
+.page-hero--split .page-hero__image > div {
+	height: 100%;
+	clip-path: polygon(calc(var(--slope-half) * 100cqw) 0, 100% 0, 100% 100%, 0 100%);
 }
 .page-hero--split .page-hero__image img {
 	width: 100%;
-	aspect-ratio: 1 / 1.05;
+	height: 100%;
 	object-fit: cover;
 }
 @media (max-width: 860px) {
-	.page-hero--split .page-hero__inner {
+	.page-hero--split {
 		grid-template-columns: 1fr;
+		min-height: 0;
+	}
+	.page-hero--split .page-hero__copy {
+		padding: calc(var(--nav-height) + 40px) var(--container-padding) 48px;
+	}
+	.page-hero--split .page-hero__image {
+		height: 56vw;
+	}
+	.page-hero--split .page-hero__image > div {
+		clip-path: polygon(0 calc(var(--slope-half) * 100cqw), 100% 0, 100% 100%, 0 100%);
 	}
 }
 
 /*
  * Entrance, as in the concept: copy rises 30px and fades in, staggered after a 0.2s delay;
- * the angled image wipes in from the right edge over 1.2s.
+ * the angled split image wipes in from the right edge over 1.2s.
  */
 .js .page-hero .reveal {
 	transform: translateY(30px);
@@ -98,5 +124,12 @@
 	}
 	to {
 		clip-path: polygon(calc(var(--slope-half) * 100cqw) 0, 100% 0, 100% 100%, 0 100%);
+	}
+}
+@media (max-width: 860px) and (prefers-reduced-motion: no-preference) {
+	@keyframes page-hero-wipe {
+		to {
+			clip-path: polygon(0 calc(var(--slope-half) * 100cqw), 100% 0, 100% 100%, 0 100%);
+		}
 	}
 }

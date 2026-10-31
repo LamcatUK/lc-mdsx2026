@@ -288,3 +288,19 @@
 .container.pt-nav {
 	padding-top: calc(var(--nav-height) + var(--space-5));
 }
+
+/* breadcrumb: "Parent / Current page" (lc_mdsx2026_breadcrumb()) */
+.crumbs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 24px;
+	font: var(--fw-600) 15px / 1 var(--f-sub);
+	color: var(--accent, var(--col-sea));
+}
+.crumbs a {
+	text-decoration: none;
+}
+.crumbs a:hover {
+	text-decoration: underline;
+}

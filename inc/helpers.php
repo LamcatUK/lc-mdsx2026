@@ -149,3 +149,43 @@ function lc_mdsx2026_news_card( $article, $i = 0 ) {
 	</li>
 	<?php
 }
+
+/**
+ * Print a breadcrumb trail: "Parent / Current page", with BreadcrumbList structured data.
+ *
+ * @param string $parent_text Parent label (e.g. "Services"). Nothing is printed if empty.
+ * @param string $parent_url  Parent URL.
+ * @param string $current     Label for the current page; defaults to the post title.
+ * @return void
+ */
+function lc_mdsx2026_breadcrumb( $parent_text, $parent_url = '', $current = '' ) {
+	if ( ! $parent_text ) {
+		return;
+	}
+	$current = $current ? $current : get_the_title();
+	$trail   = array(
+		array( 'name' => get_bloginfo( 'name' ), 'item' => home_url( '/' ) ),
+		array( 'name' => $parent_text, 'item' => $parent_url ? home_url( $parent_url ) : '' ),
+		array( 'name' => $current, 'item' => get_permalink() ),
+	);
+	$list    = array();
+	foreach ( $trail as $i => $crumb ) {
+		$entry = array( '@type' => 'ListItem', 'position' => $i + 1, 'name' => $crumb['name'] );
+		if ( $crumb['item'] ) {
+			$entry['item'] = $crumb['item'];
+		}
+		$list[] = $entry;
+	}
+	?>
+	<nav class="crumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'lc-mdsx2026' ); ?>">
+		<?php if ( $parent_url ) { ?>
+			<a href="<?php echo esc_url( $parent_url ); ?>"><?php echo esc_html( $parent_text ); ?></a>
+		<?php } else { ?>
+			<span><?php echo esc_html( $parent_text ); ?></span>
+		<?php } ?>
+		<span aria-hidden="true">/</span>
+		<span aria-current="page"><?php echo esc_html( $current ); ?></span>
+	</nav>
+	<script type="application/ld+json"><?php echo wp_json_encode( array( '@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => $list ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-LD. ?></script>
+	<?php
+}

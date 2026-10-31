@@ -18,13 +18,7 @@ $has_img = ! empty( $attributes['photoUrl'] ) || ! empty( $attributes['photoId']
 			<div class="profile-hero__photo reveal"><?php lc_mdsx2026_image( (int) ( $attributes['photoId'] ?? 0 ), $attributes['photoUrl'] ?? '', $name, 'large', 'eager' ); ?></div>
 		<?php } ?>
 		<div class="profile-hero__copy">
-			<?php if ( $crumb ) { ?>
-				<?php if ( ! empty( $attributes['crumbUrl'] ) ) { ?>
-					<a class="page-hero__crumb" href="<?php echo esc_url( $attributes['crumbUrl'] ); ?>"><?php echo esc_html( $crumb ); ?></a>
-				<?php } else { ?>
-					<span class="page-hero__crumb"><?php echo esc_html( $crumb ); ?></span>
-				<?php } ?>
-			<?php } ?>
+			<?php lc_mdsx2026_breadcrumb( $crumb, $attributes['crumbUrl'] ?? '', $name ); ?>
 			<h1 class="baseline reveal"><?php echo esc_html( $name ); ?></h1>
 			<?php if ( ! empty( $attributes['role'] ) ) { ?>
 				<p class="t-label profile-hero__role reveal" style="--i:1"><?php echo esc_html( $attributes['role'] ); ?></p>

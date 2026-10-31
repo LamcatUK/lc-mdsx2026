@@ -50,6 +50,14 @@
 		"ctaUrl": {
 			"type": "string",
 			"default": ""
+		},
+		"cta2Text": {
+			"type": "string",
+			"default": ""
+		},
+		"cta2Url": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {
