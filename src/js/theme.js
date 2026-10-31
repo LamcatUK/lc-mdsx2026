@@ -6,6 +6,7 @@ import { initPortfolioFilter } from './portfolio-filter';
 import { initReveal } from './reveal';
 import { initContactForm } from './contact-form';
 import { initHeaderScroll } from './header-scroll';
+import { initLenis } from './lenis';
 
 document.addEventListener('DOMContentLoaded', () => {
 	initNavToggle();
@@ -16,4 +17,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	initReveal();
 	initContactForm();
 	initHeaderScroll();
+	initLenis();
 });

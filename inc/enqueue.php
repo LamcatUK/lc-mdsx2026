@@ -60,8 +60,11 @@ function lc_mdsx2026_enqueue_vendor( $handle, $file, $is_css = false ) {
 function lc_mdsx2026_enqueue_scripts() {
 
 	// lc_mdsx2026_enqueue_vendor( 'gsap', 'gsap.min.js' );
-	// lc_mdsx2026_enqueue_vendor( 'lenis-style', 'lenis.css', true );
-	// lc_mdsx2026_enqueue_vendor( 'lenis', 'lenis.min.js' );
+
+	// Lenis smooth scroll 1.3.27 — lenis.min.js and lenis.css from cdn.jsdelivr.net/npm/lenis@1.3.27/dist/.
+	// Initialised in src/js/lenis.js (skipped for prefers-reduced-motion).
+	lc_mdsx2026_enqueue_vendor( 'lenis-style', 'lenis.css', true );
+	lc_mdsx2026_enqueue_vendor( 'lenis', 'lenis.min.js' );
 
 	$rel = '/js/theme.min.js';
 	$abs = get_stylesheet_directory() . $rel;
