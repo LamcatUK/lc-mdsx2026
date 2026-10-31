@@ -4,7 +4,7 @@ import { PanelBody, SelectControl, TextControl, Button } from '@wordpress/compon
 import EditorBlockShell from '../../_shared/EditorBlockShell';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { crumbText, crumbUrl, name, role, photoId, photoUrl, photoAlt, bio, backgroundShape } = attributes;
+	const { crumbText, crumbUrl, name, role, email, linkedin, photoId, photoUrl, photoAlt, bio, backgroundShape } = attributes;
 	const blockProps = useBlockProps( { className: 'container lc-mdsx2026-editor-block' } );
 
 	return (
@@ -25,6 +25,8 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 			<TextControl label={ __( "Breadcrumb URL", 'lc-mdsx2026' ) } value={ crumbUrl } onChange={ ( value ) => setAttributes( { crumbUrl: value } ) } />
 			<TextControl label={ __( "Name (blank = page title)", 'lc-mdsx2026' ) } value={ name } onChange={ ( value ) => setAttributes( { name: value } ) } />
 			<TextControl label={ __( "Role", 'lc-mdsx2026' ) } value={ role } onChange={ ( value ) => setAttributes( { role: value } ) } />
+			<TextControl label={ __( "Email", 'lc-mdsx2026' ) } type="email" value={ email } onChange={ ( value ) => setAttributes( { email: value } ) } help={ __( 'Shown under the role as a mailto link. Leave blank to hide.', 'lc-mdsx2026' ) } />
+			<TextControl label={ __( "LinkedIn profile URL", 'lc-mdsx2026' ) } type="url" value={ linkedin } onChange={ ( value ) => setAttributes( { linkedin: value } ) } help={ __( 'Their personal profile, e.g. https://www.linkedin.com/in/name. Leave blank to hide.', 'lc-mdsx2026' ) } />
 			<div className="lc-mdsx2026-editor-field">
 				<label className="lc-mdsx2026-editor-field__label">{ __( "Headshot", 'lc-mdsx2026' ) }</label>
 				<MediaUploadCheck>

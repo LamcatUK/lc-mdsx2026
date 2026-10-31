@@ -3967,8 +3967,34 @@ a.link-list__row:hover .arrow {
 	font-size: var(--fs-h2);
 }
 .profile-hero__role {
-	margin: 12px 0 28px;
+	margin: 12px 0 8px;
 	font-size: var(--fs-lede);
+}
+.profile-hero__contact {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 28px;
+	margin: 0 0 28px;
+	padding: 0;
+	list-style: none;
+	font: var(--fw-600) 18px / 1.4 var(--f-display);
+}
+.profile-hero__contact a {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--accent);
+	text-decoration: none;
+	background: linear-gradient(currentcolor, currentcolor) 0 100% / 100% 2px no-repeat;
+	transition: background-size var(--t-med) var(--ease-out);
+}
+.profile-hero__contact a:hover,
+.profile-hero__contact a:focus-visible {
+	background-size: 0 2px;
+}
+.profile-hero__contact svg {
+	width: 20px;
+	height: 20px;
 }
 .profile-hero__bio {
 	max-width: 44em;

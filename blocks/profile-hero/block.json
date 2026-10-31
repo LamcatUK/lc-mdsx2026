@@ -5,7 +5,7 @@
 	"title": "Profile Hero",
 	"category": "lc-mdsx2026",
 	"icon": "id",
-	"description": "Team member introduction: headshot (shown as supplied), name, role and bio.",
+	"description": "Team member introduction: headshot (shown as supplied), name, role, email, LinkedIn and bio.",
 	"attributes": {
 		"backgroundColor": {
 			"type": "string",
@@ -24,6 +24,14 @@
 			"default": "/team/"
 		},
 		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"linkedin": {
+			"type": "string",
+			"default": ""
+		},
+		"email": {
 			"type": "string",
 			"default": ""
 		},

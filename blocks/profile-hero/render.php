@@ -23,6 +23,24 @@ $has_img = ! empty( $attributes['photoUrl'] ) || ! empty( $attributes['photoId']
 			<?php if ( ! empty( $attributes['role'] ) ) { ?>
 				<p class="t-label profile-hero__role reveal" style="--i:1"><?php echo esc_html( $attributes['role'] ); ?></p>
 			<?php } ?>
+			<?php
+			$email    = is_email( $attributes['email'] ?? '' ) ? $attributes['email'] : '';
+			$linkedin = esc_url( $attributes['linkedin'] ?? '', array( 'https', 'http' ) );
+			if ( $email || $linkedin ) {
+				?>
+				<ul class="profile-hero__contact reveal" style="--i:1">
+					<?php if ( $email ) { ?>
+						<li><a href="mailto:<?php echo esc_attr( antispambot( $email ) ); ?>"><?php echo esc_html( antispambot( $email ) ); ?></a></li>
+					<?php } ?>
+					<?php if ( $linkedin ) { ?>
+						<li><a class="profile-hero__linkedin" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener noreferrer">
+							<?php echo get_icon( 'linkedin' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- theme SVG. ?>
+							<span><?php esc_html_e( 'LinkedIn', 'lc-mdsx2026' ); ?></span>
+							<span class="visually-hidden"><?php echo esc_html( sprintf( /* translators: %s: person's name */ __( '(%s’s profile, opens in a new tab)', 'lc-mdsx2026' ), $name ) ); ?></span>
+						</a></li>
+					<?php } ?>
+				</ul>
+			<?php } ?>
 			<?php if ( ! empty( $attributes['bio'] ) ) { ?>
 				<div class="profile-hero__bio reveal" style="--i:2"><?php echo wp_kses_post( $attributes['bio'] ); ?></div>
 			<?php } ?>
