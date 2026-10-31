@@ -54,7 +54,7 @@ $phone    = lc_mdsx2026_get_setting( 'phone' );
 						<li><a href="mailto:<?php echo esc_attr( antispambot( $email ) ); ?>"><?php echo esc_html( antispambot( $email ) ); ?></a></li>
 					<?php } ?>
 					<?php if ( $phone ) { ?>
-						<li><a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ); ?>"><?php echo esc_html( $phone ); ?></a></li>
+						<li><a href="tel:<?php echo esc_attr( parse_phone( $phone ) ); ?>"><?php echo esc_html( $phone ); ?></a></li>
 					<?php } ?>
 				</ul>
 				<?php echo do_shortcode( '[social_icons]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped inside the shortcode. ?>

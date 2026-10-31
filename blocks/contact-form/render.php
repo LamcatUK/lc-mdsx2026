@@ -27,7 +27,7 @@ $email   = $attributes['email'] ?? '';
 					<p><?php echo nl2br( esc_html( $attributes['address'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- nl2br of escaped text. ?></p>
 				<?php } ?>
 				<?php if ( $phone ) { ?>
-					<p><a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ); ?>"><?php echo esc_html( $phone ); ?></a></p>
+					<p><a href="tel:<?php echo esc_attr( parse_phone( $phone ) ); ?>"><?php echo esc_html( $phone ); ?></a></p>
 				<?php } ?>
 				<?php if ( $email ) { ?>
 					<p><a href="mailto:<?php echo esc_attr( antispambot( $email ) ); ?>"><?php echo esc_html( antispambot( $email ) ); ?></a></p>

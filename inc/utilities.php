@@ -12,18 +12,30 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Strip formatting from a UK phone number for use in tel: links.
+ * Format a US phone number for tel: links, as E.164 (+14073493590).
  *
- * @param string $phone Phone number as entered (spaces, brackets, dashes allowed).
+ * Accepts the number however it was typed — spaces, brackets, dots, dashes, with or without a leading
+ * 1 or +1. A number already written with another country code (+44 ...) keeps it. Anything that isn't
+ * a recognisable number comes back stripped to digits, so the link is never malformed.
+ *
+ * @param string $phone Phone number as entered.
  * @return string
  */
 function parse_phone( $phone ) {
-	$phone = preg_replace( '/\s+/', '', $phone );
-	$phone = preg_replace( '/\(0\)/', '', $phone );
-	$phone = preg_replace( '/[\(\)\.]/', '', $phone );
-	$phone = preg_replace( '/-/', '', $phone );
-	$phone = preg_replace( '/^0/', '+44', $phone );
-	return $phone;
+	$has_plus = 0 === strpos( ltrim( $phone ), '+' );
+	$digits   = preg_replace( '/\D+/', '', $phone );
+
+	if ( $has_plus ) {
+		return '+' . $digits;
+	}
+	if ( 10 === strlen( $digits ) ) {
+		return '+1' . $digits;
+	}
+	if ( 11 === strlen( $digits ) && '1' === $digits[0] ) {
+		return '+' . $digits;
+	}
+
+	return $digits;
 }
 
 /**
