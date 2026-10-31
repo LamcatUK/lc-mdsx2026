@@ -954,6 +954,19 @@ html.menu-lock {
 	}
 }
 
+#footer .social-icons {
+	display: flex;
+	gap: 16px;
+	margin-top: 20px;
+}
+#footer .social-icons a {
+	display: block;
+	line-height: 0;
+}
+#footer .social-icons svg {
+	width: 24px;
+	height: 24px;
+}
 /* Minimal, deliberately unopinionated form base — expected to be overridden per project. */
 
 input,
