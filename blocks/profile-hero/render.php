@@ -15,7 +15,7 @@ $has_img = ! empty( $attributes['photoUrl'] ) || ! empty( $attributes['photoId']
 <section <?php echo lc_mdsx2026_wrapper( 'profile-hero', $surface ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?>>
 	<div class="container profile-hero__grid<?php echo $has_img ? '' : ' is-no-photo'; ?>">
 		<?php if ( $has_img ) { ?>
-			<div class="profile-hero__photo reveal"><?php lc_mdsx2026_image( (int) ( $attributes['photoId'] ?? 0 ), $attributes['photoUrl'] ?? '', $name, 'large', 'eager' ); ?></div>
+			<div class="profile-hero__photo reveal"><?php lc_mdsx2026_image( (int) ( $attributes['photoId'] ?? 0 ), $attributes['photoUrl'] ?? '', '', 'large', 'eager' ); ?></div>
 		<?php } ?>
 		<div class="profile-hero__copy">
 			<?php lc_mdsx2026_breadcrumb( $crumb, $attributes['crumbUrl'] ?? '', $name ); ?>

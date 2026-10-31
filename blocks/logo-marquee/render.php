@@ -17,7 +17,7 @@ if ( ! $logos ) {
 		<?php for ( $copy = 0; $copy < 2; $copy++ ) { ?>
 			<ul class="logo-marquee__set"<?php echo $copy ? ' aria-hidden="true"' : ''; ?>>
 				<?php foreach ( $logos as $logo ) { ?>
-					<li><?php lc_mdsx2026_image( (int) ( $logo['image'] ?? 0 ), $logo['imageUrl'] ?? '', $copy ? '' : ( $logo['alt'] ?? '' ), 'medium' ); ?></li>
+					<li><?php lc_mdsx2026_image( (int) ( $logo['image'] ?? 0 ), $logo['imageUrl'] ?? '', $copy ? '' : ( $logo['alt'] ?? '' ), 'medium', 'lazy', $copy ); ?></li>
 				<?php } ?>
 			</ul>
 		<?php } ?>

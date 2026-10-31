@@ -18,7 +18,7 @@ $people  = array_values( array_filter( (array) ( $attributes['people'] ?? array(
 		<div class="people-strip__list">
 			<?php foreach ( $people as $i => $p ) { ?>
 				<article class="people-strip__person reveal" style="--i:<?php echo (int) $i; ?>">
-					<div class="people-strip__photo"><?php lc_mdsx2026_image( (int) ( $p['photo'] ?? 0 ), $p['photoUrl'] ?? '', $p['name'] ?? '', 'medium' ); ?></div>
+					<div class="people-strip__photo"><?php lc_mdsx2026_image( (int) ( $p['photo'] ?? 0 ), $p['photoUrl'] ?? '', '', 'medium' ); ?></div>
 					<div class="people-strip__body">
 						<h3><?php echo esc_html( $p['name'] ?? '' ); ?></h3>
 						<?php if ( ! empty( $p['role'] ) ) { ?>

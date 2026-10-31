@@ -81,11 +81,15 @@ function lc_mdsx2026_link( $text, $url, $class = 'btn btn--primary' ) {
  * @param string $alt     Alt text.
  * @param string $size    Image size.
  * @param string $loading 'lazy' or 'eager'.
+ * @param bool   $decorative True to force an empty alt (purely decorative or repeated images), ignoring the library's.
  * @return void
  */
-function lc_mdsx2026_image( $id, $url, $alt = '', $size = 'large', $loading = 'lazy' ) {
+function lc_mdsx2026_image( $id, $url, $alt = '', $size = 'large', $loading = 'lazy', $decorative = false ) {
+	if ( $decorative ) {
+		$alt = '';
+	}
 	if ( $id ) {
-		$alt_text = '' !== $alt ? $alt : (string) get_post_meta( $id, '_wp_attachment_image_alt', true );
+		$alt_text = '' !== $alt ? $alt : ( $decorative ? '' : (string) get_post_meta( $id, '_wp_attachment_image_alt', true ) );
 		echo wp_get_attachment_image( $id, $size, false, array_merge( array( 'alt' => $alt_text, 'loading' => $loading ), 'eager' === $loading ? array( 'fetchpriority' => 'high' ) : array() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped markup.
 	} elseif ( $url ) {
 		printf( '<img src="%s" alt="%s" loading="%s" decoding="async"%s>', esc_url( $url ), esc_attr( $alt ), esc_attr( $loading ), 'eager' === $loading ? ' fetchpriority="high"' : '' );
@@ -197,3 +201,27 @@ function lc_mdsx2026_breadcrumb( $parent_text, $parent_url = '', $current = '' )
 	<script type="application/ld+json"><?php echo wp_json_encode( array( '@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => $list ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-LD. ?></script>
 	<?php
 }
+
+/**
+ * A picture that appears again on the same page (a hero image repeated in a project tile, a headshot in
+ * a strip and again in the grid) gets an empty alt the second time, so screen readers don't announce the
+ * same description twice. The first occurrence keeps the library's alt text.
+ *
+ * @param string[] $attr       Image attributes.
+ * @param WP_Post  $attachment Attachment.
+ * @return string[]
+ */
+function lc_mdsx2026_dedupe_repeated_alt( $attr, $attachment ) {
+	static $seen = array();
+
+	if ( is_admin() ) {
+		return $attr;
+	}
+	if ( isset( $seen[ $attachment->ID ] ) ) {
+		$attr['alt'] = '';
+	}
+	$seen[ $attachment->ID ] = true;
+
+	return $attr;
+}
+add_filter( 'wp_get_attachment_image_attributes', 'lc_mdsx2026_dedupe_repeated_alt', 10, 2 );

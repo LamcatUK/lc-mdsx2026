@@ -28,7 +28,7 @@ $first     = $slides ? $slides[0] : 0;
 				data-title="<?php echo esc_attr( get_the_title( $project_id ) ); ?>"
 				data-meta="<?php echo esc_attr( get_the_excerpt( $project_id ) ); ?>"
 				data-url="<?php echo esc_url( get_permalink( $project_id ) ); ?>">
-				<?php echo get_the_post_thumbnail( $project_id, 'full', array( 'alt' => get_the_title( $project_id ), 'loading' => 0 === $i ? 'eager' : 'lazy', 'sizes' => '100vw' ) + ( 0 === $i ? array( 'fetchpriority' => 'high' ) : array() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped markup. ?>
+				<?php echo get_the_post_thumbnail( $project_id, 'full', array( 'loading' => 0 === $i ? 'eager' : 'lazy', 'sizes' => '100vw' ) + ( 0 === $i ? array( 'fetchpriority' => 'high' ) : array() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped markup. ?>
 			</figure>
 		<?php } ?>
 	</div>

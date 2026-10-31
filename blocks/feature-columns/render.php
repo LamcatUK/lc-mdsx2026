@@ -31,7 +31,7 @@ $colours = array( 'mark', 'mark mark--crusta', 'mark mark--solitude' );
 					?>
 					<<?php echo $tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- literal. ?> class="feature-columns__card reveal" style="--i:<?php echo (int) $i; ?>"<?php echo $url ? ' href="' . esc_url( $url ) . '"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped. ?>>
 						<?php if ( ! empty( $item['image'] ) || ! empty( $item['imageUrl'] ) ) { ?>
-							<div class="pg pg--half"><div class="feature-columns__img"><?php lc_mdsx2026_image( (int) ( $item['image'] ?? 0 ), $item['imageUrl'] ?? '', $item['title'] ?? '', 'large' ); ?></div></div>
+							<div class="pg pg--half"><div class="feature-columns__img"><?php lc_mdsx2026_image( (int) ( $item['image'] ?? 0 ), $item['imageUrl'] ?? '', '', 'large' ); ?></div></div>
 						<?php } ?>
 						<h3><?php echo esc_html( $item['title'] ?? '' ); ?></h3>
 						<?php if ( ! empty( $item['text'] ) ) { ?>
