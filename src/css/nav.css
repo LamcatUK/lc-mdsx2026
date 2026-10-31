@@ -8,25 +8,40 @@
 	position: fixed;
 	inset: 0 0 auto;
 	z-index: 30;
+	isolation: isolate;
 	color: var(--col-solitude);
-	transition:
-		background-color var(--t-med) var(--ease-out),
-		color var(--t-med) var(--ease-out);
+	transition: color var(--t-med) var(--ease-out);
 }
 
 /*
- * Sticky header: transparent over the page top, then inverted (Solitude bar, Nero text, Nero
- * badge) once the page has scrolled. src/js/header-scroll.js toggles .is-scrolled.
+ * Sticky header: transparent over the page top, then inverted (Solitude bar, Nero text, Nero badge)
+ * once the page has scrolled (src/js/header-scroll.js toggles .is-scrolled).
+ *
+ * Everything that animates is a transform or opacity, so nothing re-lays-out while it moves:
+ * the Solitude bar slides down from above (::before), the content shifts up and the badge
+ * scales to match the shorter bar, the two badges crossfade, and the text colour fades on the
+ * same curve.
  */
-#masthead.is-scrolled {
+#masthead::before {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto;
+	z-index: -1;
+	height: 4.5rem;
 	background: var(--col-solitude);
+	transform: translateY(-100%);
+	transition: transform var(--t-med) var(--ease-out);
+	will-change: transform;
+}
+#masthead.is-scrolled {
 	color: var(--col-nero);
 }
-#masthead.is-scrolled .navbar {
-	height: 4.5rem;
+#masthead.is-scrolled::before {
+	transform: none;
 }
-.navbar {
-	transition: height var(--t-med) var(--ease-out);
+/* centre the content in the shorter bar: (5.75rem - 4.5rem) / 2 */
+#masthead.is-scrolled .navbar {
+	transform: translateY(-0.625rem);
 }
 
 /* anchors and #fragment jumps must clear the sticky header */
@@ -44,30 +59,36 @@ html {
 	align-items: center;
 	justify-content: space-between;
 	height: var(--nav-height);
+	transition: transform var(--t-med) var(--ease-out);
 }
 
 .navbar-brand {
+	position: relative;
 	display: block;
 	line-height: 0;
+	transform-origin: left center;
+	transition: transform var(--t-med) var(--ease-out);
 }
 
 .navbar-brand img {
 	height: 46px;
 	width: auto;
-	transition: height var(--t-med) var(--ease-out);
+	transition: opacity var(--t-med) var(--ease-out);
 }
-/* two badges: Solitude with Nero letters over the dark page, Nero with Solitude letters on the inverted bar */
+/* two badges stacked and crossfaded: Solitude with Nero letters over the dark page, Nero with Solitude letters on the bar */
 .navbar-brand .logo-dark {
-	display: none;
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+}
+#masthead.is-scrolled .navbar-brand {
+	transform: scale(0.83);
 }
 #masthead.is-scrolled .navbar-brand .logo-light {
-	display: none;
+	opacity: 0;
 }
 #masthead.is-scrolled .navbar-brand .logo-dark {
-	display: block;
-}
-#masthead.is-scrolled .navbar-brand img {
-	height: 38px;
+	opacity: 1;
 }
 
 /* mobile toggle: three bars skewed to the brand angle */
