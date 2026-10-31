@@ -5,10 +5,33 @@
  */
 
 #masthead {
-	position: absolute;
+	position: fixed;
 	inset: 0 0 auto;
 	z-index: 30;
 	color: var(--col-solitude);
+	transition:
+		background-color var(--t-med) var(--ease-out),
+		color var(--t-med) var(--ease-out);
+}
+
+/*
+ * Sticky header: transparent over the page top, then inverted (Solitude bar, Nero text, Nero
+ * badge) once the page has scrolled. src/js/header-scroll.js toggles .is-scrolled.
+ */
+#masthead.is-scrolled {
+	background: var(--col-solitude);
+	color: var(--col-nero);
+}
+#masthead.is-scrolled .navbar {
+	height: 4.5rem;
+}
+.navbar {
+	transition: height var(--t-med) var(--ease-out);
+}
+
+/* anchors and #fragment jumps must clear the sticky header */
+html {
+	scroll-padding-top: var(--nav-height);
 }
 
 .admin-bar #masthead {
@@ -31,6 +54,20 @@
 .navbar-brand img {
 	height: 46px;
 	width: auto;
+	transition: height var(--t-med) var(--ease-out);
+}
+/* two badges: Solitude with Nero letters over the dark page, Nero with Solitude letters on the inverted bar */
+.navbar-brand .logo-dark {
+	display: none;
+}
+#masthead.is-scrolled .navbar-brand .logo-light {
+	display: none;
+}
+#masthead.is-scrolled .navbar-brand .logo-dark {
+	display: block;
+}
+#masthead.is-scrolled .navbar-brand img {
+	height: 38px;
 }
 
 /* mobile toggle: three bars skewed to the brand angle */
@@ -179,4 +216,26 @@
 	.dropdown-menu .nav-link {
 		padding: 8px 0;
 	}
+}
+
+/* inverted header */
+#masthead.is-scrolled .nav-link:hover,
+#masthead.is-scrolled .nav-link.active,
+#masthead.is-scrolled .nav-link[aria-current="page"] {
+	color: inherit;
+	text-decoration: underline;
+	text-decoration-color: var(--col-sea);
+	text-decoration-thickness: 3px;
+	text-underline-offset: 0.45em;
+}
+#masthead.is-scrolled .navbar-cta {
+	--btn-bg: var(--col-nero);
+	--btn-fg: var(--col-solitude);
+}
+#masthead.is-scrolled .navbar-cta:hover {
+	--btn-bg: var(--col-charcoal);
+}
+#masthead.is-scrolled .dropdown-menu,
+#masthead.is-scrolled .navbar-collapse.is-open {
+	background: var(--col-solitude);
 }

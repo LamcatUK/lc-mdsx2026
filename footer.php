@@ -20,7 +20,7 @@ $phone    = lc_mdsx2026_get_setting( 'phone' );
 	<div class="container">
 		<div class="footer-grid">
 			<div class="footer-brand">
-				<img src="<?php echo esc_url( lc_mdsx2026_img_url( 'logos/mdsx-badge-sea-on-nero.svg' ) ); ?>" alt="MDSX" width="64" height="46">
+				<img src="<?php echo esc_url( lc_mdsx2026_img_url( 'logos/mdsx-wordmark-sea.svg' ) ); ?>" alt="MDSX" width="142" height="40">
 				<p><?php esc_html_e( 'Immersive museums, exhibitions and attractions, designed with the people and communities they serve.', 'lc-mdsx2026' ); ?></p>
 			</div>
 			<nav aria-labelledby="footer-explore">

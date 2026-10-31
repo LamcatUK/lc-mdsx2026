@@ -5,6 +5,7 @@ import { initHeroReel } from './hero-reel';
 import { initPortfolioFilter } from './portfolio-filter';
 import { initReveal } from './reveal';
 import { initContactForm } from './contact-form';
+import { initHeaderScroll } from './header-scroll';
 
 document.addEventListener('DOMContentLoaded', () => {
 	initNavToggle();
@@ -14,4 +15,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	initPortfolioFilter();
 	initReveal();
 	initContactForm();
+	initHeaderScroll();
 });
