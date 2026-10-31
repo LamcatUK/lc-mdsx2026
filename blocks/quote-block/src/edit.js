@@ -21,7 +21,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				</PanelBody>
 			</InspectorControls>
 		<EditorBlockShell blockProps={ blockProps } clientId={ clientId } title="Quote" textDomain="lc-mdsx2026">
-			<TextareaControl label={ __( "Quote", 'lc-mdsx2026' ) } value={ quote } onChange={ ( value ) => setAttributes( { quote: value } ) } />
+			<TextareaControl className="lc-mdsx2026-quote-field" rows={ 4 } label={ __( "Quote", 'lc-mdsx2026' ) } value={ quote } onChange={ ( value ) => setAttributes( { quote: value } ) } />
 			<TextControl label={ __( "Attribution", 'lc-mdsx2026' ) } value={ cite } onChange={ ( value ) => setAttributes( { cite: value } ) } />
 		</EditorBlockShell>
 		</>

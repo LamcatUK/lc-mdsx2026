@@ -411,3 +411,11 @@
 .editor-styles-wrapper .lc-mdsx2026-editor-block.has-background {
 	background-color: #ccc !important;
 }
+
+/* Quote block: the quote is edited at close to its front-end size (the editor doesn't load the theme fonts) */
+.lc-mdsx2026-quote-field textarea {
+	font-size: clamp(24px, 2.6vw, 38px);
+	font-weight: 600;
+	line-height: 1.3;
+	padding: 16px 20px;
+}
