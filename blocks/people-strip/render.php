@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$surface = lc_mdsx2026_surface( $attributes['surface'] ?? 'nero' );
+$surface = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'nero' );
 $people  = array_values( array_filter( (array) ( $attributes['people'] ?? array() ), static fn( $r ) => ! lc_mdsx2026_row_empty( $r ) ) );
 $press   = lc_mdsx2026_lines( $attributes['press'] ?? '' );
 ?>

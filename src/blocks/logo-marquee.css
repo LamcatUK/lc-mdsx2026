@@ -6,6 +6,9 @@
 .logo-marquee__track {
 	display: flex;
 	width: max-content;
+	/* The animated track is its own stacking context, so the logos' screen blend needs a
+	   backdrop inside it: Nero, so the inverted logos' black becomes invisible against the section. */
+	background: var(--col-nero);
 }
 .logo-marquee__set {
 	display: flex;
@@ -27,9 +30,6 @@
 @media (prefers-reduced-motion: no-preference) {
 	.logo-marquee__track {
 		animation: logo-marquee 60s linear infinite;
-	}
-	.logo-marquee:hover .logo-marquee__track {
-		animation-play-state: paused;
 	}
 }
 @keyframes logo-marquee {

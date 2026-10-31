@@ -7,7 +7,7 @@
 	"icon": "grid-view",
 	"description": "Heading plus N similar items (services, capabilities, specialisms, cross-links).",
 	"attributes": {
-		"surface": {
+		"backgroundColor": {
 			"type": "string",
 			"default": "charcoal"
 		},
@@ -35,7 +35,15 @@
 	"supports": {
 		"anchor": true,
 		"className": true,
-		"align": false
+		"align": false,
+		"color": {
+			"background": true,
+			"text": false,
+			"gradients": false,
+			"link": false,
+			"heading": false,
+			"button": false
+		}
 	},
 	"editorScript": "file:./build/index.js",
 	"render": "file:./render.php"

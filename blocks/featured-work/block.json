@@ -5,7 +5,7 @@
 	"title": "Featured Work",
 	"category": "lc-mdsx2026",
 	"icon": "portfolio",
-	"description": "One large and two stacked portfolio projects.",
+	"description": "The most recent portfolio projects, laid out as groups of one large and two stacked tiles (alternating sides).",
 	"attributes": {
 		"heading": {
 			"type": "string",
@@ -19,21 +19,9 @@
 			"type": "string",
 			"default": ""
 		},
-		"project1": {
+		"count": {
 			"type": "number",
-			"default": 0
-		},
-		"project2": {
-			"type": "number",
-			"default": 0
-		},
-		"project3": {
-			"type": "number",
-			"default": 0
-		},
-		"flip": {
-			"type": "boolean",
-			"default": false
+			"default": 6
 		}
 	},
 	"supports": {

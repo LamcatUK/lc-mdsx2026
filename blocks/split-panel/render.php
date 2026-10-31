@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$surface = lc_mdsx2026_surface( $attributes['surface'] ?? 'sea', 'sea' );
+$surface = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'sea', 'sea' );
 $right   = ! empty( $attributes['imageRight'] );
 $has_img = ! empty( $attributes['imageUrl'] ) || ! empty( $attributes['imageId'] );
 ?>
@@ -15,7 +15,7 @@ $has_img = ! empty( $attributes['imageUrl'] ) || ! empty( $attributes['imageId']
 	<div class="container split-panel__grid">
 		<div class="split-panel__copy reveal">
 			<?php if ( ! empty( $attributes['heading'] ) ) { ?>
-				<h2><?php echo esc_html( $attributes['heading'] ); ?></h2>
+				<h2 class="baseline"><?php echo esc_html( $attributes['heading'] ); ?></h2>
 			<?php } ?>
 			<?php if ( ! empty( $attributes['body'] ) ) { ?>
 				<div class="split-panel__body"><?php echo wp_kses_post( $attributes['body'] ); ?></div>

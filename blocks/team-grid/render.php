@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$surface = lc_mdsx2026_surface( $attributes['surface'] ?? 'nero' );
+$surface = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'nero' );
 $min     = max( 8, (float) ( $attributes['minWidth'] ?? 12 ) );
 $team    = get_posts(
 	array(

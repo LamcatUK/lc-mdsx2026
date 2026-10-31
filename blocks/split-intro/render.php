@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$surface = lc_mdsx2026_surface( $attributes['surface'] ?? 'nero' );
+$surface = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'nero' );
 $facts   = array_filter( (array) ( $attributes['facts'] ?? array() ), static fn( $r ) => ! lc_mdsx2026_row_empty( $r ) );
 ?>
 <section <?php echo lc_mdsx2026_wrapper( 'split-intro section', $surface ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?>>

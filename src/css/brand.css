@@ -4,46 +4,61 @@
  * chips, tags. Blocks in src/blocks/ build on these.
  */
 
-/* surfaces: set text, accent and focus colour per block background */
-.s-nero {
+/*
+ * surfaces: set text, accent and focus colour per block background. Blocks use the
+ * native Colour panel (background only); WordPress adds .has-{slug}-background-color,
+ * and these rules supply the matching text colour and accents. .s-* is the same set
+ * for blocks with a fixed background.
+ */
+.s-nero,
+.has-nero-background-color {
 	background: var(--col-nero);
 	color: var(--col-solitude);
 	--accent: var(--col-sea);
 	--focus: var(--col-crusta);
 	--muted: var(--col-text-muted);
 	--rule: var(--col-rule);
+	--motif: var(--col-sea);
 }
-.s-charcoal {
+.s-charcoal,
+.has-charcoal-background-color {
 	background: var(--col-charcoal);
 	color: var(--col-solitude);
 	--accent: var(--col-sea);
 	--focus: var(--col-crusta);
 	--muted: var(--col-text-muted);
 	--rule: var(--col-rule-charcoal);
+	--motif: var(--col-sea);
 }
-.s-sea {
+.s-sea,
+.has-sea-background-color {
 	background: var(--col-sea);
 	color: var(--col-nero);
 	--accent: var(--col-nero);
 	--focus: var(--col-nero);
 	--muted: var(--col-nero);
 	--rule: rgb(39 39 39 / 0.3);
+	--motif: var(--col-crusta);
 }
-.s-crusta {
+.s-crusta,
+.has-crusta-background-color {
 	background: var(--col-crusta);
 	color: var(--col-nero);
 	--accent: var(--col-nero);
 	--focus: var(--col-nero);
 	--muted: var(--col-nero);
 	--rule: rgb(39 39 39 / 0.3);
+	--motif: var(--col-solitude);
 }
-.s-solitude {
+.s-solitude,
+.has-solitude-background-color {
 	background: var(--col-solitude);
 	color: var(--col-nero);
 	--accent: var(--col-nero);
 	--focus: var(--col-crusta);
 	--muted: var(--col-charcoal);
 	--rule: #d3d8da;
+	--motif: var(--col-sea);
 }
 
 /* vertical rhythm for a full-width block */
@@ -51,35 +66,47 @@
 	padding-block: var(--space-section);
 }
 
-/* parallelogram clipping: wrap in .pg (a size container) so the slope scales with width */
+/*
+ * parallelogram clipping: wrap in .pg (a size container) so the slope scales with width.
+ * Only the top-left and bottom-right corners are rounded, matching the logo badge;
+ * the radius is 5% of the width, capped at 48px. Uses shape() (modern evergreen only).
+ */
 .pg {
 	container-type: inline-size;
 }
 .pg > * {
-	clip-path: polygon(0 calc(var(--slope) * 100cqw), 100% 0, 100% calc(100% - var(--slope) * 100cqw), 0 100%);
+	clip-path: shape(from 0 calc(var(--slope) * 100cqw + min(5cqw, 48px)), curve to calc(min(5cqw, 48px) * 0.975) calc(var(--slope) * 100cqw - min(5cqw, 48px) * 0.22) with 0 calc(var(--slope) * 100cqw), line to 100% 0, line to 100% calc(100% - var(--slope) * 100cqw - min(5cqw, 48px)), curve to calc(100% - min(5cqw, 48px) * 0.975) calc(100% - var(--slope) * 100cqw + min(5cqw, 48px) * 0.22) with 100% calc(100% - var(--slope) * 100cqw), line to 0 100%, close);
 }
 .pg--half > * {
-	clip-path: polygon(0 calc(var(--slope-half) * 100cqw), 100% 0, 100% calc(100% - var(--slope-half) * 100cqw), 0 100%);
+	clip-path: shape(from 0 calc(var(--slope-half) * 100cqw + min(5cqw, 48px)), curve to calc(min(5cqw, 48px) * 0.994) calc(var(--slope-half) * 100cqw - min(5cqw, 48px) * 0.11) with 0 calc(var(--slope-half) * 100cqw), line to 100% 0, line to 100% calc(100% - var(--slope-half) * 100cqw - min(5cqw, 48px)), curve to calc(100% - min(5cqw, 48px) * 0.994) calc(100% - var(--slope-half) * 100cqw + min(5cqw, 48px) * 0.11) with 100% calc(100% - var(--slope-half) * 100cqw), line to 0 100%, close);
 }
 .pg--left > * {
 	clip-path: polygon(calc(var(--slope-half) * 100cqw) 0, 100% 0, 100% 100%, 0 100%);
 }
 
-/* headline baseline bar */
+/*
+ * Headline motif: the brand parallelogram sitting behind the first letters, up and
+ * to the left of the text. Sized in em so it scales with the heading; top-left and
+ * bottom-right corners rounded like the logo. --motif is set per surface (brand.css
+ * .s-*) so the shape never matches the text colour.
+ */
 .baseline {
 	position: relative;
+	isolation: isolate;
 	display: inline-block;
-	padding-bottom: 0.5em;
+	margin-top: 0.45em; /* room for the shape, which rises above the cap height */
 }
-.baseline::after {
+.baseline::before {
 	content: "";
 	position: absolute;
-	left: 0;
-	bottom: 0;
+	z-index: -1;
+	/* clamp the left overhang to the page gutter so it never causes horizontal scroll */
+	left: max(-0.4em, calc(-1 * var(--container-padding)));
+	top: -0.5em;
 	width: 1.5em;
-	height: 0.34em;
-	background: var(--accent, var(--col-sea));
-	clip-path: polygon(0 42%, 100% 0, 100% 58%, 0 100%);
+	height: 1.1em;
+	background: var(--motif, var(--col-sea));
+	clip-path: shape(from 0 calc(0.34em + 0.12em), curve to 0.12em 0.34em with 0 0.34em, line to 100% 0, line to 100% calc(100% - 0.34em - 0.12em), curve to calc(100% - 0.12em) calc(100% - 0.34em) with 100% calc(100% - 0.34em), line to 0 100%, close);
 }
 
 /* mark: small solid parallelogram used as a bullet / icon base */
@@ -88,7 +115,7 @@
 	width: 44px;
 	height: 44px;
 	background: var(--col-sea);
-	clip-path: polygon(0 23%, 100% 0, 100% 77%, 0 100%);
+	clip-path: shape(from 0 calc(23% + 3px), curve to 3px 21.4% with 0 23%, line to 100% 0, line to 100% calc(77% - 3px), curve to calc(100% - 3px) 78.6% with 100% 77%, line to 0 100%, close);
 }
 .mark--crusta {
 	background: var(--col-crusta);
@@ -119,6 +146,7 @@
 	--btn-bg: var(--col-sea);
 	--btn-fg: var(--col-nero);
 	--skew: 10px;
+	--r: 5px; /* corner radius on the top-left and bottom-right, as on the logo badge */
 	position: relative;
 	isolation: isolate;
 	display: inline-flex;
@@ -138,7 +166,7 @@
 	inset: 0;
 	z-index: -1;
 	background: var(--btn-bg);
-	clip-path: polygon(0 var(--skew), 100% 0, 100% calc(100% - var(--skew)), 0 100%);
+	clip-path: shape(from 0 calc(var(--skew) + var(--r)), curve to var(--r) var(--skew) with 0 var(--skew), line to 100% 0, line to 100% calc(100% - var(--skew) - var(--r)), curve to calc(100% - var(--r)) calc(100% - var(--skew)) with 100% calc(100% - var(--skew)), line to 0 100%, close);
 	transition:
 		background-color var(--t-fast),
 		transform var(--t-fast);
@@ -170,11 +198,13 @@
 	font-size: 14px;
 	padding: 13px 20px 13px 18px;
 	--skew: 7px;
+	--r: 4px;
 }
 .btn--l {
 	font-size: 18px;
 	padding: 22px 36px 22px 32px;
 	--skew: 12px;
+	--r: 7px;
 }
 
 /* text link: secondary action */
@@ -214,7 +244,7 @@
 	inset: 0;
 	z-index: -1;
 	background: #333;
-	clip-path: polygon(0 5px, 100% 0, 100% calc(100% - 5px), 0 100%);
+	clip-path: shape(from 0 calc(5px + 3px), curve to 3px 5px with 0 5px, line to 100% 0, line to 100% calc(100% - 5px - 3px), curve to calc(100% - 3px) calc(100% - 5px) with 100% calc(100% - 5px), line to 0 100%, close);
 	transition: background-color var(--t-fast);
 }
 .chip:hover::before {

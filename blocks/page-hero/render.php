@@ -13,7 +13,7 @@ $title   = $title ? $title : get_the_title();
 $intro   = $attributes['intro'] ?? '';
 $has_img = ! empty( $attributes['imageUrl'] ) || ! empty( $attributes['imageId'] );
 $crumb   = $attributes['crumbText'] ?? '';
-$surface = 'solitude' === ( $attributes['surface'] ?? '' ) ? 'solitude' : 'nero';
+$surface = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'nero' );
 $crumb_html = '';
 if ( $crumb ) {
 	$crumb_html = ! empty( $attributes['crumbUrl'] )

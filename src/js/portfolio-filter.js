@@ -1,8 +1,11 @@
 /**
  * Portfolio grid filtering. Each fieldset[data-filter-group] is a taxonomy;
  * tiles carry data-{taxonomy}="slug slug". Filters combine (AND across groups).
- * Every sixth visible tile is widened.
+ * Desktop rhythm repeats every ten visible tiles, as rows of 3 columns:
+ * [2][1] / [1][1][1] / [1][2] / [1][1][1] — so tiles 1 and 7 of each cycle are wide.
  */
+const WIDE_AT = [0, 6]; // positions within each cycle of ten
+
 export function initPortfolioFilter() {
 	document.querySelectorAll('[data-portfolio-grid]').forEach((root) => {
 		const items = [...root.querySelectorAll('.portfolio-grid__item')];
@@ -17,7 +20,7 @@ export function initPortfolioFilter() {
 				item.hidden = !show;
 				item.classList.remove('is-wide');
 				if (show) {
-					if (visible % 6 === 0) item.classList.add('is-wide');
+					if (WIDE_AT.includes(visible % 10)) item.classList.add('is-wide');
 					visible += 1;
 				}
 			});

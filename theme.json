@@ -4,8 +4,8 @@
   "settings": {
     "appearanceTools": true,
     "layout": {
-      "contentSize": "760px",
-      "wideSize": "1320px"
+      "contentSize": "1320px",
+      "wideSize": "1384px"
     },
     "color": {
       "custom": false,
@@ -157,15 +157,568 @@
           "size": "14px"
         }
       ]
-    }
-  },
-  "styles": {
-    "color": {
-      "background": "var(--wp--preset--color--nero)",
-      "text": "var(--wp--preset--color--solitude)"
     },
-    "typography": {
-      "fontFamily": "var(--wp--preset--font-family--body)"
+    "blocks": {
+      "lc-mdsx2026/credits-list": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/cta-band": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/faq": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/feature-columns": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/link-list": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/page-hero": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/people-strip": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/process-steps": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/project-intro": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/quote-block": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/split-intro": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/split-panel": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/team-grid": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/text-chapter": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      }
     }
   }
 }

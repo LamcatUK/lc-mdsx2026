@@ -47,7 +47,7 @@
 .portfolio-grid__item img {
 	aspect-ratio: 4 / 3.4;
 }
-/* every sixth visible tile runs wide */
+/* wide tiles (set by JS, positions 1 and 7 of every ten) span two of the three columns */
 .portfolio-grid__item.is-wide {
 	grid-column: span 2;
 }

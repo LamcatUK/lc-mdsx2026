@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$surface = lc_mdsx2026_surface( $attributes['surface'] ?? 'nero' );
+$surface = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'nero' );
 $items   = array_filter( (array) ( $attributes['items'] ?? array() ), static fn( $r ) => ! lc_mdsx2026_row_empty( $r ) );
 if ( ! $items ) {
 	return;

@@ -5,11 +5,9 @@
 		'wp-blocks',
 		'wp-components',
 		'wp-compose',
-		'wp-core-data',
 		'wp-data',
 		'wp-element',
-		'wp-html-entities',
 		'wp-i18n'
 	),
-	'version' => '6ebc8e9e80a9d08a6f07'
+	'version' => '777f10153b5b1bf8bb9b'
 );

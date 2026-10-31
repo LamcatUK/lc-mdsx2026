@@ -11,10 +11,13 @@
 	grid-template-columns: 1.35fr 1fr;
 	gap: 40px 48px;
 }
-.featured-work.is-flipped .featured-work__grid {
+.featured-work__grid + .featured-work__grid {
+	margin-top: clamp(48px, 5vw, 72px);
+}
+.featured-work__grid.is-flipped {
 	grid-template-columns: 1fr 1.35fr;
 }
-.featured-work.is-flipped .work-tile.is-big {
+.featured-work__grid.is-flipped .work-tile.is-big {
 	order: 2;
 }
 .featured-work__stack {
@@ -27,10 +30,10 @@
 }
 @media (max-width: 860px) {
 	.featured-work__grid,
-	.featured-work.is-flipped .featured-work__grid {
+	.featured-work__grid.is-flipped {
 		grid-template-columns: 1fr;
 	}
-	.featured-work.is-flipped .work-tile.is-big {
+	.featured-work__grid.is-flipped .work-tile.is-big {
 		order: 0;
 	}
 }

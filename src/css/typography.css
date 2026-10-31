@@ -67,6 +67,14 @@ p {
 	max-width: 70ch;
 }
 
+/* avoid orphans in titles and body copy */
+h1,
+h2,
+p,
+.t-lede {
+	text-wrap: pretty;
+}
+
 :focus-visible {
 	outline: 3px solid var(--focus, var(--col-crusta));
 	outline-offset: 3px;

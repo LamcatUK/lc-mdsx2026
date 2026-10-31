@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$surface = lc_mdsx2026_surface( $attributes['surface'] ?? 'nero' );
+$surface = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'nero' );
 ?>
 <section <?php echo lc_mdsx2026_wrapper( 'text-chapter section', $surface ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?>>
 	<div class="container text-chapter__grid">

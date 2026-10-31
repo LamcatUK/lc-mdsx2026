@@ -4,13 +4,12 @@ import { TextControl, SelectControl, Button } from '@wordpress/components';
 import EditorBlockShell from '../../_shared/EditorBlockShell';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { variant, surface, crumbText, crumbUrl, title, intro, imageId, imageUrl, imageAlt, ctaText, ctaUrl } = attributes;
+	const { variant, crumbText, crumbUrl, title, intro, imageId, imageUrl, imageAlt, ctaText, ctaUrl } = attributes;
 	const blockProps = useBlockProps( { className: 'container lc-mdsx2026-editor-block' } );
 
 	return (
 		<EditorBlockShell blockProps={ blockProps } clientId={ clientId } title="Page Hero" textDomain="lc-mdsx2026">
 			<SelectControl label={ __( "Variant", 'lc-mdsx2026' ) } value={ variant } options={ [{"value":"title","label":"Title only"},{"value":"image","label":"Full-bleed image"},{"value":"split","label":"Split (copy + image)"}] } onChange={ ( value ) => setAttributes( { variant: value } ) } />
-			<SelectControl label={ __( "Background", 'lc-mdsx2026' ) } value={ surface } options={ [{"value":"nero","label":"Nero (dark)"},{"value":"solitude","label":"Solitude (light)"}] } onChange={ ( value ) => setAttributes( { surface: value } ) } />
 			<TextControl label={ __( "Breadcrumb text", 'lc-mdsx2026' ) } value={ crumbText } onChange={ ( value ) => setAttributes( { crumbText: value } ) }
 				help={ __( "e.g. \"Services\". Leave blank for none.", 'lc-mdsx2026' ) } />
 			<TextControl label={ __( "Breadcrumb URL", 'lc-mdsx2026' ) } value={ crumbUrl } onChange={ ( value ) => setAttributes( { crumbUrl: value } ) } />

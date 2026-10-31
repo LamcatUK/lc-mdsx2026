@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$surface = lc_mdsx2026_surface( $attributes['surface'] ?? 'crusta', 'crusta' );
+$surface = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'crusta', 'crusta' );
 ?>
 <section <?php echo lc_mdsx2026_wrapper( 'cta-band section', $surface ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?>>
 	<div class="container cta-band__inner">

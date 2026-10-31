@@ -21,7 +21,7 @@
 	inset: 0;
 	z-index: -1;
 	background: var(--col-white);
-	clip-path: polygon(0 var(--skew, 16px), 100% 0, 100% calc(100% - var(--skew, 16px)), 0 100%);
+	clip-path: shape(from 0 calc(var(--skew) + 8px), curve to 8px var(--skew) with 0 var(--skew), line to 100% 0, line to 100% calc(100% - var(--skew) - 8px), curve to calc(100% - 8px) calc(100% - var(--skew)) with 100% calc(100% - var(--skew)), line to 0 100%, close);
 	--skew: 18px;
 }
 .process-steps.s-nero li::before,

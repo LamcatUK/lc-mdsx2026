@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$surface = lc_mdsx2026_surface( $attributes['surface'] ?? 'charcoal', 'charcoal' );
+$surface = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'charcoal', 'charcoal' );
 $items   = array_values( array_filter( (array) ( $attributes['items'] ?? array() ), static fn( $r ) => ! lc_mdsx2026_row_empty( $r ) ) );
 ?>
 <section <?php echo lc_mdsx2026_wrapper( 'link-list section', $surface ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?>>

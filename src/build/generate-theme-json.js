@@ -44,12 +44,28 @@ function buildThemeJson(tokens) {
 		.filter(([key]) => /^f-/.test(key))
 		.map(([key, value]) => ({ slug: key.replace('f-', ''), name: key.replace('f-', ''), fontFamily: value }));
 
+	// Blocks with native background-colour support only offer the five brand surfaces
+	// (palette entries for body-text tones and white stay out of the picker).
+	const surfaces = ['nero', 'charcoal', 'sea', 'crusta', 'solitude'];
+	const surfacePalette = colors.filter((c) => surfaces.includes(c.slug)).map((c) => ({ ...c, origin: 'theme' }));
+	const blockSettings = {};
+	fs.readdirSync(path.join(__dirname, '../../blocks'), { withFileTypes: true })
+		.filter((d) => d.isDirectory() && fs.existsSync(path.join(__dirname, '../../blocks', d.name, 'block.json')))
+		.forEach((d) => {
+			const meta = JSON.parse(fs.readFileSync(path.join(__dirname, '../../blocks', d.name, 'block.json'), 'utf8'));
+			if (meta.supports && meta.supports.color && meta.supports.color.background) {
+				blockSettings[meta.name] = { color: { palette: surfacePalette, custom: false, customGradient: false, defaultPalette: false, defaultGradients: false } };
+			}
+		});
+
 	return {
 		$schema: 'https://schemas.wp.org/trunk/theme.json',
 		version: 3,
 		settings: {
 			appearanceTools: true,
-			layout: { contentSize: '760px', wideSize: tokens['container-max-width'] || '1320px' },
+			// Blocks render their own full-width .container, so the editor's constrained layout
+			// (which caps every block at contentSize) must allow the container width, not WP's default.
+			layout: { contentSize: tokens['container-max-width'] || '1320px', wideSize: `${parseInt(tokens['container-max-width'] || '1320', 10) + 64}px` },
 			color: {
 				custom: false,
 				customGradient: false,
@@ -58,10 +74,7 @@ function buildThemeJson(tokens) {
 				palette: colors.map((color) => ({ ...color, origin: 'theme' })),
 			},
 			typography: { customFontSize: false, defaultFontSizes: false, fontFamilies, fontSizes },
-		},
-		styles: {
-			color: { background: 'var(--wp--preset--color--nero)', text: 'var(--wp--preset--color--solitude)' },
-			typography: { fontFamily: 'var(--wp--preset--font-family--body)' },
+			blocks: blockSettings,
 		},
 	};
 }

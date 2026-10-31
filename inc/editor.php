@@ -10,20 +10,18 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Load the theme's actual compiled stylesheet into the block editor iframe
- * (fonts, colours, every block's real CSS — full parity with the frontend,
- * not a hand-picked subset), plus a small editor-only stylesheet on top
- * that contains top-level blocks to a page-width column instead of
- * full-bleed. add_editor_style() accepts an array — order matters, since
- * css/editor.css references var(--container-max-width), which only
- * resolves because theme.min.css's :root block loads first in the same
- * iframe document. Relies on the 'editor-styles' support already added in
- * inc/setup.php.
+ * Load only the small editor-only stylesheet into the block editor iframe.
+ *
+ * Deliberately NOT theme.min.css (a departure from the skeleton, which loads
+ * the frontend stylesheet for full parity): MDSX blocks edit through field
+ * controls rather than a WYSIWYG preview, and the frontend's dark surface and
+ * display type made those controls unreadable. The editor keeps WordPress's
+ * normal look. Relies on the 'editor-styles' support in inc/setup.php.
  *
  * @return void
  */
 function lc_mdsx2026_add_editor_styles() {
-	add_editor_style( array( 'css/theme.min.css', 'css/editor.min.css' ) );
+	add_editor_style( 'css/editor.min.css' );
 }
 add_action( 'after_setup_theme', 'lc_mdsx2026_add_editor_styles' );
 

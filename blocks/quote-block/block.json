@@ -7,7 +7,7 @@
 	"icon": "format-quote",
 	"description": "Large pull quote with attribution.",
 	"attributes": {
-		"surface": {
+		"backgroundColor": {
 			"type": "string",
 			"default": "nero"
 		},
@@ -23,7 +23,15 @@
 	"supports": {
 		"anchor": true,
 		"className": true,
-		"align": false
+		"align": false,
+		"color": {
+			"background": true,
+			"text": false,
+			"gradients": false,
+			"link": false,
+			"heading": false,
+			"button": false
+		}
 	},
 	"editorScript": "file:./build/index.js",
 	"render": "file:./render.php"

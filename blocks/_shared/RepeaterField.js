@@ -123,6 +123,16 @@ export default function RepeaterField( { label, value, onChange, fields, emptyRo
 														? __( 'Replace', 'lc-mdsx2026' )
 														: __( 'Select', 'lc-mdsx2026' ) }
 												</Button>
+												{ row[ field.name ] && (
+													<Button
+														variant="link"
+														size="small"
+														isDestructive
+														onClick={ () => updateRow( index, { [ field.name ]: '', [ `${ field.name }Url` ]: '' } ) }
+													>
+														{ __( 'Remove', 'lc-mdsx2026' ) }
+													</Button>
+												) }
 											</div>
 										) }
 									/>
@@ -182,6 +192,16 @@ export default function RepeaterField( { label, value, onChange, fields, emptyRo
 														? __( 'Replace', 'lc-mdsx2026' )
 														: __( 'Select', 'lc-mdsx2026' ) }
 												</Button>
+												{ row[ field.name ] && (
+													<Button
+														variant="link"
+														size="small"
+														isDestructive
+														onClick={ () => updateRow( index, { [ field.name ]: '', [ `${ field.name }Name` ]: '' } ) }
+													>
+														{ __( 'Remove', 'lc-mdsx2026' ) }
+													</Button>
+												) }
 											</div>
 										) }
 									/>

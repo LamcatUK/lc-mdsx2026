@@ -5,7 +5,7 @@
 	"title": "Hero Reel",
 	"category": "lc-mdsx2026",
 	"icon": "format-video",
-	"description": "Full-bleed crossfading image reel with headline, CTAs and optional \"now showing\" card.",
+	"description": "Full-bleed crossfading reel of chosen portfolio projects, with headline, CTAs and a \"now showing\" card tracking the current project.",
 	"attributes": {
 		"title": {
 			"type": "string",
@@ -31,29 +31,20 @@
 			"type": "string",
 			"default": ""
 		},
-		"slides": {
+		"projects": {
 			"type": "array",
+			"items": {
+				"type": "number"
+			},
 			"default": []
+		},
+		"showCard": {
+			"type": "boolean",
+			"default": true
 		},
 		"cardLabel": {
 			"type": "string",
-			"default": ""
-		},
-		"cardTitle": {
-			"type": "string",
-			"default": ""
-		},
-		"cardMeta": {
-			"type": "string",
-			"default": ""
-		},
-		"cardLinkText": {
-			"type": "string",
-			"default": ""
-		},
-		"cardLinkUrl": {
-			"type": "string",
-			"default": ""
+			"default": "Now showing"
 		}
 	},
 	"supports": {

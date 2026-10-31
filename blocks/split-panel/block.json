@@ -7,7 +7,7 @@
 	"icon": "align-pull-left",
 	"description": "Text beside an angled image on a coloured surface.",
 	"attributes": {
-		"surface": {
+		"backgroundColor": {
 			"type": "string",
 			"default": "sea"
 		},
@@ -47,7 +47,15 @@
 	"supports": {
 		"anchor": true,
 		"className": true,
-		"align": false
+		"align": false,
+		"color": {
+			"background": true,
+			"text": false,
+			"gradients": false,
+			"link": false,
+			"heading": false,
+			"button": false
+		}
 	},
 	"editorScript": "file:./build/index.js",
 	"render": "file:./render.php"

@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$surface = lc_mdsx2026_surface( $attributes['surface'] ?? 'solitude', 'solitude' );
+$surface = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'solitude', 'solitude' );
 $steps   = array_values( array_filter( (array) ( $attributes['steps'] ?? array() ), static fn( $r ) => ! lc_mdsx2026_row_empty( $r ) ) );
 ?>
 <section <?php echo lc_mdsx2026_wrapper( 'process-steps section', $surface ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?>>

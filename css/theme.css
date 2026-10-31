@@ -332,6 +332,14 @@ p {
 	max-width: 70ch;
 }
 
+/* avoid orphans in titles and body copy */
+h1,
+h2,
+p,
+.t-lede {
+	text-wrap: pretty;
+}
+
 :focus-visible {
 	outline: 3px solid var(--focus, var(--col-crusta));
 	outline-offset: 3px;
@@ -764,46 +772,61 @@ select {
  * chips, tags. Blocks in src/blocks/ build on these.
  */
 
-/* surfaces: set text, accent and focus colour per block background */
-.s-nero {
+/*
+ * surfaces: set text, accent and focus colour per block background. Blocks use the
+ * native Colour panel (background only); WordPress adds .has-{slug}-background-color,
+ * and these rules supply the matching text colour and accents. .s-* is the same set
+ * for blocks with a fixed background.
+ */
+.s-nero,
+.has-nero-background-color {
 	background: var(--col-nero);
 	color: var(--col-solitude);
 	--accent: var(--col-sea);
 	--focus: var(--col-crusta);
 	--muted: var(--col-text-muted);
 	--rule: var(--col-rule);
+	--motif: var(--col-sea);
 }
-.s-charcoal {
+.s-charcoal,
+.has-charcoal-background-color {
 	background: var(--col-charcoal);
 	color: var(--col-solitude);
 	--accent: var(--col-sea);
 	--focus: var(--col-crusta);
 	--muted: var(--col-text-muted);
 	--rule: var(--col-rule-charcoal);
+	--motif: var(--col-sea);
 }
-.s-sea {
+.s-sea,
+.has-sea-background-color {
 	background: var(--col-sea);
 	color: var(--col-nero);
 	--accent: var(--col-nero);
 	--focus: var(--col-nero);
 	--muted: var(--col-nero);
 	--rule: rgb(39 39 39 / 0.3);
+	--motif: var(--col-crusta);
 }
-.s-crusta {
+.s-crusta,
+.has-crusta-background-color {
 	background: var(--col-crusta);
 	color: var(--col-nero);
 	--accent: var(--col-nero);
 	--focus: var(--col-nero);
 	--muted: var(--col-nero);
 	--rule: rgb(39 39 39 / 0.3);
+	--motif: var(--col-solitude);
 }
-.s-solitude {
+.s-solitude,
+.has-solitude-background-color {
 	background: var(--col-solitude);
 	color: var(--col-nero);
 	--accent: var(--col-nero);
 	--focus: var(--col-crusta);
 	--muted: var(--col-charcoal);
 	--rule: #d3d8da;
+	--motif: var(--col-sea);
 }
 
 /* vertical rhythm for a full-width block */
@@ -811,35 +834,47 @@ select {
 	padding-block: var(--space-section);
 }
 
-/* parallelogram clipping: wrap in .pg (a size container) so the slope scales with width */
+/*
+ * parallelogram clipping: wrap in .pg (a size container) so the slope scales with width.
+ * Only the top-left and bottom-right corners are rounded, matching the logo badge;
+ * the radius is 5% of the width, capped at 48px. Uses shape() (modern evergreen only).
+ */
 .pg {
 	container-type: inline-size;
 }
 .pg > * {
-	clip-path: polygon(0 calc(var(--slope) * 100cqw), 100% 0, 100% calc(100% - var(--slope) * 100cqw), 0 100%);
+	clip-path: shape(from 0 calc(var(--slope) * 100cqw + min(5cqw, 48px)), curve to calc(min(5cqw, 48px) * 0.975) calc(var(--slope) * 100cqw - min(5cqw, 48px) * 0.22) with 0 calc(var(--slope) * 100cqw), line to 100% 0, line to 100% calc(100% - var(--slope) * 100cqw - min(5cqw, 48px)), curve to calc(100% - min(5cqw, 48px) * 0.975) calc(100% - var(--slope) * 100cqw + min(5cqw, 48px) * 0.22) with 100% calc(100% - var(--slope) * 100cqw), line to 0 100%, close);
 }
 .pg--half > * {
-	clip-path: polygon(0 calc(var(--slope-half) * 100cqw), 100% 0, 100% calc(100% - var(--slope-half) * 100cqw), 0 100%);
+	clip-path: shape(from 0 calc(var(--slope-half) * 100cqw + min(5cqw, 48px)), curve to calc(min(5cqw, 48px) * 0.994) calc(var(--slope-half) * 100cqw - min(5cqw, 48px) * 0.11) with 0 calc(var(--slope-half) * 100cqw), line to 100% 0, line to 100% calc(100% - var(--slope-half) * 100cqw - min(5cqw, 48px)), curve to calc(100% - min(5cqw, 48px) * 0.994) calc(100% - var(--slope-half) * 100cqw + min(5cqw, 48px) * 0.11) with 100% calc(100% - var(--slope-half) * 100cqw), line to 0 100%, close);
 }
 .pg--left > * {
 	clip-path: polygon(calc(var(--slope-half) * 100cqw) 0, 100% 0, 100% 100%, 0 100%);
 }
 
-/* headline baseline bar */
+/*
+ * Headline motif: the brand parallelogram sitting behind the first letters, up and
+ * to the left of the text. Sized in em so it scales with the heading; top-left and
+ * bottom-right corners rounded like the logo. --motif is set per surface (brand.css
+ * .s-*) so the shape never matches the text colour.
+ */
 .baseline {
 	position: relative;
+	isolation: isolate;
 	display: inline-block;
-	padding-bottom: 0.5em;
+	margin-top: 0.45em; /* room for the shape, which rises above the cap height */
 }
-.baseline::after {
+.baseline::before {
 	content: "";
 	position: absolute;
-	left: 0;
-	bottom: 0;
+	z-index: -1;
+	/* clamp the left overhang to the page gutter so it never causes horizontal scroll */
+	left: max(-0.4em, calc(-1 * var(--container-padding)));
+	top: -0.5em;
 	width: 1.5em;
-	height: 0.34em;
-	background: var(--accent, var(--col-sea));
-	clip-path: polygon(0 42%, 100% 0, 100% 58%, 0 100%);
+	height: 1.1em;
+	background: var(--motif, var(--col-sea));
+	clip-path: shape(from 0 calc(0.34em + 0.12em), curve to 0.12em 0.34em with 0 0.34em, line to 100% 0, line to 100% calc(100% - 0.34em - 0.12em), curve to calc(100% - 0.12em) calc(100% - 0.34em) with 100% calc(100% - 0.34em), line to 0 100%, close);
 }
 
 /* mark: small solid parallelogram used as a bullet / icon base */
@@ -848,7 +883,7 @@ select {
 	width: 44px;
 	height: 44px;
 	background: var(--col-sea);
-	clip-path: polygon(0 23%, 100% 0, 100% 77%, 0 100%);
+	clip-path: shape(from 0 calc(23% + 3px), curve to 3px 21.4% with 0 23%, line to 100% 0, line to 100% calc(77% - 3px), curve to calc(100% - 3px) 78.6% with 100% 77%, line to 0 100%, close);
 }
 .mark--crusta {
 	background: var(--col-crusta);
@@ -879,6 +914,7 @@ select {
 	--btn-bg: var(--col-sea);
 	--btn-fg: var(--col-nero);
 	--skew: 10px;
+	--r: 5px; /* corner radius on the top-left and bottom-right, as on the logo badge */
 	position: relative;
 	isolation: isolate;
 	display: inline-flex;
@@ -898,7 +934,7 @@ select {
 	inset: 0;
 	z-index: -1;
 	background: var(--btn-bg);
-	clip-path: polygon(0 var(--skew), 100% 0, 100% calc(100% - var(--skew)), 0 100%);
+	clip-path: shape(from 0 calc(var(--skew) + var(--r)), curve to var(--r) var(--skew) with 0 var(--skew), line to 100% 0, line to 100% calc(100% - var(--skew) - var(--r)), curve to calc(100% - var(--r)) calc(100% - var(--skew)) with 100% calc(100% - var(--skew)), line to 0 100%, close);
 	transition:
 		background-color var(--t-fast),
 		transform var(--t-fast);
@@ -930,11 +966,13 @@ select {
 	font-size: 14px;
 	padding: 13px 20px 13px 18px;
 	--skew: 7px;
+	--r: 4px;
 }
 .btn--l {
 	font-size: 18px;
 	padding: 22px 36px 22px 32px;
 	--skew: 12px;
+	--r: 7px;
 }
 
 /* text link: secondary action */
@@ -974,7 +1012,7 @@ select {
 	inset: 0;
 	z-index: -1;
 	background: #333;
-	clip-path: polygon(0 5px, 100% 0, 100% calc(100% - 5px), 0 100%);
+	clip-path: shape(from 0 calc(5px + 3px), curve to 3px 5px with 0 5px, line to 100% 0, line to 100% calc(100% - 5px - 3px), curve to calc(100% - 3px) calc(100% - 5px) with 100% calc(100% - 5px), line to 0 100%, close);
 	transition: background-color var(--t-fast);
 }
 .chip:hover::before {
@@ -2225,10 +2263,13 @@ select {
 	grid-template-columns: 1.35fr 1fr;
 	gap: 40px 48px;
 }
-.featured-work.is-flipped .featured-work__grid {
+.featured-work__grid + .featured-work__grid {
+	margin-top: clamp(48px, 5vw, 72px);
+}
+.featured-work__grid.is-flipped {
 	grid-template-columns: 1fr 1.35fr;
 }
-.featured-work.is-flipped .work-tile.is-big {
+.featured-work__grid.is-flipped .work-tile.is-big {
 	order: 2;
 }
 .featured-work__stack {
@@ -2241,10 +2282,10 @@ select {
 }
 @media (max-width: 860px) {
 	.featured-work__grid,
-	.featured-work.is-flipped .featured-work__grid {
+	.featured-work__grid.is-flipped {
 		grid-template-columns: 1fr;
 	}
-	.featured-work.is-flipped .work-tile.is-big {
+	.featured-work__grid.is-flipped .work-tile.is-big {
 		order: 0;
 	}
 }
@@ -2315,6 +2356,7 @@ select {
 
 /* --- src/blocks/hero-reel.css --- */
 .hero-reel {
+	--reel-ms: 5400ms; /* hold 4.2s + fade 1.2s; keep in step with SLIDE_MS in src/js/hero-reel.js */
 	position: relative;
 	height: min(100svh, 980px);
 	min-height: 640px;
@@ -2341,12 +2383,16 @@ select {
 }
 @media (prefers-reduced-motion: no-preference) {
 	.hero-reel__slide.is-active img {
-		animation: hero-reel-zoom 6s linear forwards;
+		animation: hero-reel-zoom var(--reel-ms) linear forwards;
+	}
+	.hero-reel.is-paused .hero-reel__slide.is-active img,
+	.hero-reel.is-paused .hero-reel__bar i {
+		animation-play-state: paused;
 	}
 }
 @keyframes hero-reel-zoom {
-	from { transform: scale(1); }
-	to { transform: scale(1.06); }
+	from { transform: scale(1.12); }
+	to { transform: scale(1); }
 }
 .hero-reel::after {
 	content: "";
@@ -2376,6 +2422,7 @@ select {
 	gap: 32px;
 }
 .hero-reel__card {
+	container-type: inline-size;
 	position: absolute;
 	z-index: 3;
 	right: max(var(--container-padding), calc((100% - var(--container-max-width)) / 2 + var(--container-padding)));
@@ -2383,11 +2430,18 @@ select {
 	width: 300px;
 }
 .hero-reel__card-inner {
-	display: block;
-	padding: 36px 28px 34px;
+	position: relative;
+	/* Fixed height so the card doesn't resize as titles change; the bar is pinned inside it. */
+	height: 340px;
+	/* top and bottom padding clear the angled edges, which now clip the content too */
+	padding: 58px 28px 0;
 	background: var(--col-sea);
 	color: var(--col-nero);
-	clip-path: polygon(0 calc(var(--slope) * 100cqw * 0.82), 100% 0, 100% calc(100% - var(--slope) * 100cqw * 0.82), 0 100%);
+	clip-path: shape(from 0 calc(var(--slope) * 82cqw + min(5cqw, 48px)), curve to calc(min(5cqw, 48px) * 0.975) calc(var(--slope) * 82cqw - min(5cqw, 48px) * 0.22) with 0 calc(var(--slope) * 82cqw), line to 100% 0, line to 100% calc(100% - var(--slope) * 82cqw - min(5cqw, 48px)), curve to calc(100% - min(5cqw, 48px) * 0.975) calc(100% - var(--slope) * 82cqw + min(5cqw, 48px) * 0.22) with 100% calc(100% - var(--slope) * 82cqw), line to 0 100%, close);
+}
+.hero-reel__card-logo {
+	height: 34px;
+	width: auto;
 }
 .hero-reel__card small {
 	display: block;
@@ -2395,19 +2449,49 @@ select {
 	font: var(--fw-600) 13px / 1.2 var(--f-sub);
 }
 .hero-reel__card strong {
-	display: block;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
 	font: var(--fw-700) 20px / 1.2 var(--f-display);
 }
+.hero-reel__card strong a:hover {
+	text-decoration: underline;
+}
 .hero-reel__card span {
-	display: block;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
 	margin-top: 4px;
 	font: var(--fw-600) 15px / 1.3 var(--f-sub);
 }
-.hero-reel__card .textlink {
-	--accent: var(--col-nero);
-	margin-top: 14px;
-	padding-block: 6px;
-	font-size: 14px;
+.hero-reel__bar {
+	/* Pinned above the angled bottom edge, which is highest at the right-hand end. */
+	position: absolute;
+	left: 28px;
+	right: 28px;
+	bottom: calc(var(--slope) * 82cqw + 18px);
+	height: 3px;
+	background: rgb(39 39 39 / 0.25);
+}
+.hero-reel__bar i {
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: 100%;
+	background: var(--col-nero);
+	transform-origin: left;
+	animation: hero-reel-bar var(--reel-ms) linear forwards;
+}
+@keyframes hero-reel-bar {
+	from { transform: scaleX(0); }
+	to { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+	.hero-reel__bar i {
+		animation: none;
+		transform: scaleX(0.12);
+	}
 }
 .hero-reel__pause {
 	position: absolute;
@@ -2504,6 +2588,9 @@ a.link-list__row:hover .arrow {
 .logo-marquee__track {
 	display: flex;
 	width: max-content;
+	/* The animated track is its own stacking context, so the logos' screen blend needs a
+	   backdrop inside it: Nero, so the inverted logos' black becomes invisible against the section. */
+	background: var(--col-nero);
 }
 .logo-marquee__set {
 	display: flex;
@@ -2525,9 +2612,6 @@ a.link-list__row:hover .arrow {
 @media (prefers-reduced-motion: no-preference) {
 	.logo-marquee__track {
 		animation: logo-marquee 60s linear infinite;
-	}
-	.logo-marquee:hover .logo-marquee__track {
-		animation-play-state: paused;
 	}
 }
 @keyframes logo-marquee {
@@ -2757,7 +2841,7 @@ a.link-list__row:hover .arrow {
 .portfolio-grid__item img {
 	aspect-ratio: 4 / 3.4;
 }
-/* every sixth visible tile runs wide */
+/* wide tiles (set by JS, positions 1 and 7 of every ten) span two of the three columns */
 .portfolio-grid__item.is-wide {
 	grid-column: span 2;
 }
@@ -2805,7 +2889,7 @@ a.link-list__row:hover .arrow {
 	inset: 0;
 	z-index: -1;
 	background: var(--col-white);
-	clip-path: polygon(0 var(--skew, 16px), 100% 0, 100% calc(100% - var(--skew, 16px)), 0 100%);
+	clip-path: shape(from 0 calc(var(--skew) + 8px), curve to 8px var(--skew) with 0 var(--skew), line to 100% 0, line to 100% calc(100% - var(--skew) - 8px), curve to calc(100% - 8px) calc(100% - var(--skew)) with 100% calc(100% - var(--skew)), line to 0 100%, close);
 	--skew: 18px;
 }
 .process-steps.s-nero li::before,
@@ -2890,7 +2974,7 @@ a.link-list__row:hover .arrow {
 	height: 44px;
 	margin-bottom: 32px;
 	background: var(--accent);
-	clip-path: polygon(0 23%, 100% 0, 100% 77%, 0 100%);
+	clip-path: shape(from 0 calc(23% + 4px), curve to 4px 21.4% with 0 23%, line to 100% 0, line to 100% calc(77% - 4px), curve to calc(100% - 4px) 78.6% with 100% 77%, line to 0 100%, close);
 }
 .quote-block figcaption {
 	margin-top: 28px;
