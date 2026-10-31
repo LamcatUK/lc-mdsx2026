@@ -1533,14 +1533,13 @@ a.link-list__row:hover .arrow {
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
-	color: var(--accent);
+	color: var(--col-crusta);
 	text-decoration: none;
-	background: linear-gradient(currentcolor, currentcolor) 0 100% / 100% 2px no-repeat;
-	transition: background-size var(--t-med) var(--ease-out);
 }
 .profile-hero__contact a:hover,
 .profile-hero__contact a:focus-visible {
-	background-size: 0 2px;
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
 }
 .profile-hero__contact svg {
 	width: 20px;
