@@ -3456,8 +3456,22 @@ a.link-list__row:hover .arrow {
 	gap: 56px 48px;
 	margin-top: 64px;
 }
+/* Equal-height cards (the grid stretches them); the link is pinned to the bottom of each card. */
 .people-strip__person {
-	display: block;
+	display: flex;
+	flex-direction: column;
+}
+.people-strip__body {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.people-strip__body .textlink {
+	margin-top: auto;
+}
+.people-strip__bio {
+	margin-bottom: 20px;
 }
 .people-strip__photo {
 	margin-bottom: 24px;
