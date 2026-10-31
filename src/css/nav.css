@@ -178,7 +178,8 @@ html {
 		transition-delay: 0s;
 	}
 	.navbar-collapse .nav-item,
-	.navbar-collapse .navbar-cta {
+	.navbar-collapse .navbar-cta,
+	.navbar-collapse .navbar-search {
 		opacity: 0;
 		transform: translateY(16px);
 		transition:
@@ -186,7 +187,8 @@ html {
 			transform var(--t-med) var(--ease-out);
 	}
 	.navbar-collapse.is-open .nav-item,
-	.navbar-collapse.is-open .navbar-cta {
+	.navbar-collapse.is-open .navbar-cta,
+	.navbar-collapse.is-open .navbar-search {
 		opacity: 1;
 		transform: none;
 		transition-delay: calc(0.08s + var(--n, 0) * 0.05s);
@@ -197,6 +199,7 @@ html {
 	.navbar-collapse .nav-item:nth-child(5) { --n: 4; }
 	.navbar-collapse .nav-item:nth-child(6) { --n: 5; }
 	.navbar-collapse .navbar-cta { --n: 6; }
+	.navbar-collapse .navbar-search { --n: 7; }
 
 	.navbar-collapse .navbar-nav {
 		gap: 6px;
@@ -285,6 +288,35 @@ html {
 
 /* Header CTA button — last item flagged with the "menu-btn" menu class, or add
    a standalone .btn in header.php. */
+/* Search: the magnifier after the CTA on desktop; a labelled link at the foot of the mobile menu */
+.navbar-search {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	color: inherit;
+	text-decoration: none;
+	font: var(--fw-600) 22px / 1 var(--f-display);
+	transition: color var(--t-fast);
+}
+.navbar-search svg {
+	width: 24px;
+	height: 24px;
+	flex: none;
+}
+.navbar-search:hover,
+.navbar-search:focus-visible,
+.navbar-search[aria-current="page"] {
+	color: var(--col-sea);
+}
+#masthead.is-scrolled .navbar-search:hover,
+#masthead.is-scrolled .navbar-search:focus-visible,
+#masthead.is-scrolled .navbar-search[aria-current="page"],
+#masthead.menu-open .navbar-search:hover,
+#masthead.menu-open .navbar-search:focus-visible,
+#masthead.menu-open .navbar-search[aria-current="page"] {
+	color: var(--col-nero);
+}
+
 .navbar-cta {
 	margin-top: var(--space-3);
 }
@@ -344,6 +376,20 @@ html {
 
 	.navbar-cta {
 		margin: 0;
+	}
+
+	/* icon only on desktop; the text stays for screen readers */
+	.navbar-search {
+		margin-left: -8px;
+		padding: 8px;
+	}
+	.navbar-search span {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
 	}
 
 	.dropdown {

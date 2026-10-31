@@ -156,6 +156,7 @@ inc/
   blocks.php            Globs blocks/*/block.json and register_block_type()s each one — no per-block code
   options.php           Site-Wide Settings page (plain Settings API, one array option) + lc_mdsx2026_get_setting()
   head-tags.php          Font preload (fonts/*.woff2 glob) + GA/GTM (logged-out only) + Google/Bing verification, reading from the options page
+  search.php             Site search: a cached text index of pages, projects, people and news (block attributes included), REST endpoint lc-mdsx2026/v1/search, core ?s= redirected to the /search/ page (Site Search block + src/js/site-search.js). Added on request; the generic WordPress search.php template is still deliberately absent.
   block-usage.php        [block_usage_table] shortcode — QA utility, lists every block against the published pages/posts using it
   utilities.php          Reusable, project-agnostic functions (parse_phone, pluralise, estimate_reading_time_in_minutes, get_icon/get_icon_choices) — safe to lift verbatim into any project on this skeleton. Project-specific helpers go in inc/helpers.php instead, created only when needed, not scaffolded here.
 header.php / footer.php / index.php / page.php / single.php / 404.php

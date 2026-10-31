@@ -7,6 +7,7 @@ import { initReveal } from './reveal';
 import { initContactForm } from './contact-form';
 import { initHeaderScroll } from './header-scroll';
 import { initLenis } from './lenis';
+import { initSiteSearch } from './site-search';
 
 document.addEventListener('DOMContentLoaded', () => {
 	// tells the failsafe in header.php that the script ran; if it never does, content is revealed anyway
@@ -20,4 +21,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	initContactForm();
 	initHeaderScroll();
 	initLenis();
+	initSiteSearch();
 });

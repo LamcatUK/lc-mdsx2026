@@ -43,6 +43,10 @@
 			);
 			?>
 			<a class="btn btn--primary navbar-cta" href="<?php echo esc_url( lc_mdsx2026_page_url( 'contact-us' ) ); ?>"><?php esc_html_e( 'Start a project', 'lc-mdsx2026' ); ?></a>
+			<a class="navbar-search" href="<?php echo esc_url( lc_mdsx2026_page_url( 'search' ) ); ?>"<?php echo is_page( 'search' ) ? ' aria-current="page"' : ''; ?>>
+				<?php echo get_icon( 'search' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- theme SVG. ?>
+				<span><?php esc_html_e( 'Search', 'lc-mdsx2026' ); ?></span>
+			</a>
 		</div>
 	</nav>
 </header>
