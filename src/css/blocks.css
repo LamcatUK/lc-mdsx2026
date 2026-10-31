@@ -1224,9 +1224,13 @@ a.link-list__row:hover .arrow {
 	font-size: var(--fs-small);
 	color: var(--muted);
 }
+/* On smaller screens the headshot fills its card, as in the team grid, instead of the 280px desktop cap. */
 @media (max-width: 960px) {
 	.people-strip__list {
 		grid-template-columns: repeat(2, 1fr);
+	}
+	.people-strip__photo img {
+		max-width: 100%;
 	}
 }
 @media (max-width: 600px) {
@@ -1234,7 +1238,7 @@ a.link-list__row:hover .arrow {
 		grid-template-columns: 1fr;
 	}
 	.people-strip__photo img {
-		max-width: 220px;
+		max-width: min(100%, 420px);
 	}
 }
 
