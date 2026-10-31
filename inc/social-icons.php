@@ -19,6 +19,7 @@ add_shortcode(
 		$platforms = array(
 			'facebook'  => 'Facebook',
 			'instagram' => 'Instagram',
+			'linkedin'  => 'LinkedIn',
 		);
 
 		$links = '';

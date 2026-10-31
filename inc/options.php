@@ -95,6 +95,13 @@ function lc_mdsx2026_register_settings_page() {
 			'placeholder' => 'https://instagram.com/...',
 			'description' => 'Leave blank to hide this icon from [social_icons].',
 		),
+		'linkedin_url'              => array(
+			'label'       => 'LinkedIn URL',
+			'type'        => 'url',
+			'section'     => 'lc_mdsx2026_social',
+			'placeholder' => 'https://linkedin.com/company/...',
+			'description' => 'Leave blank to hide this icon from [social_icons].',
+		),
 		'ga_property'               => array(
 			'label'       => 'GA Property',
 			'type'        => 'text',
