@@ -40,5 +40,30 @@ function lc_mdsx2026_register_theme_taxonomies() {
 	);
 	*/
 
+	// Portfolio filters. rewrite => false: the filter UI is client-side on /portfolio/, no term archives.
+	foreach ( array(
+		'discipline' => array( 'Disciplines', 'Discipline' ),
+		'sector'     => array( 'Sectors', 'Sector' ),
+	) as $slug => $labels ) {
+		register_taxonomy(
+			$slug,
+			array( 'portfolio' ),
+			array(
+				'labels'             => array(
+					'name'          => $labels[0],
+					'singular_name' => $labels[1],
+				),
+				'public'             => false,
+				'publicly_queryable' => false,
+				'hierarchical'       => true,
+				'show_ui'            => true,
+				'show_admin_column'  => true,
+				'show_in_quick_edit' => true,
+				'show_in_rest'       => true,
+				'rewrite'            => false,
+			)
+		);
+	}
+
 }
 add_action( 'init', 'lc_mdsx2026_register_theme_taxonomies' );

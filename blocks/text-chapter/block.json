@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/text-chapter",
+	"title": "Text Chapter",
+	"category": "lc-mdsx2026",
+	"icon": "text-page",
+	"description": "Heading left, copy right.",
+	"attributes": {
+		"surface": {
+			"type": "string",
+			"default": "nero"
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"body": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

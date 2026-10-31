@@ -1,0 +1,23 @@
+.credits-list__list {
+	columns: 3;
+	column-gap: 48px;
+	margin: 32px 0 0;
+	padding: 0;
+	list-style: none;
+	font-size: var(--fs-small);
+}
+.credits-list__list li {
+	padding: 14px 0;
+	border-top: 1px solid var(--rule);
+	break-inside: avoid;
+}
+.credits-list__list b {
+	display: block;
+	font: var(--fw-600) 14px / 1.4 var(--f-display);
+	color: var(--col-text-subtle);
+}
+@media (max-width: 860px) {
+	.credits-list__list {
+		columns: 1;
+	}
+}

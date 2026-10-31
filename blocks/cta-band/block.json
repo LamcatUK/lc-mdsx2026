@@ -1,0 +1,34 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/cta-band",
+	"title": "CTA Band",
+	"category": "lc-mdsx2026",
+	"icon": "megaphone",
+	"description": "Full-width call to action.",
+	"attributes": {
+		"surface": {
+			"type": "string",
+			"default": "crusta"
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaText": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaUrl": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,34 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/link-list",
+	"title": "Link List",
+	"category": "lc-mdsx2026",
+	"icon": "list-view",
+	"description": "Ruled list of rows (press coverage, careers…): label, title, date, link.",
+	"attributes": {
+		"surface": {
+			"type": "string",
+			"default": "charcoal"
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"intro": {
+			"type": "string",
+			"default": ""
+		},
+		"items": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

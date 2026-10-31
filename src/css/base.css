@@ -12,8 +12,9 @@ html {
 
 body {
 	margin: 0;
-	font-family: var(--font-family-base);
+	font-family: var(--f-body);
 	font-size: var(--fs-base);
+	-webkit-font-smoothing: antialiased;
 	font-weight: var(--fw-400);
 	line-height: var(--line-height-base);
 	color: var(--col-body);
@@ -55,7 +56,7 @@ p {
 }
 
 a {
-	color: var(--col-primary);
+	color: inherit;
 	text-decoration: none;
 }
 

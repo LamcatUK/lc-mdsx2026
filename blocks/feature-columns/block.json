@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/feature-columns",
+	"title": "Feature Columns",
+	"category": "lc-mdsx2026",
+	"icon": "grid-view",
+	"description": "Heading plus N similar items (services, capabilities, specialisms, cross-links).",
+	"attributes": {
+		"surface": {
+			"type": "string",
+			"default": "charcoal"
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"intro": {
+			"type": "string",
+			"default": ""
+		},
+		"marks": {
+			"type": "string",
+			"default": "mark"
+		},
+		"minWidth": {
+			"type": "number",
+			"default": 18
+		},
+		"items": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

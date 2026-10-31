@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/gallery",
+	"title": "Gallery Row",
+	"category": "lc-mdsx2026",
+	"icon": "format-gallery",
+	"description": "One row of images: 3-up, 2-up (wide + narrow) or full width.",
+	"attributes": {
+		"layout": {
+			"type": "string",
+			"default": "three"
+		},
+		"images": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

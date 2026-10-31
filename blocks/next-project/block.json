@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/next-project",
+	"title": "Next Project",
+	"category": "lc-mdsx2026",
+	"icon": "controls-forward",
+	"description": "Image banner linking to another project. Blank = next project in order.",
+	"attributes": {
+		"project": {
+			"type": "number",
+			"default": 0
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

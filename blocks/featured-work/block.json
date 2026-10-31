@@ -1,0 +1,46 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/featured-work",
+	"title": "Featured Work",
+	"category": "lc-mdsx2026",
+	"icon": "portfolio",
+	"description": "One large and two stacked portfolio projects.",
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaText": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"project1": {
+			"type": "number",
+			"default": 0
+		},
+		"project2": {
+			"type": "number",
+			"default": 0
+		},
+		"project3": {
+			"type": "number",
+			"default": 0
+		},
+		"flip": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

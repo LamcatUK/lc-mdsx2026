@@ -10,24 +10,23 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>document.documentElement.classList.add('js');</script>
 	<?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
-<a class="visually-hidden" href="#main">Skip to content</a>
+<a class="visually-hidden" href="#main"><?php esc_html_e( 'Skip to content', 'lc-mdsx2026' ); ?></a>
 <?php wp_body_open(); ?>
 
 <!-- HEADER-NAV:START -->
 <header id="masthead">
-	<nav class="navbar container" aria-label="Primary navigation">
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar-brand">
-			<?php bloginfo( 'name' ); ?>
+	<nav class="navbar container" aria-label="<?php esc_attr_e( 'Primary navigation', 'lc-mdsx2026' ); ?>">
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar-brand" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+			<img src="<?php echo esc_url( lc_mdsx2026_img_url( 'logos/mdsx-badge-sea-on-nero.svg' ) ); ?>" alt="MDSX" width="64" height="46">
 		</a>
 
-		<button class="navbar-toggler" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="Toggle navigation">
-			<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-				<path d="M2 5h16M2 10h16M2 15h16" />
-			</svg>
+		<button class="navbar-toggler" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="<?php esc_attr_e( 'Toggle navigation', 'lc-mdsx2026' ); ?>">
+			<span></span><span></span><span></span>
 		</button>
 
 		<div class="navbar-collapse" id="primary-menu">
@@ -42,6 +41,7 @@
 				)
 			);
 			?>
+			<a class="btn btn--primary navbar-cta" href="<?php echo esc_url( lc_mdsx2026_page_url( 'contact-us' ) ); ?>"><?php esc_html_e( 'Start a project', 'lc-mdsx2026' ); ?></a>
 		</div>
 	</nav>
 </header>

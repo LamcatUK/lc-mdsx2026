@@ -38,18 +38,4 @@ select {
 	}
 }
 
-.btn {
-	display: inline-block;
-	padding: var(--space-2) var(--space-3);
-	border: 1px solid var(--col-primary);
-	border-radius: var(--radius-sm);
-	background-color: var(--col-primary);
-	color: var(--col-white);
-	text-decoration: none;
-	cursor: pointer;
-
-	&:focus-visible {
-		outline: 2px solid var(--col-primary);
-		outline-offset: 2px;
-	}
-}
+/* .btn lives in brand.css (MDSX parallelogram buttons). */

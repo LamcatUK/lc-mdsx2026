@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/portfolio-grid",
+	"title": "Portfolio Grid",
+	"category": "lc-mdsx2026",
+	"icon": "screenoptions",
+	"description": "Filterable grid of every Portfolio project (discipline and sector chips).",
+	"attributes": {
+		"showFilters": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,36 @@
+/* Self-hosted Google Fonts, latin subset. Paths are relative to the compiled css/ folder. */
+@font-face {
+  font-family: "Poppins";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/poppins-latin-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/poppins-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/poppins-latin-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Quicksand";
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/quicksand-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fenix";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/fenix-latin-400.woff2") format("woff2");
+}

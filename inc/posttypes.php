@@ -50,6 +50,46 @@ function lc_mdsx2026_register_post_types() {
 	);
 	*/
 
+	// Index pages (/portfolio/, /team/, /news/) are regular pages, so no CPT archives.
+	$types = array(
+		'portfolio' => array( 'Portfolio', 'Project', 'Projects', 'dashicons-portfolio', 26 ),
+		'team'      => array( 'Team', 'Team Member', 'Team Members', 'dashicons-groups', 27 ),
+		'news'      => array( 'News', 'News Article', 'News Articles', 'dashicons-megaphone', 28 ),
+	);
+
+	foreach ( $types as $slug => $t ) {
+		register_post_type(
+			$slug,
+			array(
+				'labels'          => array(
+					'name'               => $t[0],
+					'singular_name'      => $t[1],
+					'add_new_item'       => 'Add New ' . $t[1],
+					'edit_item'          => 'Edit ' . $t[1],
+					'new_item'           => 'New ' . $t[1],
+					'view_item'          => 'View ' . $t[1],
+					'search_items'       => 'Search ' . $t[2],
+					'not_found'          => 'No ' . strtolower( $t[2] ) . ' found',
+					'not_found_in_trash' => 'No ' . strtolower( $t[2] ) . ' in trash',
+				),
+				'has_archive'     => false,
+				'public'          => true,
+				'show_ui'         => true,
+				'show_in_menu'    => true,
+				'show_in_rest'    => true,
+				'menu_position'   => $t[4],
+				'menu_icon'       => $t[3],
+				'supports'        => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes' ),
+				'capability_type' => 'post',
+				'map_meta_cap'    => true,
+				'rewrite'         => array(
+					'slug'       => $slug,
+					'with_front' => false,
+				),
+			)
+		);
+	}
+
 }
 add_action( 'init', 'lc_mdsx2026_register_post_types' );
 

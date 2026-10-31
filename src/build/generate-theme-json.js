@@ -39,15 +39,29 @@ function buildThemeJson(tokens) {
 			return { name: slug, slug, size: value };
 		});
 
+	// Font families: --f-{slug} tokens, e.g. --f-display -> .has-display-font-family
+	const fontFamilies = Object.entries(tokens)
+		.filter(([key]) => /^f-/.test(key))
+		.map(([key, value]) => ({ slug: key.replace('f-', ''), name: key.replace('f-', ''), fontFamily: value }));
+
 	return {
-		version: 2,
+		$schema: 'https://schemas.wp.org/trunk/theme.json',
+		version: 3,
 		settings: {
 			appearanceTools: true,
+			layout: { contentSize: '760px', wideSize: tokens['container-max-width'] || '1320px' },
 			color: {
+				custom: false,
+				customGradient: false,
 				defaultPalette: false,
+				defaultGradients: false,
 				palette: colors.map((color) => ({ ...color, origin: 'theme' })),
 			},
-			typography: { fontSizes },
+			typography: { customFontSize: false, defaultFontSizes: false, fontFamilies, fontSizes },
+		},
+		styles: {
+			color: { background: 'var(--wp--preset--color--nero)', text: 'var(--wp--preset--color--solitude)' },
+			typography: { fontFamily: 'var(--wp--preset--font-family--body)' },
 		},
 	};
 }

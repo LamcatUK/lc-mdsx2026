@@ -1,54 +1,72 @@
 /*
- * Nav breakpoint: 992px, matching the "lg" breakpoint in
- * src/build/tokens.config.js. CSS custom properties can't be read inside an
- * @media condition, so this number is hand-kept in sync with that file —
- * if you change the "lg" breakpoint there, update it here too.
+ * Header: transparent, absolutely positioned over the first block (hero or
+ * page title). Nav breakpoint 992px, matching "lg" in src/build/tokens.config.js.
+ * CSS custom properties can't be read inside @media, so keep it in sync by hand.
  */
+
+#masthead {
+	position: absolute;
+	inset: 0 0 auto;
+	z-index: 30;
+	color: var(--col-solitude);
+}
+
+.admin-bar #masthead {
+	top: var(--wp-admin--admin-bar--height, 32px);
+}
 
 .navbar {
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding-block: var(--space-2);
+	height: var(--nav-height);
 }
 
 .navbar-brand {
-	font-weight: var(--fw-700);
-	text-decoration: none;
-	color: var(--col-body);
+	display: block;
+	line-height: 0;
 }
 
+.navbar-brand img {
+	height: 46px;
+	width: auto;
+}
+
+/* mobile toggle: three bars skewed to the brand angle */
 .navbar-toggler {
 	display: inline-flex;
-	align-items: center;
-	gap: var(--space-1);
-	padding: var(--space-1) var(--space-2);
-	border: 1px solid var(--col-grey-300);
-	border-radius: var(--radius-sm);
+	padding: 10px;
+	border: 0;
 	background: none;
+	color: inherit;
 	cursor: pointer;
+}
+
+.navbar-toggler span {
+	display: block;
+	width: 26px;
+	height: 3px;
+	margin: 5px 0;
+	background: currentcolor;
+	transform: skewY(-12.7deg);
 }
 
 .navbar-collapse {
 	display: none;
 }
 
-/* Overlays the page rather than pushing content down — positioned against
-   .navbar (position: relative above), not in normal document flow. */
+/* Overlays the page rather than pushing content down. */
 .navbar-collapse.is-open {
 	display: block;
 	position: absolute;
 	top: 100%;
 	left: 0;
 	right: 0;
-	background-color: var(--col-body-bg);
-	border-top: 1px solid var(--col-grey-300);
-	box-shadow: var(--shadow-lg);
-	padding: var(--space-3);
-	max-height: calc(100vh - 100%);
+	background: var(--col-nero);
+	padding: var(--space-4) var(--container-padding) var(--space-5);
+	max-height: calc(100vh - var(--nav-height));
 	overflow-y: auto;
-	z-index: 20;
 }
 
 .navbar-nav {
@@ -58,27 +76,39 @@
 	margin: 0;
 	padding: 0;
 	list-style: none;
+	font: var(--fw-500) 22px / 1 var(--f-display);
 }
 
 .nav-link {
 	display: block;
+	padding: var(--space-2) 0;
+	color: inherit;
 	text-decoration: none;
-	color: var(--col-body);
-	padding: var(--space-1) 0;
+	transition: color var(--t-fast);
+
+	&:hover {
+		color: var(--col-sea);
+	}
 
 	&.active,
 	&[aria-current="page"] {
-		font-weight: var(--fw-600);
+		color: var(--col-sea);
 	}
 }
 
-/* Submenus — nested, always visible on mobile; shown via click as a
-   floating panel from "lg" up. */
+/* Header CTA button — last item flagged with the "menu-btn" menu class, or add
+   a standalone .btn in header.php. */
+.navbar-cta {
+	margin-top: var(--space-3);
+}
+
+/* Submenus: nested and always visible on mobile; floating panel from "lg". */
 .dropdown-menu {
 	list-style: none;
 	margin: var(--space-1) 0 var(--space-1) var(--space-3);
 	padding: 0;
 	display: none;
+	font-size: 0.8em;
 }
 
 .dropdown-menu.is-open {
@@ -93,9 +123,7 @@
 	width: 100%;
 	border: 0;
 	background: none;
-	font-family: inherit;
-	font-size: inherit;
-	line-height: inherit;
+	font: inherit;
 	text-align: inherit;
 	cursor: pointer;
 }
@@ -107,19 +135,24 @@
 
 	.navbar-collapse,
 	.navbar-collapse.is-open {
-		display: block;
+		display: flex;
+		align-items: center;
+		gap: 34px;
 		position: static;
-		width: auto;
 		max-height: none;
-		overflow-y: visible;
+		overflow: visible;
 		background: none;
-		border-top: 0;
-		box-shadow: none;
 		padding: 0;
 	}
 
 	.navbar-nav {
 		flex-direction: row;
+		align-items: center;
+		gap: 34px;
+		font-size: 15px;
+	}
+
+	.navbar-cta {
 		margin: 0;
 	}
 
@@ -127,17 +160,23 @@
 		position: relative;
 	}
 
+	.dropdown-toggle {
+		width: auto;
+	}
+
 	.dropdown-menu {
 		position: absolute;
 		top: 100%;
-		left: 0;
-		min-width: 10rem;
-		margin: 0;
-		padding: var(--space-2);
-		background-color: var(--col-body-bg);
-		border: 1px solid var(--col-grey-300);
-		border-radius: var(--radius-sm);
-		box-shadow: var(--shadow-lg);
+		left: -20px;
+		min-width: 14rem;
+		margin: 8px 0 0;
+		padding: var(--space-3) 20px;
+		background: var(--col-nero);
+		font-size: 15px;
 		z-index: 10;
+	}
+
+	.dropdown-menu .nav-link {
+		padding: 8px 0;
 	}
 }

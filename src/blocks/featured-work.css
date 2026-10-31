@@ -1,0 +1,67 @@
+.featured-work__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 24px;
+	margin-bottom: 56px;
+}
+.featured-work__grid {
+	display: grid;
+	grid-template-columns: 1.35fr 1fr;
+	gap: 40px 48px;
+}
+.featured-work.is-flipped .featured-work__grid {
+	grid-template-columns: 1fr 1.35fr;
+}
+.featured-work.is-flipped .work-tile.is-big {
+	order: 2;
+}
+.featured-work__stack {
+	display: grid;
+	gap: 40px;
+	align-content: space-between;
+}
+.featured-work .is-big img {
+	aspect-ratio: 1 / 1.1;
+}
+@media (max-width: 860px) {
+	.featured-work__grid,
+	.featured-work.is-flipped .featured-work__grid {
+		grid-template-columns: 1fr;
+	}
+	.featured-work.is-flipped .work-tile.is-big {
+		order: 0;
+	}
+}
+
+/* shared project tile (featured work + portfolio grid) */
+.work-tile {
+	display: block;
+	text-decoration: none;
+}
+.work-tile__img {
+	overflow: hidden;
+}
+.work-tile img {
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	object-fit: cover;
+	transition: transform 0.5s ease;
+}
+.work-tile:hover img {
+	transform: scale(1.03);
+}
+.work-tile h3 {
+	margin-top: 18px;
+}
+.work-tile p {
+	margin: 6px 0 0;
+	font: var(--fw-600) 16px / 1.4 var(--f-sub);
+	color: var(--accent);
+}
+.work-tile .work-tile__tags {
+	margin-top: 8px;
+	font: var(--fw-500) 13px / 1.4 var(--f-display);
+	color: var(--col-text-subtle);
+}

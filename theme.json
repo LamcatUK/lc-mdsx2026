@@ -1,10 +1,48 @@
 {
-  "version": 2,
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
   "settings": {
     "appearanceTools": true,
+    "layout": {
+      "contentSize": "760px",
+      "wideSize": "1320px"
+    },
     "color": {
+      "custom": false,
+      "customGradient": false,
       "defaultPalette": false,
+      "defaultGradients": false,
       "palette": [
+        {
+          "name": "sea",
+          "slug": "sea",
+          "color": "#70cdc3",
+          "origin": "theme"
+        },
+        {
+          "name": "crusta",
+          "slug": "crusta",
+          "color": "#f77352",
+          "origin": "theme"
+        },
+        {
+          "name": "nero",
+          "slug": "nero",
+          "color": "#272727",
+          "origin": "theme"
+        },
+        {
+          "name": "charcoal",
+          "slug": "charcoal",
+          "color": "#464646",
+          "origin": "theme"
+        },
+        {
+          "name": "solitude",
+          "slug": "solitude",
+          "color": "#f1f3f4",
+          "origin": "theme"
+        },
         {
           "name": "white",
           "slug": "white",
@@ -12,80 +50,122 @@
           "origin": "theme"
         },
         {
-          "name": "black",
-          "slug": "black",
-          "color": "#000000",
+          "name": "text-muted",
+          "slug": "text-muted",
+          "color": "#c5cacc",
           "origin": "theme"
         },
         {
-          "name": "grey-100",
-          "slug": "grey-100",
-          "color": "#f5f5f5",
+          "name": "text-subtle",
+          "slug": "text-subtle",
+          "color": "#9aa0a2",
           "origin": "theme"
         },
         {
-          "name": "grey-300",
-          "slug": "grey-300",
-          "color": "#d9d9d9",
+          "name": "rule",
+          "slug": "rule",
+          "color": "#444444",
           "origin": "theme"
         },
         {
-          "name": "grey-700",
-          "slug": "grey-700",
-          "color": "#4a4a4a",
-          "origin": "theme"
-        },
-        {
-          "name": "blue-700",
-          "slug": "blue-700",
-          "color": "#1d4ed8",
+          "name": "rule-charcoal",
+          "slug": "rule-charcoal",
+          "color": "#5b5b5b",
           "origin": "theme"
         }
       ]
     },
     "typography": {
+      "customFontSize": false,
+      "defaultFontSizes": false,
+      "fontFamilies": [
+        {
+          "slug": "display",
+          "name": "display",
+          "fontFamily": "\"Poppins\", system-ui, sans-serif"
+        },
+        {
+          "slug": "sub",
+          "name": "sub",
+          "fontFamily": "\"Quicksand\", system-ui, sans-serif"
+        },
+        {
+          "slug": "body",
+          "name": "body",
+          "fontFamily": "\"Fenix\", Georgia, serif"
+        }
+      ],
       "fontSizes": [
         {
-          "name": "base",
-          "slug": "base",
-          "size": "1rem"
+          "name": "display",
+          "slug": "display",
+          "size": "clamp(52px, 8.4vw, 136px)"
         },
         {
           "name": "h1",
           "slug": "h1",
-          "size": "clamp(2rem, 1.6rem + 2vw, 3rem)"
+          "size": "clamp(52px, 8vw, 128px)"
         },
         {
           "name": "h2",
           "slug": "h2",
-          "size": "clamp(1.6rem, 1.35rem + 1.25vw, 2.25rem)"
+          "size": "clamp(36px, 4.6vw, 68px)"
         },
         {
           "name": "h3",
           "slug": "h3",
-          "size": "clamp(1.3rem, 1.15rem + 0.75vw, 1.75rem)"
+          "size": "clamp(24px, 2.2vw, 30px)"
         },
         {
           "name": "h4",
           "slug": "h4",
-          "size": "1.25rem"
+          "size": "20px"
         },
         {
           "name": "h5",
           "slug": "h5",
-          "size": "1.1rem"
+          "size": "18px"
         },
         {
           "name": "h6",
           "slug": "h6",
-          "size": "1rem"
+          "size": "16px"
+        },
+        {
+          "name": "statement",
+          "slug": "statement",
+          "size": "clamp(26px, 2.4vw, 36px)"
+        },
+        {
+          "name": "lede",
+          "slug": "lede",
+          "size": "clamp(20px, 1.6vw, 23px)"
+        },
+        {
+          "name": "base",
+          "slug": "base",
+          "size": "17px"
         },
         {
           "name": "small",
           "slug": "small",
-          "size": "0.875rem"
+          "size": "16px"
+        },
+        {
+          "name": "meta",
+          "slug": "meta",
+          "size": "14px"
         }
       ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var(--wp--preset--color--nero)",
+      "text": "var(--wp--preset--color--solitude)"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--body)"
     }
   }
 }

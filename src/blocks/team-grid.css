@@ -1,0 +1,36 @@
+.team-grid__list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(var(--col-min, 12rem), 100%), 1fr));
+	gap: 48px 24px;
+	margin: 56px 0 0;
+	padding: 0;
+	list-style: none;
+}
+.team-grid__list a {
+	display: block;
+	text-decoration: none;
+}
+.team-grid__photo {
+	display: block;
+	margin-bottom: 14px;
+}
+.team-grid__photo img {
+	width: 100%;
+	aspect-ratio: 1;
+	object-fit: contain;
+	object-position: bottom;
+	transition: transform var(--t-med) var(--ease-out);
+}
+.team-grid__list a:hover img {
+	transform: translateY(-4px);
+}
+.team-grid__list strong {
+	display: block;
+	font: var(--fw-700) 18px / 1.25 var(--f-display);
+}
+.team-grid__list span:not(.team-grid__photo) {
+	display: block;
+	margin-top: 4px;
+	font: var(--fw-600) 15px / 1.35 var(--f-sub);
+	color: var(--accent);
+}

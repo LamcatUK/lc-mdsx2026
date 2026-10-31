@@ -1,0 +1,48 @@
+.process-steps .t-lede {
+	margin-top: 24px;
+}
+.process-steps__list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+	gap: 24px;
+	margin: 56px 0 0;
+	padding: 0;
+	counter-reset: step;
+	list-style: none;
+}
+.process-steps__list li {
+	position: relative;
+	padding: 40px 28px 32px 36px;
+	isolation: isolate;
+}
+.process-steps__list li::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: var(--col-white);
+	clip-path: polygon(0 var(--skew, 16px), 100% 0, 100% calc(100% - var(--skew, 16px)), 0 100%);
+	--skew: 18px;
+}
+.process-steps.s-nero li::before,
+.process-steps.s-charcoal li::before {
+	background: var(--col-charcoal);
+}
+.process-steps.s-nero li::before {
+	background: var(--col-charcoal);
+}
+.process-steps__num {
+	display: block;
+	margin-bottom: 14px;
+	font: var(--fw-700) 15px / 1 var(--f-display);
+	color: var(--col-crusta);
+}
+.process-steps__list h3 {
+	margin-bottom: 10px;
+	font-size: 22px;
+}
+.process-steps__list p {
+	margin: 0;
+	font-size: var(--fs-small);
+	color: var(--muted);
+}

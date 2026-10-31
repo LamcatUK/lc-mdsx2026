@@ -1,0 +1,66 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/hero-reel",
+	"title": "Hero Reel",
+	"category": "lc-mdsx2026",
+	"icon": "format-video",
+	"description": "Full-bleed crossfading image reel with headline, CTAs and optional \"now showing\" card.",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"lede": {
+			"type": "string",
+			"default": ""
+		},
+		"cta1Text": {
+			"type": "string",
+			"default": ""
+		},
+		"cta1Url": {
+			"type": "string",
+			"default": ""
+		},
+		"cta2Text": {
+			"type": "string",
+			"default": ""
+		},
+		"cta2Url": {
+			"type": "string",
+			"default": ""
+		},
+		"slides": {
+			"type": "array",
+			"default": []
+		},
+		"cardLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"cardTitle": {
+			"type": "string",
+			"default": ""
+		},
+		"cardMeta": {
+			"type": "string",
+			"default": ""
+		},
+		"cardLinkText": {
+			"type": "string",
+			"default": ""
+		},
+		"cardLinkUrl": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

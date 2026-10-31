@@ -1,0 +1,14 @@
+.cta-band {
+	padding-block: clamp(72px, 9vw, 130px);
+}
+.cta-band__inner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 40px;
+}
+.cta-band h2 {
+	max-width: 9em;
+	font-size: clamp(40px, 5.6vw, 88px);
+}

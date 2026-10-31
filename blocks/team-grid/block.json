@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/team-grid",
+	"title": "Team Grid",
+	"category": "lc-mdsx2026",
+	"icon": "admin-users",
+	"description": "Automatic grid of all Team posts. Role line = post excerpt; photo = featured image.",
+	"attributes": {
+		"surface": {
+			"type": "string",
+			"default": "nero"
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"minWidth": {
+			"type": "number",
+			"default": 12
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

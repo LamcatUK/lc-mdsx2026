@@ -2,23 +2,17 @@
 /**
  * Page template.
  *
- * Most projects build page layouts from native blocks rather than the_content()
- * directly — override this per project as needed.
+ * Page layouts are built from native blocks, each of which renders its own
+ * full-bleed section and .container — so no wrapper here.
  *
  * @package lc-mdsx2026
  */
 
 get_header();
-?>
 
-<div class="container">
-	<?php
-	while ( have_posts() ) {
-		the_post();
-		the_content();
-	}
-	?>
-</div>
+while ( have_posts() ) {
+	the_post();
+	the_content();
+}
 
-<?php
 get_footer();

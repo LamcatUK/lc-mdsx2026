@@ -33,3 +33,4 @@ require_once LC_SKELETON_DIR . '/inc/utilities.php';
 require_once LC_SKELETON_DIR . '/inc/posttypes.php';
 require_once LC_SKELETON_DIR . '/inc/taxonomies.php';
 require_once LC_SKELETON_DIR . '/inc/security.php';
+require_once LC_SKELETON_DIR . '/inc/helpers.php';

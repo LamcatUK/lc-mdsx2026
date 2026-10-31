@@ -1,0 +1,62 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/page-hero",
+	"title": "Page Hero",
+	"category": "lc-mdsx2026",
+	"icon": "cover-image",
+	"description": "Page title block: plain title, full-bleed image with title overlay, or split copy + angled image.",
+	"attributes": {
+		"variant": {
+			"type": "string",
+			"default": "title"
+		},
+		"surface": {
+			"type": "string",
+			"default": "nero"
+		},
+		"crumbText": {
+			"type": "string",
+			"default": ""
+		},
+		"crumbUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"intro": {
+			"type": "string",
+			"default": ""
+		},
+		"imageId": {
+			"type": "number",
+			"default": 0
+		},
+		"imageUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"imageAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaText": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaUrl": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

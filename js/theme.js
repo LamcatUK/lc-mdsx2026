@@ -92,25 +92,116 @@
 	      closeBtn.addEventListener('click', () => dialog.close());
 	    });
 
-// Click on the backdrop (the dialog element itself, outside its content) closes it.
-    dialog.addEventListener('click', event => {
-      if (event.target === dialog) dialog.close();
-    });
-
-    // Unload lazy iframes on close — removes the video from the page so
-    // playback (and tracking) stops, ready to load fresh next open.
-    dialog.addEventListener('close', () => {
-      dialog.querySelectorAll('iframe[data-src]').forEach(frame => {
-        frame.removeAttribute('src');
-      });
-    });
+	    // Click on the backdrop (the dialog element itself, outside its content) closes it.
+	    dialog.addEventListener('click', event => {
+	      if (event.target === dialog) dialog.close();
+	    });
 	  });
+	}
+
+	/**
+	 * Hero reel: crossfades .hero-reel__slide figures every 4.2s. Respects
+	 * prefers-reduced-motion and offers a pause control (WCAG 2.2.2).
+	 */
+	function initHeroReel() {
+	  document.querySelectorAll('.hero-reel').forEach(hero => {
+	    const slides = hero.querySelectorAll('.hero-reel__slide');
+	    if (slides.length < 2) return;
+	    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+	    const button = hero.querySelector('[data-reel-pause]');
+	    let index = 0;
+	    let paused = reduced.matches;
+	    let timer = null;
+	    const show = next => {
+	      slides[index].classList.remove('is-active');
+	      index = next % slides.length;
+	      slides[index].classList.add('is-active');
+	    };
+	    const start = () => {
+	      stop();
+	      timer = window.setInterval(() => show(index + 1), 4200);
+	    };
+	    const stop = () => window.clearInterval(timer);
+	    const sync = () => {
+	      if (button) button.setAttribute('aria-pressed', String(paused));
+	      paused ? stop() : start();
+	    };
+	    button?.addEventListener('click', () => {
+	      paused = !paused;
+	      sync();
+	    });
+	    document.addEventListener('visibilitychange', () => document.hidden ? stop() : !paused && start());
+	    sync();
+	  });
+	}
+
+	/**
+	 * Portfolio grid filtering. Each fieldset[data-filter-group] is a taxonomy;
+	 * tiles carry data-{taxonomy}="slug slug". Filters combine (AND across groups).
+	 * Every sixth visible tile is widened.
+	 */
+	function initPortfolioFilter() {
+	  document.querySelectorAll('[data-portfolio-grid]').forEach(root => {
+	    const items = [...root.querySelectorAll('.portfolio-grid__item')];
+	    const groups = [...root.querySelectorAll('[data-filter-group]')];
+	    const count = root.querySelector('[data-count]');
+	    const active = {};
+	    const apply = () => {
+	      let visible = 0;
+	      items.forEach(item => {
+	        const show = Object.entries(active).every(([tax, slug]) => !slug || (item.dataset[tax] || '').split(' ').includes(slug));
+	        item.hidden = !show;
+	        item.classList.remove('is-wide');
+	        if (show) {
+	          if (visible % 6 === 0) item.classList.add('is-wide');
+	          visible += 1;
+	        }
+	      });
+	      if (count) count.textContent = (count.dataset.template || '%d').replace('%d', visible);
+	    };
+	    groups.forEach(group => {
+	      const tax = group.dataset.filterGroup;
+	      active[tax] = '';
+	      group.querySelectorAll('[data-filter]').forEach(chip => {
+	        chip.addEventListener('click', () => {
+	          active[tax] = chip.dataset.filter;
+	          group.querySelectorAll('[data-filter]').forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+	          apply();
+	        });
+	      });
+	    });
+	    apply();
+	  });
+	}
+
+	/** Staggered entrance reveals: adds .is-in to .reveal elements as they scroll into view. */
+	function initReveal() {
+	  const els = document.querySelectorAll('.reveal');
+	  if (!els.length) return;
+	  if (!('IntersectionObserver' in window)) {
+	    els.forEach(el => el.classList.add('is-in'));
+	    return;
+	  }
+	  const io = new IntersectionObserver(entries => {
+	    entries.forEach(entry => {
+	      if (entry.isIntersecting) {
+	        entry.target.classList.add('is-in');
+	        io.unobserve(entry.target);
+	      }
+	    });
+	  }, {
+	    rootMargin: '0px 0px -8% 0px'
+	  });
+	  els.forEach(el => io.observe(el));
 	}
 
 	document.addEventListener('DOMContentLoaded', () => {
 	  initNavToggle();
 	  initNavDropdowns();
 	  initDialogs();
+	  initHeroReel();
+	  initPortfolioFilter();
+	  initReveal();
 	});
 
 })();

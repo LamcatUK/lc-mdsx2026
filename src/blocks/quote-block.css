@@ -1,0 +1,25 @@
+.quote-block {
+	border-top: 1px solid var(--rule);
+}
+.quote-block figure {
+	margin: 0;
+}
+.quote-block blockquote {
+	margin: 0;
+	max-width: 24em;
+	font: var(--fw-600) clamp(28px, 3.2vw, 46px) / 1.3 var(--f-sub);
+}
+.quote-block blockquote::before {
+	content: "";
+	display: block;
+	width: 64px;
+	height: 44px;
+	margin-bottom: 32px;
+	background: var(--accent);
+	clip-path: polygon(0 23%, 100% 0, 100% 77%, 0 100%);
+}
+.quote-block figcaption {
+	margin-top: 28px;
+	font: var(--fw-500) 16px / 1.5 var(--f-display);
+	color: var(--muted);
+}

@@ -1,0 +1,31 @@
+.gallery {
+	padding-block: calc(var(--gap-gallery) / 2);
+}
+.gallery__row {
+	display: grid;
+	gap: var(--gap-gallery);
+}
+.gallery--three .gallery__row {
+	grid-template-columns: repeat(3, 1fr);
+}
+.gallery--two .gallery__row {
+	grid-template-columns: 1.4fr 1fr;
+}
+.gallery figure {
+	margin: 0;
+}
+.gallery img {
+	width: 100%;
+	height: 100%;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+}
+.gallery--full img {
+	aspect-ratio: 21 / 9;
+}
+@media (max-width: 700px) {
+	.gallery--three .gallery__row,
+	.gallery--two .gallery__row {
+		grid-template-columns: 1fr;
+	}
+}

@@ -1,0 +1,38 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/project-intro",
+	"title": "Project Intro",
+	"category": "lc-mdsx2026",
+	"icon": "editor-alignleft",
+	"description": "Statement and lead on the left, meta list and tags on the right.",
+	"attributes": {
+		"surface": {
+			"type": "string",
+			"default": "nero"
+		},
+		"statement": {
+			"type": "string",
+			"default": ""
+		},
+		"body": {
+			"type": "string",
+			"default": ""
+		},
+		"meta": {
+			"type": "array",
+			"default": []
+		},
+		"tags": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

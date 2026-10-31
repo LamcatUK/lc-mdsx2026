@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/quote-block",
+	"title": "Quote",
+	"category": "lc-mdsx2026",
+	"icon": "format-quote",
+	"description": "Large pull quote with attribution.",
+	"attributes": {
+		"surface": {
+			"type": "string",
+			"default": "nero"
+		},
+		"quote": {
+			"type": "string",
+			"default": ""
+		},
+		"cite": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}
