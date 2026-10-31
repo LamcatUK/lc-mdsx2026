@@ -52,6 +52,25 @@
 .faq details[open] .faq__icon::after {
 	transform: scaleY(0);
 }
+/* The answer slides open and shut on the same curve and duration as the +/- icon (progressive
+   enhancement: browsers without ::details-content just open and close instantly). */
+@media (prefers-reduced-motion: no-preference) {
+	@supports selector(::details-content) {
+		.faq details {
+			interpolate-size: allow-keywords;
+		}
+		.faq details::details-content {
+			block-size: 0;
+			overflow: clip;
+			transition:
+				block-size var(--t-med) var(--ease-out),
+				content-visibility var(--t-med) allow-discrete;
+		}
+		.faq details[open]::details-content {
+			block-size: auto;
+		}
+	}
+}
 .faq__answer {
 	padding-bottom: 24px;
 	max-width: 60ch;
