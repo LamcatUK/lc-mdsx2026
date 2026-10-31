@@ -10,7 +10,7 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script>document.documentElement.classList.add('js');</script>
+	<script>document.documentElement.classList.add('js');setTimeout(function(){var h=document.documentElement;if(!h.classList.contains('js-ready'))h.classList.remove('js');},4000);</script>
 	<?php wp_head(); ?>
 </head>
 
@@ -26,7 +26,7 @@
 			<img class="logo-dark" src="<?php echo esc_url( lc_mdsx2026_img_url( 'logos/mdsx-badge-solitude-on-solitude.svg' ) ); ?>" alt="" width="64" height="46" aria-hidden="true">
 		</a>
 
-		<button class="navbar-toggler" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="<?php esc_attr_e( 'Toggle navigation', 'lc-mdsx2026' ); ?>">
+		<button class="navbar-toggler" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="<?php esc_attr_e( 'Open menu', 'lc-mdsx2026' ); ?>" data-label-open="<?php esc_attr_e( 'Open menu', 'lc-mdsx2026' ); ?>" data-label-close="<?php esc_attr_e( 'Close menu', 'lc-mdsx2026' ); ?>">
 			<span></span><span></span><span></span>
 		</button>
 

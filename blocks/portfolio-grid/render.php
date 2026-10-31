@@ -49,6 +49,10 @@ foreach ( array_keys( $groups ) as $tax ) {
 	<?php } ?>
 	<div class="container">
 		<h2 class="visually-hidden"><?php esc_html_e( 'Projects', 'lc-mdsx2026' ); ?></h2>
+		<div class="portfolio-grid__empty" data-empty hidden>
+			<p><?php esc_html_e( 'No projects match both of those filters.', 'lc-mdsx2026' ); ?></p>
+			<button class="textlink" type="button" data-filter-reset><?php esc_html_e( 'Show all projects', 'lc-mdsx2026' ); ?><i class="arrow" aria-hidden="true"></i></button>
+		</div>
 		<ul class="portfolio-grid__list">
 			<?php
 			foreach ( $projects as $project ) {

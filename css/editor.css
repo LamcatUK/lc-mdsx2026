@@ -17,8 +17,42 @@
  *
  * theme.min.css is deliberately NOT loaded into the editor (see inc/editor.php), so
  * --container-max-width is defined locally just below.
- */
-
+ *//* Self-hosted Google Fonts, latin subset. Paths are relative to the compiled css/ folder. */
+@font-face {
+  font-family: "Poppins";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/poppins-latin-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/poppins-latin-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/poppins-latin-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Quicksand";
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/quicksand-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fenix";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/fenix-latin-400.woff2") format("woff2");
+}
 .editor-styles-wrapper {
 	--container-max-width: 1320px; /* theme.min.css is not loaded in the editor, so define the one token used here */
 }
@@ -419,6 +453,34 @@
 	font-weight: 600;
 	line-height: 1.3;
 	padding: 16px 20px;
+}
+
+/* Theme fonts for written content only (colours stay WordPress's default dark-on-light): Poppins headings,
+   Fenix body text, and the post title. Controls and field labels keep WordPress's own UI font. */
+.editor-styles-wrapper .editor-post-title__input,
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+	font-family: "Poppins", system-ui, sans-serif;
+	font-weight: 700;
+}
+.editor-styles-wrapper p,
+.editor-styles-wrapper li {
+	font-family: "Fenix", Georgia, serif;
+}
+.editor-styles-wrapper blockquote,
+.editor-styles-wrapper blockquote p {
+	font-family: "Quicksand", system-ui, sans-serif;
+	font-weight: 600;
+}
+.editor-styles-wrapper .components-base-control__label,
+.editor-styles-wrapper .components-base-control p,
+.editor-styles-wrapper .lc-mdsx2026-editor-block h2,
+.editor-styles-wrapper .lc-mdsx2026-editor-block h3 {
+	font-family: inherit;
 }
 
 /*# sourceMappingURL=editor.css.map */

@@ -28,6 +28,10 @@
 	      document.documentElement.classList.toggle('menu-lock', isOpen);
 	      // the page behind the full-screen menu must not take focus or be read out while it is open
 	      document.querySelectorAll('#main, #footer').forEach(el => el.toggleAttribute('inert', isOpen));
+	      if (toggler.dataset.labelOpen) toggler.setAttribute('aria-label', isOpen ? toggler.dataset.labelClose : toggler.dataset.labelOpen);
+	      if (isOpen && !desktop.matches) target.querySelector('a, button')?.focus({
+	        preventScroll: true
+	      });
 	      if (window.lenis) isOpen ? window.lenis.stop() : window.lenis.start();
 	      // The submenu is always expanded in the open mobile menu; keep its ARIA state truthful.
 	      target.querySelectorAll('.dropdown-toggle').forEach(t => t.setAttribute('aria-expanded', String(isOpen)));
@@ -177,6 +181,15 @@
 	        start();
 	      }
 	    });
+	    if ('IntersectionObserver' in window) {
+	      // no point cycling slides nobody can see
+	      new IntersectionObserver(([entry]) => {
+	        if (!entry.isIntersecting) stop();else if (!paused && !document.hidden) {
+	          restartBar();
+	          start();
+	        }
+	      }).observe(hero);
+	    }
 	    sync();
 	  });
 	}
@@ -194,6 +207,7 @@
 	    const items = [...root.querySelectorAll('.portfolio-grid__item')];
 	    const groups = [...root.querySelectorAll('[data-filter-group]')];
 	    const count = root.querySelector('[data-count]');
+	    const empty = root.querySelector('[data-empty]');
 	    const active = {};
 	    const apply = () => {
 	      let visible = 0;
@@ -206,6 +220,7 @@
 	          visible += 1;
 	        }
 	      });
+	      if (empty) empty.hidden = visible > 0;
 	      if (count) count.textContent = (count.dataset.template || '%d').replace('%d', visible);
 	    };
 	    groups.forEach(group => {
@@ -218,6 +233,13 @@
 	          apply();
 	        });
 	      });
+	    });
+	    root.querySelector('[data-filter-reset]')?.addEventListener('click', () => {
+	      groups.forEach(group => {
+	        active[group.dataset.filterGroup] = '';
+	        group.querySelectorAll('[data-filter]').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.filter === '')));
+	      });
+	      apply();
 	    });
 	    apply();
 	  });
@@ -317,6 +339,8 @@
 	}
 
 	document.addEventListener('DOMContentLoaded', () => {
+	  // tells the failsafe in header.php that the script ran; if it never does, content is revealed anyway
+	  document.documentElement.classList.add('js-ready');
 	  initNavToggle();
 	  initNavDropdowns();
 	  initDialogs();

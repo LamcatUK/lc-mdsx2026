@@ -11,6 +11,7 @@ export function initPortfolioFilter() {
 		const items = [...root.querySelectorAll('.portfolio-grid__item')];
 		const groups = [...root.querySelectorAll('[data-filter-group]')];
 		const count = root.querySelector('[data-count]');
+		const empty = root.querySelector('[data-empty]');
 		const active = {};
 
 		const apply = () => {
@@ -24,6 +25,7 @@ export function initPortfolioFilter() {
 					visible += 1;
 				}
 			});
+			if (empty) empty.hidden = visible > 0;
 			if (count) count.textContent = (count.dataset.template || '%d').replace('%d', visible);
 		};
 
@@ -37,6 +39,13 @@ export function initPortfolioFilter() {
 					apply();
 				});
 			});
+		});
+		root.querySelector('[data-filter-reset]')?.addEventListener('click', () => {
+			groups.forEach((group) => {
+				active[group.dataset.filterGroup] = '';
+				group.querySelectorAll('[data-filter]').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.filter === '')));
+			});
+			apply();
 		});
 		apply();
 	});

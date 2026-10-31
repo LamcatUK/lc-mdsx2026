@@ -22,6 +22,8 @@ export function initNavToggle() {
 			document.documentElement.classList.toggle('menu-lock', isOpen);
 			// the page behind the full-screen menu must not take focus or be read out while it is open
 			document.querySelectorAll('#main, #footer').forEach((el) => el.toggleAttribute('inert', isOpen));
+			if (toggler.dataset.labelOpen) toggler.setAttribute('aria-label', isOpen ? toggler.dataset.labelClose : toggler.dataset.labelOpen);
+			if (isOpen && !desktop.matches) target.querySelector('a, button')?.focus({ preventScroll: true });
 			if (window.lenis) isOpen ? window.lenis.stop() : window.lenis.start();
 			// The submenu is always expanded in the open mobile menu; keep its ARIA state truthful.
 			target.querySelectorAll('.dropdown-toggle').forEach((t) => t.setAttribute('aria-expanded', String(isOpen)));

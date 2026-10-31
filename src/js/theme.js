@@ -9,6 +9,8 @@ import { initHeaderScroll } from './header-scroll';
 import { initLenis } from './lenis';
 
 document.addEventListener('DOMContentLoaded', () => {
+	// tells the failsafe in header.php that the script ran; if it never does, content is revealed anyway
+	document.documentElement.classList.add('js-ready');
 	initNavToggle();
 	initNavDropdowns();
 	initDialogs();

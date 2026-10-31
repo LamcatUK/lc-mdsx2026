@@ -66,6 +66,16 @@ export function initHeroReel() {
 				start();
 			}
 		});
+		if ('IntersectionObserver' in window) {
+			// no point cycling slides nobody can see
+			new IntersectionObserver(([entry]) => {
+				if (!entry.isIntersecting) stop();
+				else if (!paused && !document.hidden) {
+					restartBar();
+					start();
+				}
+			}).observe(hero);
+		}
 		sync();
 	});
 }

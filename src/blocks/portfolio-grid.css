@@ -70,3 +70,17 @@
 		margin-left: 0;
 	}
 }
+
+.portfolio-grid__empty {
+	padding-block: 48px;
+}
+.portfolio-grid__empty p {
+	margin-bottom: 20px;
+	font: var(--fw-600) var(--fs-statement) / var(--lh-statement) var(--f-sub);
+}
+.portfolio-grid__empty button {
+	padding: 0;
+	border: 0;
+	background: none;
+	cursor: pointer;
+}
