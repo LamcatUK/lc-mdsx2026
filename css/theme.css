@@ -2768,7 +2768,7 @@ a.feature-columns__panel:hover .arrow {
 }
 .work-tile p {
 	margin: 6px 0 0;
-	font: var(--fw-600) 16px / 1.4 var(--f-sub);
+	font: var(--fw-700) 16px / 1.4 var(--f-sub);
 	color: var(--accent);
 }
 .work-tile .work-tile__tags {
