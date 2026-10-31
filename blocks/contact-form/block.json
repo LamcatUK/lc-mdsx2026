@@ -1,0 +1,58 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/contact-form",
+	"title": "Contact Form",
+	"category": "lc-mdsx2026",
+	"icon": "email",
+	"description": "Enquiry form with contact details. Topics route to the email addresses set here.",
+	"attributes": {
+		"backgroundColor": {
+			"type": "string",
+			"default": "nero"
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"intro": {
+			"type": "string",
+			"default": ""
+		},
+		"address": {
+			"type": "string",
+			"default": ""
+		},
+		"phone": {
+			"type": "string",
+			"default": ""
+		},
+		"email": {
+			"type": "string",
+			"default": ""
+		},
+		"routes": {
+			"type": "array",
+			"default": []
+		},
+		"success": {
+			"type": "string",
+			"default": "Thank you. We have your message and will reply soon."
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false,
+		"color": {
+			"background": true,
+			"text": false,
+			"gradients": false,
+			"link": false,
+			"heading": false,
+			"button": false
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

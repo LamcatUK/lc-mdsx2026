@@ -4,6 +4,7 @@ import { initDialogs } from './dialog';
 import { initHeroReel } from './hero-reel';
 import { initPortfolioFilter } from './portfolio-filter';
 import { initReveal } from './reveal';
+import { initContactNotice } from './contact-notice';
 
 document.addEventListener('DOMContentLoaded', () => {
 	initNavToggle();
@@ -12,4 +13,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	initHeroReel();
 	initPortfolioFilter();
 	initReveal();
+	initContactNotice();
 });

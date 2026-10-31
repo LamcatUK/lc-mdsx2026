@@ -1,0 +1,102 @@
+.contact-form {
+	padding-top: 0;
+}
+.contact-form__grid {
+	display: grid;
+	grid-template-columns: 1fr 1.3fr;
+	gap: clamp(40px, 7vw, 120px);
+	align-items: start;
+}
+.contact-form__details .t-lede {
+	margin-top: 24px;
+}
+.contact-form__address {
+	margin-top: 40px;
+	font-style: normal;
+	font-size: var(--fs-small);
+}
+.contact-form__address p {
+	margin-bottom: 0.8em;
+}
+.contact-form__address a {
+	text-decoration: underline;
+	text-decoration-color: var(--accent);
+	text-underline-offset: 0.25em;
+	text-decoration-thickness: 2px;
+}
+
+.contact-form__form p {
+	margin-bottom: 20px;
+}
+.contact-form__row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0 24px;
+}
+.contact-form label {
+	margin-bottom: 8px;
+	font: var(--fw-600) 14px / 1.3 var(--f-display);
+}
+/* Fields follow the block's colour: a faint tint of the text colour, so they work on any surface. */
+.contact-form input:not([type="checkbox"]),
+.contact-form select,
+.contact-form textarea {
+	width: 100%;
+	padding: 14px 16px;
+	border: 1px solid var(--rule);
+	border-radius: 0;
+	background: color-mix(in srgb, currentcolor 8%, transparent);
+	color: inherit;
+	font: inherit;
+}
+.contact-form select option {
+	color: var(--col-nero);
+}
+.contact-form input:focus-visible,
+.contact-form select:focus-visible,
+.contact-form textarea:focus-visible {
+	outline: 3px solid var(--focus);
+	outline-offset: 2px;
+}
+.contact-form__consent label {
+	display: flex;
+	gap: 12px;
+	align-items: flex-start;
+	margin: 0;
+	font: var(--fw-400) var(--fs-small) / 1.5 var(--f-body);
+}
+.contact-form__consent input {
+	flex: none;
+	width: 20px;
+	height: 20px;
+	margin-top: 3px;
+	accent-color: var(--accent);
+}
+.contact-form__consent a {
+	text-decoration: underline;
+}
+.contact-form__trap {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+.contact-form__notice {
+	margin-bottom: 28px;
+	padding: 20px 24px;
+	border-left: 4px solid var(--accent);
+	background: color-mix(in srgb, currentcolor 8%, transparent);
+}
+.contact-form__notice.is-error {
+	border-left-color: var(--col-crusta);
+}
+.contact-form__notice p {
+	margin: 0;
+}
+@media (max-width: 860px) {
+	.contact-form__grid,
+	.contact-form__row {
+		grid-template-columns: 1fr;
+	}
+}
