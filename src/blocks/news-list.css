@@ -57,3 +57,8 @@
 .news-list a.page-numbers:hover {
 	background: var(--col-charcoal);
 }
+
+/* The page hero above already supplies bottom padding, so the list needs far less top padding than a full .section. */
+.news-list.section {
+	padding-top: clamp(16px, 2vw, 32px);
+}

@@ -65,3 +65,23 @@ function lc_mdsx2026_disable_block_directory_inserter() {
 	remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets' );
 }
 add_action( 'after_setup_theme', 'lc_mdsx2026_disable_block_directory_inserter' );
+
+/**
+ * Hide the Author column on the All Pages list by default.
+ *
+ * Pages here are built by one team, so the column is noise. This only sets the
+ * default: anyone can switch it back on under Screen Options, and a user who
+ * has already saved their own column choices keeps them.
+ *
+ * @param string[]  $hidden Columns hidden by default.
+ * @param WP_Screen $screen Current screen.
+ * @return string[]
+ */
+function lc_mdsx2026_hide_pages_author_column_by_default( $hidden, $screen ) {
+	if ( $screen && 'edit-page' === $screen->id ) {
+		$hidden[] = 'author';
+	}
+
+	return $hidden;
+}
+add_filter( 'default_hidden_columns', 'lc_mdsx2026_hide_pages_author_column_by_default', 10, 2 );

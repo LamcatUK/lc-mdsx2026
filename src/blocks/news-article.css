@@ -1,0 +1,97 @@
+/* News article (single.php): the editor content in a reading column. */
+.news-article__meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6em;
+	margin-top: 24px;
+	color: var(--muted);
+}
+.news-article__main {
+	padding-top: 0;
+}
+.news-article__lead {
+	margin: 0 0 48px;
+}
+.news-article__lead img {
+	width: 100%;
+	max-height: 640px;
+	object-fit: cover;
+}
+.news-article__lead figcaption {
+	font-size: 14px;
+	color: var(--muted);
+}
+
+.news-article__content {
+	max-width: 44em;
+	font-size: var(--fs-lede);
+	line-height: 1.7;
+}
+/* core paragraph/heading/list blocks arrive wrapped in a .container: inside the column that is just a pass-through */
+.news-article__content .container {
+	max-width: none;
+	padding-inline: 0;
+}
+.news-article__content p,
+.news-article__content ul,
+.news-article__content ol {
+	margin-bottom: 1.3em;
+}
+.news-article__content h2,
+.news-article__content h3 {
+	margin: 1.6em 0 0.6em;
+	font-size: var(--fs-h3);
+}
+.news-article__content a {
+	text-decoration: underline;
+	text-decoration-color: var(--accent);
+	text-underline-offset: 0.2em;
+	text-decoration-thickness: 2px;
+}
+.news-article__content a:hover {
+	color: var(--accent);
+}
+.news-article__content figure {
+	margin: 2em 0;
+}
+.news-article__content figure img {
+	width: 100%;
+	height: auto;
+}
+.news-article__content figcaption {
+	margin-top: 8px;
+	font-size: 14px;
+	color: var(--muted);
+}
+
+/* Quote (and pullquote): the brand quote mark above Quicksand text, as in the Quote block */
+.news-article__content blockquote {
+	margin: 2.2em 0;
+	padding: 0;
+	border: 0;
+	font: var(--fw-600) clamp(24px, 2.4vw, 32px) / 1.35 var(--f-sub);
+}
+.news-article__content blockquote::before {
+	content: "";
+	display: block;
+	width: 56px;
+	height: 38px;
+	margin-bottom: 24px;
+	background: var(--accent);
+	clip-path: shape(from 0 calc(23% + 4px), curve to 4px 21.4% with 0 23%, line to 100% 0, line to 100% calc(77% - 4px), curve to calc(100% - 4px) 78.6% with 100% 77%, line to 0 100%, close);
+}
+.news-article__content blockquote p {
+	margin-bottom: 0.6em;
+}
+.news-article__content blockquote cite {
+	display: block;
+	margin-top: 16px;
+	font: var(--fw-500) 16px / 1.5 var(--f-display);
+	font-style: normal;
+	color: var(--muted);
+}
+.news-article__content hr {
+	margin: 2.5em 0;
+	border: 0;
+	border-top: 1px solid var(--rule);
+}
