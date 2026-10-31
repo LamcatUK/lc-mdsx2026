@@ -93,8 +93,8 @@ function lc_mdsx2026_image( $id, $url, $alt = '', $size = 'large', $loading = 'l
 }
 
 /**
- * Print a block's opening <section> tag with surface class, optional extra
- * classes and the editor-set anchor.
+ * Wrapper attributes for a block's <section>: surface class, optional extra classes, the
+ * editor-set anchor and, when set, the decorative background shape.
  *
  * @param string $name    Block slug (becomes the class).
  * @param string $surface Surface slug, or '' for none.
@@ -103,6 +103,14 @@ function lc_mdsx2026_image( $id, $url, $alt = '', $size = 'large', $loading = 'l
  */
 function lc_mdsx2026_wrapper( $name, $surface = '', $extra = '' ) {
 	$class = trim( $name . ( $surface ? ' s-' . lc_mdsx2026_surface( $surface ) : '' ) . ' ' . $extra );
+
+	// Optional decorative background parallelogram ("Background shape" in the block sidebar),
+	// read from the block being rendered so each render.php doesn't have to pass it in.
+	$shape = isset( WP_Block_Supports::$block_to_render['attrs']['backgroundShape'] ) ? WP_Block_Supports::$block_to_render['attrs']['backgroundShape'] : '';
+	if ( in_array( $shape, array( 'left', 'right' ), true ) ) {
+		$class .= ' has-shape has-shape--' . $shape;
+	}
+
 	return get_block_wrapper_attributes( array( 'class' => $class ) );
 }
 

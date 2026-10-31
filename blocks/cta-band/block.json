@@ -11,6 +11,10 @@
 			"type": "string",
 			"default": "crusta"
 		},
+		"backgroundShape": {
+			"type": "string",
+			"default": ""
+		},
 		"heading": {
 			"type": "string",
 			"default": ""

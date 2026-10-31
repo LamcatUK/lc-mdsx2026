@@ -7,6 +7,10 @@
 	"icon": "portfolio",
 	"description": "The most recent portfolio projects, laid out as groups of one large and two stacked tiles (alternating sides).",
 	"attributes": {
+		"backgroundShape": {
+			"type": "string",
+			"default": ""
+		},
 		"heading": {
 			"type": "string",
 			"default": ""

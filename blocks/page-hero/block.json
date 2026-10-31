@@ -15,6 +15,10 @@
 			"type": "string",
 			"default": "nero"
 		},
+		"backgroundShape": {
+			"type": "string",
+			"default": ""
+		},
 		"crumbText": {
 			"type": "string",
 			"default": ""

@@ -10,6 +10,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	const blockProps = useBlockProps( { className: 'container lc-mdsx2026-editor-block' } );
 
 	return (
+
 		<EditorBlockShell blockProps={ blockProps } clientId={ clientId } title="Hero Reel" textDomain="lc-mdsx2026">
 			<TextControl label={ __( "Headline", 'lc-mdsx2026' ) } value={ title } onChange={ ( value ) => setAttributes( { title: value } ) } />
 			<TextareaControl label={ __( "Lede", 'lc-mdsx2026' ) } value={ lede } onChange={ ( value ) => setAttributes( { lede: value } ) } />
@@ -26,5 +27,6 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 			<ToggleControl label={ __( "Show \"now showing\" card", 'lc-mdsx2026' ) } checked={ showCard } onChange={ ( value ) => setAttributes( { showCard: value } ) } />
 			<TextControl label={ __( "Card label", 'lc-mdsx2026' ) } value={ cardLabel } onChange={ ( value ) => setAttributes( { cardLabel: value } ) } />
 		</EditorBlockShell>
+
 	);
 }

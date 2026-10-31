@@ -10,8 +10,10 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	const blockProps = useBlockProps( { className: 'container lc-mdsx2026-editor-block' } );
 
 	return (
+
 		<EditorBlockShell blockProps={ blockProps } clientId={ clientId } title="Next Project" textDomain="lc-mdsx2026">
 			<PostTypePicker label={ __( "Project (optional)", 'lc-mdsx2026' ) } postType="portfolio" value={ project } onChange={ ( id ) => setAttributes( { project: id } ) } />
 		</EditorBlockShell>
+
 	);
 }

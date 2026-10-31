@@ -11,6 +11,10 @@
 			"type": "string",
 			"default": "nero"
 		},
+		"backgroundShape": {
+			"type": "string",
+			"default": ""
+		},
 		"statement": {
 			"type": "string",
 			"default": ""

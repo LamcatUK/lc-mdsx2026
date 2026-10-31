@@ -8,8 +8,10 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 	const blockProps = useBlockProps( { className: 'container lc-mdsx2026-editor-block' } );
 
 	return (
+
 		<EditorBlockShell blockProps={ blockProps } clientId={ clientId } title="Portfolio Grid" textDomain="lc-mdsx2026">
 			<ToggleControl label={ __( "Show filters", 'lc-mdsx2026' ) } checked={ showFilters } onChange={ ( value ) => setAttributes( { showFilters: value } ) } />
 		</EditorBlockShell>
+
 	);
 }

@@ -11,6 +11,10 @@
 			"type": "string",
 			"default": "nero"
 		},
+		"backgroundShape": {
+			"type": "string",
+			"default": ""
+		},
 		"imageId": {
 			"type": "number",
 			"default": 0
