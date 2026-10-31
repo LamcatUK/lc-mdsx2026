@@ -5,7 +5,7 @@ import EditorBlockShell from '../../_shared/EditorBlockShell';
 import RepeaterField from '../../_shared/RepeaterField';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { heading, intro, marks, minWidth, items, backgroundShape } = attributes;
+	const { heading, intro, layoutStyle, marks, minWidth, items, backgroundShape } = attributes;
 	const blockProps = useBlockProps( { className: 'container lc-mdsx2026-editor-block' } );
 
 	return (
@@ -27,9 +27,10 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				<label className="lc-mdsx2026-editor-field__label">{ __( "Intro", 'lc-mdsx2026' ) }</label>
 				<RichText tagName="div" className="lc-mdsx2026-editor-field__control" aria-label={ __( "Intro", 'lc-mdsx2026' ) } placeholder={ __( "Intro", 'lc-mdsx2026' ) } value={ intro } onChange={ ( value ) => setAttributes( { intro: value } ) } />
 			</div>
-			<SelectControl label={ __( "Marker", 'lc-mdsx2026' ) } value={ marks } options={ [{"value":"mark","label":"Coloured parallelogram"},{"value":"number","label":"Number"},{"value":"none","label":"None"}] } onChange={ ( value ) => setAttributes( { marks: value } ) } />
+			<SelectControl label={ __( "Layout", 'lc-mdsx2026' ) } value={ layoutStyle } options={ [{"value":"columns","label":"Columns with dividers"},{"value":"list","label":"Two-column list with marks"},{"value":"cards","label":"Image cards (angled photo, title, text)"},{"value":"panels","label":"Large panels with an arrow"}] } onChange={ ( value ) => setAttributes( { layoutStyle: value } ) } />
+			<SelectControl label={ __( "Marker (columns layout)", 'lc-mdsx2026' ) } value={ marks } options={ [{"value":"mark","label":"Coloured parallelogram"},{"value":"number","label":"Number"},{"value":"none","label":"None"}] } onChange={ ( value ) => setAttributes( { marks: value } ) } />
 			<TextControl type="number" label={ __( "Minimum column width (rem)", 'lc-mdsx2026' ) } value={ minWidth } onChange={ ( value ) => setAttributes( { minWidth: Number( value ) } ) } />
-			<RepeaterField label={ __( "Items", 'lc-mdsx2026' ) } value={ items } onChange={ ( rows ) => setAttributes( { items: rows } ) } fields={ [ { name: "title", label: "Title", type: "text" }, { name: "text", label: "Text", type: "textarea" }, { name: "link", label: "Link", type: "link" } ] } emptyRow={ { title: '', text: '', link: '' } } layout="column" />
+			<RepeaterField label={ __( "Items", 'lc-mdsx2026' ) } value={ items } onChange={ ( rows ) => setAttributes( { items: rows } ) } fields={ [ { name: "title", label: "Title", type: "text" }, { name: "text", label: "Text", type: "textarea" }, { name: "image", label: "Image (cards layout)", type: "image" }, { name: "link", label: "Link", type: "link" } ] } emptyRow={ { title: '', text: '', image: '', link: '' } } layout="column" />
 		</EditorBlockShell>
 		</>
 	);
