@@ -6,6 +6,8 @@
  * "split" (the service-pillar hero: copy bottom-left, image full-bleed to the top and right
  * edges with an angled left edge, as in the Concept A service page).
  *
+ * On single posts it also shows the date, author (when set) and reading time under the intro.
+ *
  * @package lc-mdsx2026
  */
 
@@ -28,6 +30,20 @@ ob_start();
 	<h1 class="baseline reveal"><?php echo esc_html( $title ); ?></h1>
 	<?php if ( $intro ) { ?>
 		<div class="page-hero__intro t-lede reveal" style="--i:1"><?php echo wp_kses_post( $intro ); ?></div>
+	<?php } ?>
+	<?php if ( is_singular( 'post' ) ) { ?>
+		<?php $minutes = estimate_reading_time_in_minutes( get_the_content() ); ?>
+		<p class="page-hero__meta t-meta reveal" style="--i:2">
+			<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+			<?php if ( get_the_author() ) { ?>
+				<span aria-hidden="true">&middot;</span>
+				<span><?php /* translators: %s: author name. */ printf( esc_html__( 'By %s', 'lc-mdsx2026' ), esc_html( get_the_author() ) ); ?></span>
+			<?php } ?>
+			<?php if ( $minutes ) { ?>
+				<span aria-hidden="true">&middot;</span>
+				<span><?php /* translators: %d: minutes. */ printf( esc_html__( '%d min read', 'lc-mdsx2026' ), (int) $minutes ); ?></span>
+			<?php } ?>
+		</p>
 	<?php } ?>
 	<?php if ( ! empty( $attributes['ctaUrl'] ) || ! empty( $attributes['cta2Url'] ) ) { ?>
 		<div class="page-hero__actions reveal" style="--i:2">

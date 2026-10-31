@@ -12,6 +12,13 @@
 .page-hero__intro p {
 	margin-bottom: 1em;
 }
+.page-hero__meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6em;
+	margin-top: 24px;
+	color: var(--muted);
+}
 .page-hero__actions {
 	display: flex;
 	flex-wrap: wrap;
