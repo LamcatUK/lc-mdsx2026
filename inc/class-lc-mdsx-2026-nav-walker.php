@@ -63,6 +63,8 @@ if ( ! class_exists( 'LC_MDSX_2026_Nav_Walker' ) ) {
 		public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
 			$has_children = in_array( 'menu-item-has-children', $item->classes, true );
 			$is_current   = in_array( 'current-menu-item', $item->classes, true );
+			// Highlight the item for the current page, or for a section the current page sits inside.
+			$is_active = $is_current || array_intersect( array( 'current-menu-ancestor', 'current-menu-parent', 'current-page-ancestor' ), $item->classes );
 
 			$li_classes = array( 'nav-item' );
 			if ( $has_children ) {
@@ -74,13 +76,13 @@ if ( ! class_exists( 'LC_MDSX_2026_Nav_Walker' ) ) {
 			if ( $has_children ) {
 				// Dropdown parents never navigate — the whole item is the toggle.
 				$this->current_submenu_id = 'dropdown-' . $item->ID;
-				$output                  .= '<button type="button" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="' . esc_attr( $this->current_submenu_id ) . '">';
+				$output                  .= '<button type="button" class="nav-link dropdown-toggle' . ( $is_active ? ' active' : '' ) . '" aria-haspopup="true" aria-expanded="false" aria-controls="' . esc_attr( $this->current_submenu_id ) . '">';
 				$output                  .= '<span>' . esc_html( $item->title ) . '</span>';
 				$output                  .= '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>';
 				$output                  .= '</button>';
 			} else {
 				$link_classes = array( 'nav-link' );
-				if ( $is_current ) {
+				if ( $is_active ) {
 					$link_classes[] = 'active';
 				}
 
