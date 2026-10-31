@@ -2594,6 +2594,28 @@ select {
 	color: var(--col-text-subtle);
 }
 
+/*
+ * Entrance: each card rises and fades in (.reveal, staggered by --i within its group) while its
+ * image settles from a slight zoom. The hover zoom still wins once the card is in.
+ */
+@media (prefers-reduced-motion: no-preference) {
+	.js .work-tile.reveal .work-tile__img img {
+		transform: scale(1.14);
+		transition:
+			transform 1.4s var(--ease-out),
+			opacity var(--t-enter) var(--ease-out);
+		transition-delay: calc(var(--i, 0) * 80ms);
+	}
+	.js .work-tile.reveal.is-in .work-tile__img img {
+		transform: none;
+	}
+	.js .work-tile.reveal.is-in:hover .work-tile__img img {
+		transform: scale(1.03);
+		transition-duration: 0.5s;
+		transition-delay: 0s;
+	}
+}
+
 /* --- src/blocks/gallery.css --- */
 .gallery {
 	padding-block: calc(var(--gap-gallery) / 2);

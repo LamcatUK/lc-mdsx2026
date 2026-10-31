@@ -23,9 +23,9 @@ if ( $discipline ) {
 }
 $projects = get_posts( $query_args );
 
-$tile = static function ( $project, $extra = '' ) {
+$tile = static function ( $project, $extra = '', $i = 0 ) {
 	?>
-	<a class="work-tile <?php echo esc_attr( $extra ); ?>" href="<?php echo esc_url( get_permalink( $project ) ); ?>">
+	<a class="work-tile reveal <?php echo esc_attr( $extra ); ?>" style="--i:<?php echo (int) $i; ?>" href="<?php echo esc_url( get_permalink( $project ) ); ?>">
 		<div class="pg pg--half"><div class="work-tile__img"><?php echo get_the_post_thumbnail( $project, 'large', array( 'loading' => 'lazy' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped markup. ?></div></div>
 		<h3><?php echo esc_html( get_the_title( $project ) ); ?></h3>
 		<?php if ( has_excerpt( $project ) ) { ?>
@@ -47,11 +47,11 @@ $tile = static function ( $project, $extra = '' ) {
 		<?php } ?>
 		<?php foreach ( array_chunk( $projects, 3 ) as $i => $group ) { ?>
 			<div class="featured-work__grid<?php echo $i % 2 ? ' is-flipped' : ''; ?>">
-				<?php $tile( $group[0], 'is-big' ); ?>
+				<?php $tile( $group[0], 'is-big', 0 ); ?>
 				<?php if ( count( $group ) > 1 ) { ?>
 					<div class="featured-work__stack">
-						<?php foreach ( array_slice( $group, 1 ) as $project ) { ?>
-							<?php $tile( $project ); ?>
+						<?php foreach ( array_slice( $group, 1 ) as $k => $project ) { ?>
+							<?php $tile( $project, '', $k + 1 ); ?>
 						<?php } ?>
 					</div>
 				<?php } ?>
