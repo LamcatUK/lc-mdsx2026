@@ -27,7 +27,15 @@ $people  = array_values( array_filter( (array) ( $attributes['people'] ?? array(
 						<?php if ( ! empty( $p['bio'] ) ) { ?>
 							<p class="people-strip__bio"><?php echo esc_html( $p['bio'] ); ?></p>
 						<?php } ?>
-						<?php lc_mdsx2026_link( $p['linkText'] ?? '', $p['link'] ?? '', 'textlink' ); ?>
+						<?php
+						// Each link names its person ("Read Dan's bio") so a list of them isn't a row of identical "Read profile" links.
+						$link_text = $p['linkText'] ?? '';
+						if ( '' === $link_text || 'Read profile' === $link_text ) {
+							$first     = strtok( trim( $p['name'] ?? '' ), ' ' );
+							$link_text = $first ? sprintf( /* translators: %s: first name */ __( 'Read %s’s bio', 'lc-mdsx2026' ), $first ) : __( 'Read bio', 'lc-mdsx2026' );
+						}
+						lc_mdsx2026_link( $link_text, $p['link'] ?? '', 'textlink' );
+						?>
 					</div>
 				</article>
 			<?php } ?>
