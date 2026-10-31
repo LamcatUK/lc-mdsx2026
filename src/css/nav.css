@@ -103,30 +103,141 @@ html {
 	cursor: pointer;
 }
 
+/*
+ * The three bars animate into an X when the menu is open. Every state uses the same transform
+ * function list (translateY, rotate, skewY, scaleX) so the browser interpolates each function
+ * rather than the whole matrix. 13px = bar height 3 + 2 x 5 margin: the pitch between bar centres.
+ */
 .navbar-toggler span {
 	display: block;
 	width: 26px;
 	height: 3px;
 	margin: 5px 0;
 	background: currentcolor;
-	transform: skewY(-12.7deg);
+	transform: translateY(0) rotate(0deg) skewY(-12.7deg) scaleX(1);
+	transition:
+		transform var(--t-med) var(--ease-out),
+		opacity var(--t-fast);
+}
+.navbar-toggler[aria-expanded="true"] span:nth-child(1) {
+	transform: translateY(13px) rotate(45deg) skewY(0deg) scaleX(1);
+}
+.navbar-toggler[aria-expanded="true"] span:nth-child(2) {
+	opacity: 0;
+	transform: translateY(0) rotate(0deg) skewY(-12.7deg) scaleX(0);
+}
+.navbar-toggler[aria-expanded="true"] span:nth-child(3) {
+	transform: translateY(-13px) rotate(-45deg) skewY(0deg) scaleX(1);
+}
+.navbar-brand,
+.navbar-toggler {
+	position: relative;
+	z-index: 2; /* above the full-screen menu panel */
 }
 
-.navbar-collapse {
-	display: none;
-}
+/*
+ * Mobile menu: a full-screen white panel under the header, which turns white too (the dark badge
+ * shows). It fades in; the links rise in one after another. The panel is fixed, so .navbar must not
+ * be transformed while it is open (a transformed ancestor would become its containing block).
+ */
+@media (max-width: 991.98px) {
+	.navbar-collapse {
+		position: fixed;
+		inset: 0;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+		padding: calc(var(--nav-height) + var(--wp-admin--admin-bar--height, 0px) + 24px) var(--container-padding) 48px;
+		overflow-y: auto;
+		background: var(--col-white);
+		color: var(--col-nero);
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transition:
+			opacity var(--t-med) var(--ease-out),
+			visibility 0s linear var(--t-med);
+	}
+	.navbar-collapse.is-open {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+		transition-delay: 0s;
+	}
+	.navbar-collapse .nav-item,
+	.navbar-collapse .navbar-cta {
+		opacity: 0;
+		transform: translateY(16px);
+		transition:
+			opacity var(--t-med) var(--ease-out),
+			transform var(--t-med) var(--ease-out);
+	}
+	.navbar-collapse.is-open .nav-item,
+	.navbar-collapse.is-open .navbar-cta {
+		opacity: 1;
+		transform: none;
+		transition-delay: calc(0.08s + var(--n, 0) * 0.05s);
+	}
+	.navbar-collapse .nav-item:nth-child(2) { --n: 1; }
+	.navbar-collapse .nav-item:nth-child(3) { --n: 2; }
+	.navbar-collapse .nav-item:nth-child(4) { --n: 3; }
+	.navbar-collapse .nav-item:nth-child(5) { --n: 4; }
+	.navbar-collapse .nav-item:nth-child(6) { --n: 5; }
+	.navbar-collapse .navbar-cta { --n: 6; }
 
-/* Overlays the page rather than pushing content down. */
-.navbar-collapse.is-open {
-	display: block;
-	position: absolute;
-	top: 100%;
-	left: 0;
-	right: 0;
-	background: var(--col-nero);
-	padding: var(--space-4) var(--container-padding) var(--space-5);
-	max-height: calc(100vh - var(--nav-height));
-	overflow-y: auto;
+	.navbar-collapse .navbar-nav {
+		gap: 6px;
+		font: var(--fw-700) clamp(34px, 10.5vw, 54px) / 1.1 var(--f-display);
+		letter-spacing: var(--ls-display);
+	}
+	.navbar-collapse .navbar-nav .nav-link {
+		padding: 10px 0;
+	}
+	/* sub-links are always shown in the open menu (no chevron / tap-to-expand needed) */
+	.navbar-collapse .navbar-nav .dropdown-menu {
+		display: block;
+		margin: 2px 0 10px;
+		font-size: 0.56em;
+		font-weight: var(--fw-600);
+	}
+	.navbar-collapse .navbar-nav .dropdown-menu .nav-link {
+		padding: 6px 0;
+	}
+	.navbar-collapse .navbar-nav .dropdown-toggle {
+		pointer-events: none;
+		cursor: default;
+	}
+	.navbar-collapse .navbar-nav .dropdown-toggle svg {
+		display: none;
+	}
+	.navbar-collapse .navbar-cta {
+		align-self: flex-start;
+		margin-top: 0;
+		padding: 22px 36px 22px 32px;
+		font-size: 18px;
+		--skew: 12px;
+		--r: 7px;
+	}
+
+	/* the header itself turns white while the menu is open */
+	#masthead.menu-open {
+		background: var(--col-white);
+		color: var(--col-nero);
+	}
+	#masthead.menu-open::before {
+		background: var(--col-white);
+		transform: none;
+	}
+	#masthead.menu-open .navbar {
+		transform: none;
+	}
+	#masthead.menu-open .navbar-brand .logo-light {
+		opacity: 0;
+	}
+	#masthead.menu-open .navbar-brand .logo-dark {
+		opacity: 1;
+	}
 }
 
 .navbar-nav {
@@ -195,6 +306,9 @@ html {
 
 	.navbar-collapse,
 	.navbar-collapse.is-open {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
 		display: flex;
 		align-items: center;
 		gap: 34px;
@@ -244,7 +358,10 @@ html {
 /* inverted header */
 #masthead.is-scrolled .nav-link:hover,
 #masthead.is-scrolled .nav-link.active,
-#masthead.is-scrolled .nav-link[aria-current="page"] {
+#masthead.is-scrolled .nav-link[aria-current="page"],
+#masthead.menu-open .nav-link:hover,
+#masthead.menu-open .nav-link.active,
+#masthead.menu-open .nav-link[aria-current="page"] {
 	color: inherit;
 	text-decoration: underline;
 	text-decoration-color: var(--col-sea);
@@ -257,7 +374,11 @@ html {
 	--btn-bg: var(--col-nero);
 	--btn-fg: var(--col-solitude);
 }
-#masthead.is-scrolled .dropdown-menu,
-#masthead.is-scrolled .navbar-collapse.is-open {
+#masthead.is-scrolled .dropdown-menu {
 	background: var(--col-solitude);
+}
+
+/* page scroll is locked while the mobile menu is open */
+html.menu-lock {
+	overflow: hidden;
 }
