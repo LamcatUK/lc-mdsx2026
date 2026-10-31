@@ -571,9 +571,11 @@ html {
 	opacity: 1;
 }
 
-/* mobile toggle: three bars skewed to the brand angle */
+/* mobile toggle: three bars skewed to the brand angle, stacked in a column (the button is a flex
+   container, so without flex-direction they would sit side by side) */
 .navbar-toggler {
 	display: inline-flex;
+	flex-direction: column;
 	padding: 10px;
 	border: 0;
 	background: none;
