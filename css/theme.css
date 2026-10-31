@@ -630,6 +630,7 @@ html {
 		gap: 32px;
 		padding: calc(var(--nav-height) + var(--wp-admin--admin-bar--height, 0px) + 24px) var(--container-padding) 48px;
 		overflow-y: auto;
+		scrollbar-width: none;
 		background: var(--col-white);
 		color: var(--col-nero);
 		opacity: 0;
@@ -858,6 +859,10 @@ html {
 }
 
 /* page scroll is locked while the mobile menu is open */
+html {
+	/* keep the scrollbar's space reserved when scroll is locked, so the page doesn't jump sideways */
+	scrollbar-gutter: stable;
+}
 html.menu-lock {
 	overflow: hidden;
 }
