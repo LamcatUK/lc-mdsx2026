@@ -108,3 +108,20 @@ ol {
 	white-space: nowrap !important;
 	border: 0 !important;
 }
+
+/* Skip link: off-screen until it takes keyboard focus */
+.skip-link {
+	position: fixed;
+	top: 8px;
+	left: 8px;
+	z-index: 100;
+	padding: 12px 20px;
+	background: var(--col-sea);
+	color: var(--col-nero);
+	font: var(--fw-600) 16px / 1 var(--f-display);
+	text-decoration: none;
+	transform: translateY(-200%);
+}
+.skip-link:focus-visible {
+	transform: none;
+}

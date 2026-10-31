@@ -15,7 +15,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-<a class="visually-hidden" href="#main"><?php esc_html_e( 'Skip to content', 'lc-mdsx2026' ); ?></a>
+<a class="skip-link" href="#main"><?php esc_html_e( 'Skip to content', 'lc-mdsx2026' ); ?></a>
 <?php wp_body_open(); ?>
 
 <!-- HEADER-NAV:START -->

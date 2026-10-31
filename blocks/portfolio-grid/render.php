@@ -48,6 +48,7 @@ foreach ( array_keys( $groups ) as $tax ) {
 		</div>
 	<?php } ?>
 	<div class="container">
+		<h2 class="visually-hidden"><?php esc_html_e( 'Projects', 'lc-mdsx2026' ); ?></h2>
 		<ul class="portfolio-grid__list">
 			<?php
 			foreach ( $projects as $project ) {

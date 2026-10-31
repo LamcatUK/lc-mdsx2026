@@ -86,9 +86,9 @@ function lc_mdsx2026_link( $text, $url, $class = 'btn btn--primary' ) {
 function lc_mdsx2026_image( $id, $url, $alt = '', $size = 'large', $loading = 'lazy' ) {
 	if ( $id ) {
 		$alt_text = '' !== $alt ? $alt : (string) get_post_meta( $id, '_wp_attachment_image_alt', true );
-		echo wp_get_attachment_image( $id, $size, false, array( 'alt' => $alt_text, 'loading' => $loading ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped markup.
+		echo wp_get_attachment_image( $id, $size, false, array_merge( array( 'alt' => $alt_text, 'loading' => $loading ), 'eager' === $loading ? array( 'fetchpriority' => 'high' ) : array() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped markup.
 	} elseif ( $url ) {
-		printf( '<img src="%s" alt="%s" loading="%s" decoding="async">', esc_url( $url ), esc_attr( $alt ), esc_attr( $loading ) );
+		printf( '<img src="%s" alt="%s" loading="%s" decoding="async"%s>', esc_url( $url ), esc_attr( $alt ), esc_attr( $loading ), 'eager' === $loading ? ' fetchpriority="high"' : '' );
 	}
 }
 
@@ -173,7 +173,7 @@ function lc_mdsx2026_breadcrumb( $parent_text, $parent_url = '', $current = '' )
 	$current = $current ? $current : get_the_title();
 	$trail   = array(
 		array( 'name' => get_bloginfo( 'name' ), 'item' => home_url( '/' ) ),
-		array( 'name' => $parent_text, 'item' => $parent_url ? home_url( $parent_url ) : '' ),
+		array( 'name' => $parent_text, 'item' => $parent_url ? ( 0 === strpos( $parent_url, 'http' ) ? $parent_url : home_url( $parent_url ) ) : '' ),
 		array( 'name' => $current, 'item' => get_permalink() ),
 	);
 	$list    = array();

@@ -20,7 +20,7 @@ function lc_mdsx2026_preload_fonts() {
 	$fonts_dir = get_stylesheet_directory() . '/fonts';
 	$fonts_url = get_stylesheet_directory_uri() . '/fonts';
 
-	foreach ( glob( $fonts_dir . '/*.woff2' ) as $font_path ) {
+	foreach ( glob( $fonts_dir . '/*.woff2' ) ?: array() as $font_path ) {
 		printf(
 			'<link rel="preload" href="%s/%s" as="font" type="font/woff2" crossorigin>' . "\n",
 			esc_url( $fonts_url ),

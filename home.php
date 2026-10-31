@@ -28,6 +28,7 @@ $intro      = $posts_page ? trim( apply_filters( 'the_content', $posts_page->pos
 
 <section class="news-list section s-nero">
 	<div class="container">
+		<h2 class="visually-hidden"><?php esc_html_e( 'Articles', 'lc-mdsx2026' ); ?></h2>
 		<?php if ( have_posts() ) { ?>
 			<ul class="news-list__list">
 				<?php
@@ -54,6 +55,6 @@ $intro      = $posts_page ? trim( apply_filters( 'the_content', $posts_page->pos
 </section>
 
 <?php
-echo do_blocks( '<!-- wp:lc-mdsx2026/cta-band {"heading":"Planning a museum or attraction project?","ctaText":"Start a project","ctaUrl":"/contact-us/"} /-->' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- block render.
+echo do_blocks( '<!-- wp:lc-mdsx2026/cta-band ' . wp_json_encode( array( 'heading' => __( 'Planning a museum or attraction project?', 'lc-mdsx2026' ), 'ctaText' => __( 'Start a project', 'lc-mdsx2026' ), 'ctaUrl' => lc_mdsx2026_page_url( 'contact-us' ) ) ) . ' /-->' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- block render.
 
 get_footer();
