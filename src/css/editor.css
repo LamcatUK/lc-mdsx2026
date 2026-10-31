@@ -378,6 +378,47 @@
 	min-width: 0;
 }
 
+/* Stacked rows: title and URL share one line, 50/50; the new-tab toggle sits underneath */
+.lc-mdsx2026-repeater-field--column .lc-mdsx2026-repeater-field__link {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0 12px;
+	align-items: start;
+}
+.lc-mdsx2026-repeater-field--column .lc-mdsx2026-repeater-field__link-target,
+.lc-mdsx2026-repeater-field--column .lc-mdsx2026-repeater-field__link > .components-base-control__help {
+	grid-column: 1 / -1;
+}
+
+/* core's URLInput carries its own 300px minimum and unstyled input; make it read like a text control */
+.lc-mdsx2026-repeater-field__url .block-editor-url-input {
+	min-width: 0;
+	width: 100%;
+	padding: 0;
+}
+.lc-mdsx2026-repeater-field__url .block-editor-url-input .components-input-control {
+	padding: 0;
+}
+.lc-mdsx2026-repeater-field__url .block-editor-url-input__input {
+	width: 100%;
+	height: 40px;
+	margin: 0;
+	padding: 6px 8px;
+	font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-size: 13px;
+	line-height: normal;
+	color: #1e1e1e;
+	background: #fff;
+	border: 1px solid #949494;
+	border-radius: 2px;
+	box-shadow: 0 0 0 transparent;
+}
+.lc-mdsx2026-repeater-field__url .block-editor-url-input__input:focus {
+	border-color: var(--wp-admin-theme-color, #3858e9);
+	box-shadow: 0 0 0 0.5px var(--wp-admin-theme-color, #3858e9);
+	outline: 2px solid transparent;
+}
+
 .lc-mdsx2026-repeater-field__image .components-button.is-link {
 	margin-left: 8px;
 }

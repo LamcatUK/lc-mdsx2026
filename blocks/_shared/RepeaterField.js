@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { TextControl, TextareaControl, ToggleControl, Button, RadioControl } from '@wordpress/components';
+import { MediaUpload, MediaUploadCheck, URLInput } from '@wordpress/block-editor';
+import { BaseControl, TextControl, TextareaControl, ToggleControl, Button, RadioControl } from '@wordpress/components';
+import { useInstanceId } from '@wordpress/compose';
 
 /**
  * Generic repeater UI for a block attribute holding an array of row objects.
@@ -34,6 +35,51 @@ import { TextControl, TextareaControl, ToggleControl, Button, RadioControl } fro
  * @param {Object}   props.emptyRow Shape of a freshly-added row, e.g. { stat: '', title: '' }.
  * @param {string}   [props.layout] 'row' (default) or 'column'.
  */
+/**
+ * A link sub-field: title and URL side by side. The URL box is core's URLInput, which searches the
+ * site's own pages, projects and posts as you type (or accepts any pasted address). Addresses on
+ * this site are stored as relative paths so they survive a domain change.
+ */
+function LinkField( { field, row, isColumn, onChange } ) {
+	const id = useInstanceId( LinkField, 'lc-mdsx2026-link' );
+	const origin = window.location.origin;
+	const toRelative = ( url ) => ( url && url.startsWith( origin + '/' ) ? url.slice( origin.length ) : url );
+
+	return (
+		<div className="lc-mdsx2026-repeater-field__link">
+			<TextControl
+				label={ __( `${ field.label } Title`, 'lc-mdsx2026' ) }
+				hideLabelFromVision={ ! isColumn }
+				value={ row[ `${ field.name }Text` ] || '' }
+				onChange={ ( v ) => onChange( { [ `${ field.name }Text` ]: v } ) }
+			/>
+			<BaseControl
+				__nextHasNoMarginBottom
+				id={ id }
+				label={ __( `${ field.label } URL`, 'lc-mdsx2026' ) }
+				hideLabelFromVision={ ! isColumn }
+				help={ field.help }
+				className="lc-mdsx2026-repeater-field__url"
+			>
+				<URLInput
+					id={ id }
+					value={ row[ field.name ] || '' }
+					onChange={ ( v ) => onChange( { [ field.name ]: toRelative( v ) } ) }
+					placeholder={ __( 'Search pages or paste a URL', 'lc-mdsx2026' ) }
+				/>
+			</BaseControl>
+			{ field.linkTarget && (
+				<ToggleControl
+					className="lc-mdsx2026-repeater-field__link-target"
+					label={ __( `Open ${ field.label } in a new tab`, 'lc-mdsx2026' ) }
+					checked={ !! row[ `${ field.name }Target` ] }
+					onChange={ ( v ) => onChange( { [ `${ field.name }Target` ]: v } ) }
+				/>
+			) }
+		</div>
+	);
+}
+
 export default function RepeaterField( { label, value, onChange, fields, emptyRow, layout = 'row' } ) {
 	const isColumn = 'column' === layout;
 	const rows = value || [];
@@ -142,29 +188,13 @@ export default function RepeaterField( { label, value, onChange, fields, emptyRo
 
 						if ( 'link' === field.type ) {
 							return (
-								<div className="lc-mdsx2026-repeater-field__link" key={ field.name }>
-									<TextControl
-										label={ __( `${ field.label } Title`, 'lc-mdsx2026' ) }
-										hideLabelFromVision={ ! isColumn }
-										value={ row[ `${ field.name }Text` ] || '' }
-										onChange={ ( v ) => updateRow( index, { [ `${ field.name }Text` ]: v } ) }
-									/>
-									<TextControl
-										type="url"
-										label={ __( `${ field.label } URL`, 'lc-mdsx2026' ) }
-										hideLabelFromVision={ ! isColumn }
-										value={ row[ field.name ] || '' }
-										onChange={ ( v ) => updateRow( index, { [ field.name ]: v } ) }
-										help={ field.help }
-									/>
-									{ field.linkTarget && (
-										<ToggleControl
-											label={ __( `Open ${ field.label } in a new tab`, 'lc-mdsx2026' ) }
-											checked={ !! row[ `${ field.name }Target` ] }
-											onChange={ ( v ) => updateRow( index, { [ `${ field.name }Target` ]: v } ) }
-										/>
-									) }
-								</div>
+								<LinkField
+									key={ field.name }
+									field={ field }
+									row={ row }
+									isColumn={ isColumn }
+									onChange={ ( patch ) => updateRow( index, patch ) }
+								/>
 							);
 						}
 
