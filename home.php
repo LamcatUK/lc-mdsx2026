@@ -20,7 +20,7 @@ $intro      = $posts_page ? trim( apply_filters( 'the_content', $posts_page->pos
 		<div class="page-hero__copy">
 			<h1 class="baseline reveal"><?php echo esc_html( $title ); ?></h1>
 			<?php if ( $intro ) { ?>
-				<div class="page-hero__intro t-lede reveal" style="--i:1"><?php echo $intro; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core content filter. ?></div>
+				<div class="page-hero__intro t-subhead reveal" style="--i:1"><?php echo $intro; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core content filter. ?></div>
 			<?php } ?>
 		</div>
 	</div>

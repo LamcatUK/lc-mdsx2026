@@ -37,7 +37,7 @@ $first     = $slides ? $slides[0] : 0;
 			<h1 class="baseline reveal"><?php echo esc_html( $title ); ?></h1>
 		<?php } ?>
 		<?php if ( $lede ) { ?>
-			<p class="t-lede reveal" style="--i:1"><?php echo esc_html( $lede ); ?></p>
+			<p class="t-subhead hero-reel__lede reveal" style="--i:1"><?php echo esc_html( $lede ); ?></p>
 		<?php } ?>
 		<div class="hero-reel__actions reveal" style="--i:2">
 			<?php lc_mdsx2026_link( $attributes['cta1Text'] ?? '', $attributes['cta1Url'] ?? '', 'btn btn--primary' ); ?>

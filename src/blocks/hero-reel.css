@@ -54,9 +54,9 @@
 	font-size: var(--fs-display);
 	max-width: 9.5em;
 }
-.hero-reel__copy .t-lede {
+.hero-reel__copy .hero-reel__lede {
 	margin: 28px 0 36px;
-	color: #e3e7e8;
+	color: #e3e7e8; /* white-ish rather than the teal accent: it sits over photography */
 }
 .hero-reel__actions {
 	display: flex;

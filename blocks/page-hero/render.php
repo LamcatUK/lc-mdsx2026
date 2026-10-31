@@ -29,7 +29,7 @@ ob_start();
 	<?php echo $crumbs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built by lc_mdsx2026_breadcrumb(). ?>
 	<h1 class="baseline reveal"><?php echo esc_html( $title ); ?></h1>
 	<?php if ( $intro ) { ?>
-		<div class="page-hero__intro t-lede reveal" style="--i:1"><?php echo wp_kses_post( $intro ); ?></div>
+		<div class="page-hero__intro t-subhead reveal" style="--i:1"><?php echo wp_kses_post( $intro ); ?></div>
 	<?php } ?>
 	<?php if ( is_singular( 'post' ) ) { ?>
 		<?php $minutes = estimate_reading_time_in_minutes( get_the_content() ); ?>

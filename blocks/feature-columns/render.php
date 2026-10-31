@@ -20,7 +20,7 @@ $colours = array( 'mark', 'mark mark--crusta', 'mark mark--solitude' );
 			<h2 class="baseline reveal"><?php echo esc_html( $attributes['heading'] ); ?></h2>
 		<?php } ?>
 		<?php if ( ! empty( $attributes['intro'] ) ) { ?>
-			<div class="t-lede reveal"><?php echo wp_kses_post( $attributes['intro'] ); ?></div>
+			<div class="t-subhead reveal"><?php echo wp_kses_post( $attributes['intro'] ); ?></div>
 		<?php } ?>
 		<?php if ( 'cards' === $style ) { ?>
 			<div class="feature-columns__cards" style="--col-min:<?php echo esc_attr( $min ); ?>rem">

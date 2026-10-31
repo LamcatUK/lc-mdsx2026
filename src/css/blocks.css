@@ -289,7 +289,7 @@
 }
 
 /* --- src/blocks/feature-columns.css --- */
-.feature-columns .t-lede {
+.feature-columns .t-subhead {
 	margin-top: 24px;
 }
 .feature-columns__grid {
@@ -622,9 +622,9 @@ a.feature-columns__panel:hover .arrow {
 	font-size: var(--fs-display);
 	max-width: 9.5em;
 }
-.hero-reel__copy .t-lede {
+.hero-reel__copy .hero-reel__lede {
 	margin: 28px 0 36px;
-	color: #e3e7e8;
+	color: #e3e7e8; /* white-ish rather than the teal accent: it sits over photography */
 }
 .hero-reel__actions {
 	display: flex;
@@ -742,7 +742,7 @@ a.feature-columns__panel:hover .arrow {
 }
 
 /* --- src/blocks/link-list.css --- */
-.link-list .t-lede {
+.link-list .t-subhead {
 	margin-top: 24px;
 }
 .link-list__list {
@@ -1337,7 +1337,7 @@ a.link-list__row:hover .arrow {
 }
 
 /* --- src/blocks/process-steps.css --- */
-.process-steps .t-lede {
+.process-steps .t-subhead {
 	margin-top: 24px;
 }
 .process-steps__list {
@@ -1620,7 +1620,7 @@ a.link-list__row:hover .arrow {
 .team-grid__list span:not(.team-grid__photo) {
 	display: block;
 	margin-top: 4px;
-	font: var(--fw-600) 15px / 1.35 var(--f-sub);
+	font: var(--fw-700) 15px / 1.35 var(--f-sub);
 	color: var(--accent);
 }
 

@@ -313,13 +313,18 @@ h4,
 	font: var(--fw-700) 18px / 1.3 var(--f-sub);
 }
 .t-label {
-	font: var(--fw-600) var(--fs-small) / 1.4 var(--f-sub);
+	font: var(--fw-700) var(--fs-small) / 1.4 var(--f-sub);
 	color: var(--accent, var(--col-sea));
 }
 .t-lede {
 	font-size: var(--fs-lede);
 	line-height: 1.6;
 	max-width: 36em;
+}
+.t-subhead {
+	max-width: 34em;
+	font: var(--fw-700) clamp(19px, 1.7vw, 25px) / 1.4 var(--f-sub);
+	color: var(--accent, var(--col-sea));
 }
 .t-meta {
 	font: var(--fw-500) var(--fs-meta) / 1.4 var(--f-display);
@@ -336,7 +341,8 @@ p {
 h1,
 h2,
 p,
-.t-lede {
+.t-lede,
+.t-subhead {
 	text-wrap: pretty;
 }
 
@@ -2550,7 +2556,7 @@ select {
 }
 
 /* --- src/blocks/feature-columns.css --- */
-.feature-columns .t-lede {
+.feature-columns .t-subhead {
 	margin-top: 24px;
 }
 .feature-columns__grid {
@@ -2883,9 +2889,9 @@ a.feature-columns__panel:hover .arrow {
 	font-size: var(--fs-display);
 	max-width: 9.5em;
 }
-.hero-reel__copy .t-lede {
+.hero-reel__copy .hero-reel__lede {
 	margin: 28px 0 36px;
-	color: #e3e7e8;
+	color: #e3e7e8; /* white-ish rather than the teal accent: it sits over photography */
 }
 .hero-reel__actions {
 	display: flex;
@@ -3003,7 +3009,7 @@ a.feature-columns__panel:hover .arrow {
 }
 
 /* --- src/blocks/link-list.css --- */
-.link-list .t-lede {
+.link-list .t-subhead {
 	margin-top: 24px;
 }
 .link-list__list {
@@ -3598,7 +3604,7 @@ a.link-list__row:hover .arrow {
 }
 
 /* --- src/blocks/process-steps.css --- */
-.process-steps .t-lede {
+.process-steps .t-subhead {
 	margin-top: 24px;
 }
 .process-steps__list {
@@ -3881,7 +3887,7 @@ a.link-list__row:hover .arrow {
 .team-grid__list span:not(.team-grid__photo) {
 	display: block;
 	margin-top: 4px;
-	font: var(--fw-600) 15px / 1.35 var(--f-sub);
+	font: var(--fw-700) 15px / 1.35 var(--f-sub);
 	color: var(--accent);
 }
 

@@ -31,6 +31,6 @@
 .team-grid__list span:not(.team-grid__photo) {
 	display: block;
 	margin-top: 4px;
-	font: var(--fw-600) 15px / 1.35 var(--f-sub);
+	font: var(--fw-700) 15px / 1.35 var(--f-sub);
 	color: var(--accent);
 }
