@@ -19,10 +19,10 @@
 	content: "";
 	display: block;
 	width: 64px;
-	height: 44px;
+	height: 49px;
 	margin-bottom: 32px;
 	background: var(--accent);
-	clip-path: shape(from 0 calc(23% + 4px), curve to 4px 21.4% with 0 23%, line to 100% 0, line to 100% calc(77% - 4px), curve to calc(100% - 4px) 78.6% with 100% 77%, line to 0 100%, close);
+	mask: var(--quote-mark) no-repeat left center / contain;
 }
 .quote-block figcaption {
 	margin-top: 28px;
