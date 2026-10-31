@@ -22,7 +22,7 @@
 <header id="masthead">
 	<nav class="navbar container" aria-label="<?php esc_attr_e( 'Primary navigation', 'lc-mdsx2026' ); ?>">
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar-brand" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-			<img src="<?php echo esc_url( lc_mdsx2026_img_url( 'logos/mdsx-badge-sea-on-nero.svg' ) ); ?>" alt="MDSX" width="64" height="46">
+			<img src="<?php echo esc_url( lc_mdsx2026_img_url( 'logos/mdsx-badge-solitude.svg' ) ); ?>" alt="MDSX" width="64" height="46">
 		</a>
 
 		<button class="navbar-toggler" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="<?php esc_attr_e( 'Toggle navigation', 'lc-mdsx2026' ); ?>">
