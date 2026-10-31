@@ -228,12 +228,11 @@ html {
 	text-decoration-thickness: 3px;
 	text-underline-offset: 0.45em;
 }
-#masthead.is-scrolled .navbar-cta {
+/* The CTA stays Sea Foam with Nero text when the bar inverts. Its usual hover (Solitude) would vanish on the
+   Solitude bar, so on hover it flips to Nero with Solitude text. */
+#masthead.is-scrolled .navbar-cta:hover {
 	--btn-bg: var(--col-nero);
 	--btn-fg: var(--col-solitude);
-}
-#masthead.is-scrolled .navbar-cta:hover {
-	--btn-bg: var(--col-charcoal);
 }
 #masthead.is-scrolled .dropdown-menu,
 #masthead.is-scrolled .navbar-collapse.is-open {
