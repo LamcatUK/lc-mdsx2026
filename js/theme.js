@@ -228,11 +228,22 @@
 	  els.forEach(el => io.observe(el));
 	}
 
-	/** Move focus to the contact form's status message after a submission, so screen readers announce it. */
-	function initContactNotice() {
-	  const notice = document.querySelector('[data-contact-notice]');
-	  if (notice) notice.focus({
-	    preventScroll: false
+	/**
+	 * Conversion tracking for Contact Form 7. After a successful send CF7 fires
+	 * `wpcf7mailsent` on the form's wrapper; push a GTM/GA4 `generate_lead` event with
+	 * the chosen topic (the visible label, not the piped recipient addresses).
+	 */
+	function initContactForm() {
+	  document.addEventListener('wpcf7mailsent', event => {
+	    const form = event.target.querySelector('form') || event.target;
+	    const select = form.querySelector('select[name="topic"]');
+	    const topic = select ? select.options[select.selectedIndex]?.text || '' : '';
+	    window.dataLayer = window.dataLayer || [];
+	    window.dataLayer.push({
+	      event: 'generate_lead',
+	      form_id: 'contact',
+	      enquiry_topic: topic
+	    });
 	  });
 	}
 
@@ -243,7 +254,7 @@
 	  initHeroReel();
 	  initPortfolioFilter();
 	  initReveal();
-	  initContactNotice();
+	  initContactForm();
 	});
 
 })();

@@ -5,7 +5,7 @@
 	"title": "Contact Form",
 	"category": "lc-mdsx2026",
 	"icon": "email",
-	"description": "Enquiry form with contact details. Topics route to the email addresses set here.",
+	"description": "Contact details beside a Contact Form 7 form. Fields, recipients and messages are set in Contact > Contact Forms.",
 	"attributes": {
 		"backgroundColor": {
 			"type": "string",
@@ -31,13 +31,9 @@
 			"type": "string",
 			"default": ""
 		},
-		"routes": {
-			"type": "array",
-			"default": []
-		},
-		"success": {
-			"type": "string",
-			"default": "Thank you. We have your message and will reply soon."
+		"formId": {
+			"type": "number",
+			"default": 0
 		}
 	},
 	"supports": {

@@ -2,10 +2,9 @@ import { __ } from '@wordpress/i18n';
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 import { TextControl, TextareaControl } from '@wordpress/components';
 import EditorBlockShell from '../../_shared/EditorBlockShell';
-import RepeaterField from '../../_shared/RepeaterField';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { heading, intro, address, phone, email, routes, success } = attributes;
+	const { heading, intro, address, phone, email, formId } = attributes;
 	const blockProps = useBlockProps( { className: 'container lc-mdsx2026-editor-block' } );
 
 	return (
@@ -18,8 +17,8 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 			<TextareaControl label={ __( "Address", 'lc-mdsx2026' ) } value={ address } onChange={ ( value ) => setAttributes( { address: value } ) } />
 			<TextControl label={ __( "Phone", 'lc-mdsx2026' ) } value={ phone } onChange={ ( value ) => setAttributes( { phone: value } ) } />
 			<TextControl label={ __( "Public email", 'lc-mdsx2026' ) } value={ email } onChange={ ( value ) => setAttributes( { email: value } ) } />
-			<RepeaterField label={ __( "Enquiry topics and where each is sent", 'lc-mdsx2026' ) } value={ routes } onChange={ ( rows ) => setAttributes( { routes: rows } ) } fields={ [ { name: "label", label: "Topic", type: "text" }, { name: "emails", label: "Send to (comma-separated emails)", type: "text" } ] } emptyRow={ { label: '', emails: '' } } layout="column" />
-			<TextareaControl label={ __( "Message shown after sending", 'lc-mdsx2026' ) } value={ success } onChange={ ( value ) => setAttributes( { success: value } ) } />
+			<TextControl type="number" label={ __( "Contact Form 7 form ID", 'lc-mdsx2026' ) } value={ formId } onChange={ ( value ) => setAttributes( { formId: Number( value ) } ) }
+				help={ __( "The numeric ID shown in Contact > Contact Forms (post ID in the edit URL).", 'lc-mdsx2026' ) } />
 		</EditorBlockShell>
 	);
 }
