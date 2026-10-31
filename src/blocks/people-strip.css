@@ -23,19 +23,14 @@
 	font-size: var(--fs-small);
 	color: var(--muted);
 }
-.people-strip__press {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 16px 48px;
-	margin: 48px 0 0;
-	padding: 0;
-	list-style: none;
-	font: var(--fw-600) clamp(18px, 1.6vw, 24px) / 1.2 var(--f-sub);
-	color: var(--col-text-subtle);
-}
 @media (max-width: 520px) {
 	.people-strip__person {
 		grid-template-columns: 120px 1fr;
 		gap: 20px;
 	}
+}
+
+/* when Press Names follows, tighten the gap between the two */
+.people-strip:has(+ .press-names) {
+	padding-bottom: clamp(32px, 4vw, 56px);
 }

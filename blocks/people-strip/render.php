@@ -1,6 +1,6 @@
 <?php
 /**
- * Block template for People Strip.
+ * Block template for People Strip. (Outlet names live in the Press Names block.)
  *
  * @package lc-mdsx2026
  */
@@ -9,7 +9,6 @@ defined( 'ABSPATH' ) || exit;
 
 $surface = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'nero' );
 $people  = array_values( array_filter( (array) ( $attributes['people'] ?? array() ), static fn( $r ) => ! lc_mdsx2026_row_empty( $r ) ) );
-$press   = lc_mdsx2026_lines( $attributes['press'] ?? '' );
 ?>
 <section <?php echo lc_mdsx2026_wrapper( 'people-strip section', $surface ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?>>
 	<div class="container">
@@ -33,12 +32,5 @@ $press   = lc_mdsx2026_lines( $attributes['press'] ?? '' );
 				</article>
 			<?php } ?>
 		</div>
-		<?php if ( $press ) { ?>
-			<ul class="people-strip__press">
-				<?php foreach ( $press as $name ) { ?>
-					<li><?php echo esc_html( $name ); ?></li>
-				<?php } ?>
-			</ul>
-		<?php } ?>
 	</div>
 </section>

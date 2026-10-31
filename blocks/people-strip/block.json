@@ -18,10 +18,6 @@
 		"people": {
 			"type": "array",
 			"default": []
-		},
-		"press": {
-			"type": "string",
-			"default": ""
 		}
 	},
 	"supports": {

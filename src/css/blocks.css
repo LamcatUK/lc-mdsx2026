@@ -1077,21 +1077,16 @@ a.link-list__row:hover .arrow {
 	font-size: var(--fs-small);
 	color: var(--muted);
 }
-.people-strip__press {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 16px 48px;
-	margin: 48px 0 0;
-	padding: 0;
-	list-style: none;
-	font: var(--fw-600) clamp(18px, 1.6vw, 24px) / 1.2 var(--f-sub);
-	color: var(--col-text-subtle);
-}
 @media (max-width: 520px) {
 	.people-strip__person {
 		grid-template-columns: 120px 1fr;
 		gap: 20px;
 	}
+}
+
+/* when Press Names follows, tighten the gap between the two */
+.people-strip:has(+ .press-names) {
+	padding-bottom: clamp(32px, 4vw, 56px);
 }
 
 /* --- src/blocks/portfolio-grid.css --- */
@@ -1166,6 +1161,39 @@ a.link-list__row:hover .arrow {
 	.portfolio-grid__count {
 		margin-left: 0;
 	}
+}
+
+/* --- src/blocks/press-names.css --- */
+.press-names {
+	padding-top: 0;
+	padding-bottom: clamp(48px, 6vw, 96px);
+}
+.press-names__heading {
+	margin: 0;
+	font-size: 18px;
+	color: var(--col-text-subtle);
+}
+.press-names__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px 48px;
+	margin: 20px 0 0;
+	padding: 0;
+	list-style: none;
+	font: var(--fw-600) clamp(18px, 1.6vw, 24px) / 1.2 var(--f-sub);
+	color: var(--col-text-subtle);
+}
+.press-names__list a {
+	text-decoration: none;
+	transition: color var(--t-fast);
+}
+.press-names__list a:hover,
+.press-names__list a:focus-visible {
+	color: var(--col-solitude);
+	text-decoration: underline;
+	text-decoration-color: var(--accent);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.3em;
 }
 
 /* --- src/blocks/process-steps.css --- */
