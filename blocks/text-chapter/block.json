@@ -5,7 +5,7 @@
 	"title": "Text Chapter",
 	"category": "lc-mdsx2026",
 	"icon": "text-page",
-	"description": "Heading left, copy right.",
+	"description": "Heading left, copy right. The copy is paragraphs, headings and lists.",
 	"attributes": {
 		"backgroundColor": {
 			"type": "string",

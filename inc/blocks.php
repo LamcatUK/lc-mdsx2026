@@ -225,5 +225,46 @@ add_filter( 'allowed_block_types_all', 'lc_mdsx2026_disallow_unwanted_core_block
  * @return string
  */
 function lc_mdsx2026_wrap_block_in_container( $attributes, $content ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	// Inside a Text Chapter the block already sits in its own column.
+	if ( lc_mdsx2026_chapter_depth() > 0 ) {
+		return $content;
+	}
+
 	return '<div class="container">' . $content . '</div>';
 }
+
+/**
+ * How many Text Chapter blocks are being rendered around the current block (0 = none).
+ *
+ * @param int $change +1 as a Text Chapter starts rendering, -1 as it finishes.
+ * @return int
+ */
+function lc_mdsx2026_chapter_depth( $change = 0 ) {
+	static $depth = 0;
+
+	$depth = max( 0, $depth + $change );
+
+	return $depth;
+}
+add_filter(
+	'pre_render_block',
+	static function ( $pre, $parsed_block ) {
+		if ( 'lc-mdsx2026/text-chapter' === ( $parsed_block['blockName'] ?? '' ) ) {
+			lc_mdsx2026_chapter_depth( 1 );
+		}
+		return $pre;
+	},
+	10,
+	2
+);
+add_filter(
+	'render_block',
+	static function ( $content, $parsed_block ) {
+		if ( 'lc-mdsx2026/text-chapter' === ( $parsed_block['blockName'] ?? '' ) ) {
+			lc_mdsx2026_chapter_depth( -1 );
+		}
+		return $content;
+	},
+	10,
+	2
+);

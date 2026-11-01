@@ -1,10 +1,10 @@
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, InspectorControls, RichText } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls, InnerBlocks } from '@wordpress/block-editor';
 import { PanelBody, SelectControl, TextControl } from '@wordpress/components';
 import EditorBlockShell from '../../_shared/EditorBlockShell';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { heading, body, backgroundShape } = attributes;
+	const { heading, backgroundShape } = attributes;
 	const blockProps = useBlockProps( { className: 'container lc-mdsx2026-editor-block' } );
 
 	return (
@@ -23,8 +23,14 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 		<EditorBlockShell blockProps={ blockProps } clientId={ clientId } title="Text Chapter" textDomain="lc-mdsx2026">
 			<TextControl label={ __( "Heading", 'lc-mdsx2026' ) } value={ heading } onChange={ ( value ) => setAttributes( { heading: value } ) } />
 			<div className="lc-mdsx2026-editor-field">
-				<label className="lc-mdsx2026-editor-field__label">{ __( "Text", 'lc-mdsx2026' ) }</label>
-				<RichText tagName="div" className="lc-mdsx2026-editor-field__control" aria-label={ __( "Text", 'lc-mdsx2026' ) } placeholder={ __( "Text", 'lc-mdsx2026' ) } value={ body } onChange={ ( value ) => setAttributes( { body: value } ) } />
+				<span className="lc-mdsx2026-editor-field__label">{ __( 'Text', 'lc-mdsx2026' ) }</span>
+				<div className="lc-mdsx2026-editor-field__control lc-mdsx2026-chapter-text">
+					<InnerBlocks
+						allowedBlocks={ [ 'core/paragraph', 'core/heading', 'core/list' ] }
+						template={ [ [ 'core/paragraph' ] ] }
+						templateLock={ false }
+					/>
+				</div>
 			</div>
 		</EditorBlockShell>
 		</>
