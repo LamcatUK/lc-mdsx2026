@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 $surface  = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'nero' );
 $projects = array();
 foreach ( array_unique( array_filter( array_map( 'intval', (array) ( $attributes['projects'] ?? array() ) ) ) ) as $id ) {
-	if ( 'publish' === get_post_status( $id ) ) {
+	if ( 'publish' === get_post_status( $id ) && ! lc_mdsx2026_is_unlisted( $id ) ) {
 		$projects[] = $id;
 	}
 }

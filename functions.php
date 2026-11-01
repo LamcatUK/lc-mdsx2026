@@ -37,3 +37,4 @@ require_once LC_SKELETON_DIR . '/inc/helpers.php';
 require_once LC_SKELETON_DIR . '/inc/cf7.php';
 require_once LC_SKELETON_DIR . '/inc/search.php';
 require_once LC_SKELETON_DIR . '/inc/media.php';
+require_once LC_SKELETON_DIR . '/inc/access.php';

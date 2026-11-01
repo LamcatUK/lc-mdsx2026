@@ -140,6 +140,10 @@ function lc_mdsx2026_search_index() {
 	);
 
 	foreach ( $posts as $post ) {
+		if ( 'portfolio' === $post->post_type && lc_mdsx2026_is_unlisted( $post ) ) {
+			continue; // Password-protected and hidden projects are not searchable.
+		}
+
 		$terms = array();
 		foreach ( get_object_taxonomies( $post->post_type ) as $taxonomy ) {
 			if ( in_array( $taxonomy, array( 'category', 'discipline', 'sector' ), true ) ) {
@@ -153,7 +157,13 @@ function lc_mdsx2026_search_index() {
 
 		$title = html_entity_decode( get_the_title( $post ), ENT_QUOTES, 'UTF-8' );
 		// Hero blocks repeat the title as the first words of the body; drop it so snippets start with something new.
-		$body  = (string) preg_replace( '/^' . preg_quote( $title, '/' ) . '\s*/iu', '', lc_mdsx2026_search_text( $post ) );
+		$source = $post;
+		if ( 'email' === lc_mdsx2026_access_mode( $post ) ) {
+			// Lead-capture projects: only the public teaser is searchable.
+			$source               = clone $post;
+			$source->post_content = serialize_blocks( lc_mdsx2026_gate_split( $post )['teaser'] );
+		}
+		$body = (string) preg_replace( '/^' . preg_quote( $title, '/' ) . '\s*/iu', '', lc_mdsx2026_search_text( $source ) );
 
 		$index[] = array(
 			'id'      => $post->ID,

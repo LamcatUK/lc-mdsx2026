@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 $slides = array();
 foreach ( array_unique( array_filter( array_map( 'intval', (array) ( $attributes['projects'] ?? array() ) ) ) ) as $project_id ) {
-	if ( 'publish' === get_post_status( $project_id ) && has_post_thumbnail( $project_id ) ) {
+	if ( 'publish' === get_post_status( $project_id ) && has_post_thumbnail( $project_id ) && ! lc_mdsx2026_is_unlisted( $project_id ) ) {
 		$slides[] = $project_id;
 	}
 }

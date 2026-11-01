@@ -8,10 +8,29 @@
 defined( 'ABSPATH' ) || exit;
 
 $id = (int) ( $attributes['project'] ?? 0 );
+if ( $id && lc_mdsx2026_is_unlisted( $id ) ) {
+	$id = 0;
+}
 if ( ! $id ) {
-	$adjacent = get_adjacent_post( false, '', false );
-	$adjacent = $adjacent ? $adjacent : get_adjacent_post( false, '', true );
-	$id       = $adjacent ? $adjacent->ID : 0;
+	// The next newer listed project, or the next older one at the end of the line.
+	$listed = get_posts(
+		lc_mdsx2026_listing_args(
+			array(
+				'post_type'      => 'portfolio',
+				'post_status'    => 'publish',
+				'posts_per_page' => -1,
+				'orderby'        => 'date',
+				'order'          => 'DESC',
+				'fields'         => 'ids',
+			)
+		)
+	);
+	$here   = array_search( get_the_ID(), $listed, true );
+	if ( false === $here ) {
+		$id = $listed ? $listed[0] : 0;
+	} else {
+		$id = $listed[ $here - 1 ] ?? ( $listed[ $here + 1 ] ?? 0 );
+	}
 }
 if ( ! $id ) {
 	return;

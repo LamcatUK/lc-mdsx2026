@@ -312,10 +312,12 @@
 	    const form = event.target.querySelector('form') || event.target;
 	    const select = form.querySelector('select[name="topic"]');
 	    const topic = select ? select.options[select.selectedIndex]?.text || '' : '';
+	    // the contact form carries a topic; the project gate and access request forms identify themselves by container
+	    const kind = select ? 'contact' : form.closest('[data-gate-form]') ? 'project-gate' : 'project-access-request';
 	    window.dataLayer = window.dataLayer || [];
 	    window.dataLayer.push({
 	      event: 'generate_lead',
-	      form_id: 'contact',
+	      form_id: kind,
 	      enquiry_topic: topic
 	    });
 	  });
@@ -541,6 +543,39 @@
 	  }
 	}
 
+	/**
+	 * Lead-capture gate on portfolio projects: the modal opens by itself once (the page behind it only
+	 * ever holds the public teaser, the locked content is not in the page), and a successful Contact
+	 * Form 7 send reloads the page so the server, now holding the signed cookie, returns the full
+	 * case study. dialog.js wires the open and close buttons.
+	 */
+	function initProjectGate() {
+	  const dialog = document.querySelector('dialog[data-gate-auto]');
+	  if (!dialog) return;
+	  const lenisStop = () => window.lenis?.stop();
+	  const lenisStart = () => window.lenis?.start();
+	  dialog.addEventListener('close', lenisStart);
+	  dialog.addEventListener('cancel', lenisStart);
+	  document.querySelectorAll('[data-dialog-target="' + dialog.id + '"]').forEach(button => button.addEventListener('click', lenisStop));
+
+	  // Give the page a moment to settle before the modal appears.
+	  window.setTimeout(() => {
+	    if (!dialog.open) {
+	      dialog.showModal();
+	      dialog.querySelector('input[type="email"]')?.focus(); // rather than the close button
+	      lenisStop();
+	    }
+	  }, 700);
+
+	  // A sent email unlocks; so does a failed delivery (the server grants access either way).
+	  ['wpcf7mailsent', 'wpcf7mailfailed'].forEach(name => dialog.addEventListener(name, () => {
+	    window.setTimeout(() => {
+	      window.location.hash = 'project-details';
+	      window.location.reload();
+	    }, 900);
+	  }));
+	}
+
 	document.addEventListener('DOMContentLoaded', () => {
 	  // tells the failsafe in header.php that the script ran; if it never does, content is revealed anyway
 	  document.documentElement.classList.add('js-ready');
@@ -554,6 +589,7 @@
 	  initHeaderScroll();
 	  initLenis();
 	  initSiteSearch();
+	  initProjectGate();
 	});
 
 })();

@@ -94,6 +94,18 @@ function lc_mdsx2026_register_settings_page() {
 			'placeholder' => 'https://linkedin.com/company/...',
 			'description' => 'Leave blank to hide this icon from [social_icons].',
 		),
+		'gate_form_id'              => array(
+			'label'       => 'Lead capture form (CF7 ID)',
+			'type'        => 'number',
+			'section'     => 'lc_mdsx2026_general',
+			'description' => 'Contact Form 7 form shown in the popup on lead-capture portfolio projects. Its Mail tab decides where the email address is sent.',
+		),
+		'access_form_id'            => array(
+			'label'       => 'Access request form (CF7 ID)',
+			'type'        => 'number',
+			'section'     => 'lc_mdsx2026_general',
+			'description' => 'Contact Form 7 form on password-protected projects, for people asking for the password.',
+		),
 		'ga_property'               => array(
 			'label'       => 'GA Property',
 			'type'        => 'text',

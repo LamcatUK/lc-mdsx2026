@@ -9,10 +9,12 @@ defined( 'ABSPATH' ) || exit;
 
 $show_filters = $attributes['showFilters'] ?? true;
 $projects     = get_posts(
-	array(
-		'post_type'      => 'portfolio',
-		'posts_per_page' => -1,
-		'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
+	lc_mdsx2026_listing_args(
+		array(
+			'post_type'      => 'portfolio',
+			'posts_per_page' => -1,
+			'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
+		)
 	)
 );
 

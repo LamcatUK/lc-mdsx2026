@@ -21,7 +21,7 @@ $query_args = array(
 if ( $discipline ) {
 	$query_args['tax_query'] = array( array( 'taxonomy' => 'discipline', 'field' => 'slug', 'terms' => $discipline ) ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- small, filtered portfolio set.
 }
-$projects = get_posts( $query_args );
+$projects = get_posts( lc_mdsx2026_listing_args( $query_args ) );
 
 $tile = static function ( $project, $extra = '', $i = 0 ) {
 	?>
