@@ -46,3 +46,58 @@ function lc_mdsx2026_cf7_thank_you_redirect( $response, $result ) {
 	return $response;
 }
 add_filter( 'wpcf7_feedback_response', 'lc_mdsx2026_cf7_thank_you_redirect', 10, 2 );
+
+/**
+ * Route enquiries to extra people by topic. Add lines to a form's Additional Settings tab:
+ *
+ *     route: Press and media = press@mdsx-creative.com
+ *     route: Working at MDSX = janelle@mdsx-creative.com, brian@mdsx-creative.com
+ *
+ * When the visitor picks the topic named on a line, those addresses are added to the form's main
+ * email ("To" stays the default list, so everyone on it still gets every enquiry). The topic is read
+ * from the field called `topic`; use `route_field: other-field-name` to key off another field. The
+ * auto-reply to the visitor is never touched. Read by wpcf7_mail_components below.
+ *
+ * @param array             $components Mail components (subject, sender, body, recipient …).
+ * @param WPCF7_ContactForm $form       The form.
+ * @param WPCF7_Mail        $mail       The mail being built ('mail' or 'mail_2').
+ * @return array
+ */
+function lc_mdsx2026_cf7_route_by_topic( $components, $form, $mail ) {
+	if ( ! $form || ! $mail || 'mail' !== $mail->name() ) {
+		return $components;
+	}
+
+	$lines      = $form->additional_setting( 'route', false );
+	$submission = WPCF7_Submission::get_instance();
+	if ( ! $lines || ! $submission ) {
+		return $components;
+	}
+
+	$field  = trim( (string) $form->pref( 'route_field' ), " \t\"'" );
+	$chosen = $submission->get_posted_data( '' !== $field ? $field : 'topic' );
+	$chosen = mb_strtolower( trim( (string) ( is_array( $chosen ) ? reset( $chosen ) : $chosen ) ) );
+	if ( '' === $chosen ) {
+		return $components;
+	}
+
+	$recipients = array_filter( array_map( 'trim', explode( ',', (string) $components['recipient'] ) ) );
+
+	foreach ( $lines as $line ) {
+		$parts = explode( '=', (string) $line, 2 );
+		if ( 2 !== count( $parts ) || mb_strtolower( trim( $parts[0], " \t\"'" ) ) !== $chosen ) {
+			continue;
+		}
+		foreach ( explode( ',', $parts[1] ) as $address ) {
+			$address = trim( $address );
+			if ( is_email( $address ) && ! in_array( mb_strtolower( $address ), array_map( 'mb_strtolower', $recipients ), true ) ) {
+				$recipients[] = $address;
+			}
+		}
+	}
+
+	$components['recipient'] = implode( ', ', $recipients );
+
+	return $components;
+}
+add_filter( 'wpcf7_mail_components', 'lc_mdsx2026_cf7_route_by_topic', 10, 3 );
