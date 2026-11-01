@@ -27,6 +27,13 @@ if ( ! class_exists( 'LC_MDSX_2026_Nav_Walker' ) ) {
 		protected $current_submenu_id = '';
 
 		/**
+		 * The parent item whose submenu is being opened, so start_lvl() can add an "All …" link to its page.
+		 *
+		 * @var WP_Post|null
+		 */
+		protected $current_parent = null;
+
+		/**
 		 * Starts the list before the elements are added.
 		 *
 		 * @param string   $output Passed by reference.
@@ -36,6 +43,14 @@ if ( ! class_exists( 'LC_MDSX_2026_Nav_Walker' ) ) {
 		 */
 		public function start_lvl( &$output, $depth = 0, $args = null ) {
 			$output .= '<ul class="dropdown-menu" id="' . esc_attr( $this->current_submenu_id ) . '">';
+
+			// Dropdown parents don't navigate, so the mobile menu (where submenus are collapsed) gets a link to the parent's own page.
+			if ( 0 === $depth && $this->current_parent && ! empty( $this->current_parent->url ) ) {
+				$output .= '<li class="nav-item dropdown-overview"><a class="nav-link" href="' . esc_url( $this->current_parent->url ) . '">';
+				/* translators: %s: lower-case menu item name, e.g. "services" */
+				$output .= esc_html( sprintf( __( 'All %s', 'lc-mdsx2026' ), mb_strtolower( $this->current_parent->title ) ) );
+				$output .= '</a></li>';
+			}
 		}
 
 		/**
@@ -76,6 +91,7 @@ if ( ! class_exists( 'LC_MDSX_2026_Nav_Walker' ) ) {
 			if ( $has_children ) {
 				// Dropdown parents never navigate — the whole item is the toggle.
 				$this->current_submenu_id = 'dropdown-' . $item->ID;
+				$this->current_parent     = $item;
 				$output                  .= '<button type="button" class="nav-link dropdown-toggle' . ( $is_active ? ' active' : '' ) . '" aria-haspopup="true" aria-expanded="false" aria-controls="' . esc_attr( $this->current_submenu_id ) . '">';
 				$output                  .= '<span>' . esc_html( $item->title ) . '</span>';
 				$output                  .= '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>';

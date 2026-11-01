@@ -25,8 +25,9 @@ export function initNavToggle() {
 			if (toggler.dataset.labelOpen) toggler.setAttribute('aria-label', isOpen ? toggler.dataset.labelClose : toggler.dataset.labelOpen);
 			if (isOpen && !desktop.matches) target.querySelector('a, button')?.focus({ preventScroll: true });
 			if (window.lenis) isOpen ? window.lenis.stop() : window.lenis.start();
-			// The submenu is always expanded in the open mobile menu; keep its ARIA state truthful.
-			target.querySelectorAll('.dropdown-toggle').forEach((t) => t.setAttribute('aria-expanded', String(isOpen)));
+			// Submenus start collapsed each time the mobile menu opens, and fold away when it closes.
+			target.querySelectorAll('.dropdown-toggle').forEach((t) => t.setAttribute('aria-expanded', 'false'));
+			target.querySelectorAll('.dropdown-menu').forEach((m) => m.classList.remove('is-open'));
 		};
 
 		toggler.addEventListener('click', () => setOpen(!target.classList.contains('is-open')));
