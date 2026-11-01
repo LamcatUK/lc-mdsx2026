@@ -89,8 +89,8 @@ add_filter( 'default_hidden_columns', 'lc_mdsx2026_hide_pages_author_column_by_d
 /**
  * Take the Site Editor ("Design") and the font library ("Fonts") out of the Appearance menu.
  * Layouts here are built from the theme's blocks, and fonts are self-hosted in the theme,
- * so neither screen is something an editor should be changing. This hides the menu items
- * only; the screens still load if someone visits their addresses directly.
+ * so neither screen is something an editor should be changing. The two screens are also
+ * blocked at their addresses (see lc_mdsx2026_block_site_editor_screens()).
  *
  * @return void
  */
@@ -99,3 +99,20 @@ function lc_mdsx2026_trim_appearance_menu() {
 	remove_submenu_page( 'themes.php', 'font-library.php' );
 }
 add_action( 'admin_menu', 'lc_mdsx2026_trim_appearance_menu', 999 );
+
+/**
+ * Send anyone who opens the Site Editor or the font library by its address back to the dashboard.
+ * Nobody needs either screen on this theme, and the Site Editor could rewrite its templates.
+ * Runs for every user, administrators included.
+ *
+ * @return void
+ */
+function lc_mdsx2026_block_site_editor_screens() {
+	global $pagenow;
+
+	if ( in_array( $pagenow, array( 'site-editor.php', 'font-library.php' ), true ) ) {
+		wp_safe_redirect( admin_url() );
+		exit;
+	}
+}
+add_action( 'admin_init', 'lc_mdsx2026_block_site_editor_screens' );
