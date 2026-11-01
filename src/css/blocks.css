@@ -2165,6 +2165,28 @@ a.link-list__row:hover .arrow {
 .text-chapter__body p {
 	margin-bottom: 1.2em;
 }
+
+/* Bullet lists (job descriptions, qualifications): a small sea foam arrow instead of a dot */
+.text-chapter__body ul {
+	margin: 0 0 1.2em;
+	padding: 0;
+	list-style: none;
+}
+.text-chapter__body ul li {
+	position: relative;
+	margin-bottom: 0.55em;
+	padding-left: 1.5em;
+}
+.text-chapter__body ul li::before {
+	content: "";
+	position: absolute;
+	top: 0.62em;
+	left: 0.1em;
+	width: 0.7em;
+	height: 0.55em;
+	background: var(--motif, var(--col-sea));
+	clip-path: polygon(0 0, 100% 50%, 0 100%, 22% 50%);
+}
 @media (max-width: 860px) {
 	.text-chapter__grid {
 		grid-template-columns: 1fr;
