@@ -305,7 +305,8 @@
 	/**
 	 * Conversion tracking for Contact Form 7. After a successful send CF7 fires
 	 * `wpcf7mailsent` on the form's wrapper; push a GTM/GA4 `generate_lead` event with
-	 * the chosen topic (the visible label, not the piped recipient addresses).
+	 * the chosen topic (the visible label, not the piped recipient addresses), and follows the
+	 * form's thank-you page when it has one.
 	 */
 	function initContactForm() {
 	  document.addEventListener('wpcf7mailsent', event => {
@@ -320,6 +321,15 @@
 	      form_id: kind,
 	      enquiry_topic: topic
 	    });
+
+	    // A form with `thank_you_page: /path/` in its Additional Settings sends the visitor there (inc/cf7.php);
+	    // the short wait lets the tracking event above go out first.
+	    const redirect = event.detail?.apiResponse?.redirect_url;
+	    if (redirect) {
+	      window.setTimeout(() => {
+	        window.location.href = redirect;
+	      }, 400);
+	    }
 	  });
 	}
 
