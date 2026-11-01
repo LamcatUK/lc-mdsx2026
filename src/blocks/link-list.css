@@ -22,6 +22,7 @@
 }
 .link-list__row span {
 	font-size: 19px;
+	text-wrap: pretty;
 }
 .link-list__row time {
 	font: var(--fw-500) 14px / 1 var(--f-display);
