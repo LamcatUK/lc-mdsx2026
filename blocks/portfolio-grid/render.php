@@ -32,17 +32,28 @@ foreach ( array_keys( $groups ) as $tax ) {
 	<?php if ( $show_filters && ( $terms['discipline'] || $terms['sector'] ) ) { ?>
 		<div class="portfolio-grid__filters">
 			<div class="container portfolio-grid__filter-bar">
-				<?php foreach ( $groups as $tax => $label ) { ?>
-					<?php if ( $terms[ $tax ] ) { ?>
-						<fieldset data-filter-group="<?php echo esc_attr( $tax ); ?>">
-							<legend><?php echo esc_html( $label ); ?></legend>
-							<button class="chip" type="button" data-filter="" aria-pressed="true"><?php esc_html_e( 'All', 'lc-mdsx2026' ); ?></button>
-							<?php foreach ( $terms[ $tax ] as $term ) { ?>
-								<button class="chip" type="button" data-filter="<?php echo esc_attr( $term->slug ); ?>" aria-pressed="false"><?php echo esc_html( $term->name ); ?></button>
-							<?php } ?>
-						</fieldset>
+				<button class="portfolio-grid__toggle" type="button" aria-expanded="false" aria-controls="portfolio-filter-panel" data-filters-toggle>
+					<?php esc_html_e( 'Filter', 'lc-mdsx2026' ); ?>
+					<span class="portfolio-grid__badge" data-filter-badge hidden></span>
+					<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
+				</button>
+				<div class="portfolio-grid__panel" id="portfolio-filter-panel" data-lenis-prevent>
+					<?php foreach ( $groups as $tax => $label ) { ?>
+						<?php if ( $terms[ $tax ] ) { ?>
+							<fieldset data-filter-group="<?php echo esc_attr( $tax ); ?>">
+								<legend><?php echo esc_html( $label ); ?></legend>
+								<button class="chip" type="button" data-filter="" aria-pressed="true"><?php esc_html_e( 'All', 'lc-mdsx2026' ); ?></button>
+								<?php foreach ( $terms[ $tax ] as $term ) { ?>
+									<button class="chip" type="button" data-filter="<?php echo esc_attr( $term->slug ); ?>" aria-pressed="false"><?php echo esc_html( $term->name ); ?></button>
+								<?php } ?>
+							</fieldset>
+						<?php } ?>
 					<?php } ?>
-				<?php } ?>
+					<div class="portfolio-grid__panel-actions">
+						<button class="btn btn--primary" type="button" data-filters-done data-template="<?php echo esc_attr__( 'Show %d projects', 'lc-mdsx2026' ); ?>"><?php esc_html_e( 'Show projects', 'lc-mdsx2026' ); ?><i class="arrow" aria-hidden="true"></i></button>
+						<button class="textlink" type="button" data-filter-reset hidden><?php esc_html_e( 'Clear filters', 'lc-mdsx2026' ); ?></button>
+					</div>
+				</div>
 				<p class="portfolio-grid__count" role="status" aria-live="polite" data-count data-template="<?php echo esc_attr__( '%d projects', 'lc-mdsx2026' ); ?>"></p>
 			</div>
 		</div>

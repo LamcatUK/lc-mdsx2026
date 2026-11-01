@@ -1319,7 +1319,8 @@ a.link-list__row:hover .arrow {
 /* --- src/blocks/portfolio-grid.css --- */
 .portfolio-grid__filters {
 	position: sticky;
-	top: 0;
+	/* below the fixed header once it has turned into its slim bar (4.5rem, see nav.css) */
+	top: calc(4.5rem + var(--wp-admin--admin-bar--height, 0px));
 	z-index: 5;
 	background: var(--col-nero);
 	border-block: 1px solid var(--col-rule);
@@ -1346,6 +1347,13 @@ a.link-list__row:hover .arrow {
 	padding: 0;
 	font: var(--fw-700) 14px / 1 var(--f-sub);
 	color: var(--col-text-subtle);
+}
+.portfolio-grid__toggle,
+.portfolio-grid__panel-actions {
+	display: none;
+}
+.portfolio-grid__panel {
+	display: contents; /* desktop: the groups sit in the bar itself */
 }
 .portfolio-grid__count {
 	margin: 0 0 0 auto;
@@ -1385,8 +1393,99 @@ a.link-list__row:hover .arrow {
 	.portfolio-grid__item.is-wide {
 		grid-column: auto;
 	}
+}
+
+/*
+ * Small screens: the bar is one slim row, a Filter button and the count, instead of two wrapping
+ * rows of chips that took half the screen. The chips live in a panel that drops down from the bar.
+ */
+@media (max-width: 760px) {
+	.portfolio-grid__filter-bar {
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		gap: 16px;
+		padding-block: 10px;
+	}
+	.portfolio-grid__toggle {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 10px 4px 10px 0;
+		border: 0;
+		background: none;
+		color: inherit;
+		font: var(--fw-600) 16px / 1 var(--f-display);
+		cursor: pointer;
+	}
+	.portfolio-grid__toggle svg {
+		transition: transform var(--t-med) var(--ease-out);
+	}
+	.portfolio-grid__toggle[aria-expanded="true"] svg {
+		transform: rotate(180deg);
+	}
+	.portfolio-grid__badge {
+		display: inline-grid;
+		place-items: center;
+		min-width: 22px;
+		height: 22px;
+		padding-inline: 6px;
+		background: var(--col-sea);
+		color: var(--col-nero);
+		border-radius: 11px;
+		font: var(--fw-700) 12px / 1 var(--f-display);
+	}
+	.portfolio-grid__badge[hidden] {
+		display: none;
+	}
 	.portfolio-grid__count {
-		margin-left: 0;
+		margin: 0;
+	}
+
+	.portfolio-grid__panel {
+		display: none;
+		position: absolute;
+		inset: 100% 0 auto;
+		flex-direction: column;
+		gap: 22px;
+		max-height: calc(100svh - 4.5rem - 64px - var(--wp-admin--admin-bar--height, 0px));
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		padding: 20px var(--container-padding) 24px;
+		background: var(--col-nero);
+		border-bottom: 1px solid var(--col-rule);
+	}
+	.portfolio-grid__panel.is-open {
+		display: flex;
+	}
+	.portfolio-grid__panel legend {
+		float: none;
+		display: block;
+		margin: 0 0 10px;
+	}
+	.portfolio-grid__panel fieldset {
+		display: block;
+	}
+	.portfolio-grid__panel fieldset .chip {
+		margin: 0 6px 8px 0;
+	}
+	.portfolio-grid__panel-actions {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		position: sticky;
+		bottom: -24px;
+		padding-block: 14px 0;
+		margin-bottom: -24px;
+		background: var(--col-nero);
+	}
+	.portfolio-grid__panel-actions .textlink {
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
+	}
+	.portfolio-grid__panel-actions .textlink[hidden] {
+		display: none;
 	}
 }
 

@@ -12,7 +12,33 @@ export function initPortfolioFilter() {
 		const groups = [...root.querySelectorAll('[data-filter-group]')];
 		const count = root.querySelector('[data-count]');
 		const empty = root.querySelector('[data-empty]');
+		const toggle = root.querySelector('[data-filters-toggle]');
+		const panel = root.querySelector('#portfolio-filter-panel');
+		const badge = root.querySelector('[data-filter-badge]');
+		const done = root.querySelector('[data-filters-done]');
+		const resets = root.querySelectorAll('[data-filter-reset]');
 		const active = {};
+
+		// Small screens: the chips sit in a panel that drops down from a slim bar.
+		const setOpen = (open) => {
+			if (!toggle || !panel) return;
+			panel.classList.toggle('is-open', open);
+			toggle.setAttribute('aria-expanded', String(open));
+		};
+		toggle?.addEventListener('click', () => setOpen(!panel.classList.contains('is-open')));
+		done?.addEventListener('click', () => {
+			setOpen(false);
+			toggle?.focus();
+		});
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && panel?.classList.contains('is-open')) {
+				setOpen(false);
+				toggle.focus();
+			}
+		});
+		document.addEventListener('click', (event) => {
+			if (panel?.classList.contains('is-open') && !event.target.closest('.portfolio-grid__filter-bar')) setOpen(false);
+		});
 
 		const apply = () => {
 			let visible = 0;
@@ -26,6 +52,15 @@ export function initPortfolioFilter() {
 				}
 			});
 			if (empty) empty.hidden = visible > 0;
+			const chosen = Object.values(active).filter(Boolean).length;
+			if (badge) {
+				badge.hidden = chosen === 0;
+				badge.textContent = chosen;
+			}
+			resets.forEach((reset) => {
+				if (reset.closest('.portfolio-grid__panel-actions')) reset.hidden = chosen === 0;
+			});
+			if (done) done.firstChild.textContent = (done.dataset.template || '%d').replace('%d', visible);
 			if (count) count.textContent = (count.dataset.template || '%d').replace('%d', visible);
 		};
 
@@ -40,13 +75,15 @@ export function initPortfolioFilter() {
 				});
 			});
 		});
-		root.querySelector('[data-filter-reset]')?.addEventListener('click', () => {
-			groups.forEach((group) => {
-				active[group.dataset.filterGroup] = '';
-				group.querySelectorAll('[data-filter]').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.filter === '')));
-			});
-			apply();
-		});
+		resets.forEach((reset) =>
+			reset.addEventListener('click', () => {
+				groups.forEach((group) => {
+					active[group.dataset.filterGroup] = '';
+					group.querySelectorAll('[data-filter]').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.filter === '')));
+				});
+				apply();
+			})
+		);
 		apply();
 	});
 }
