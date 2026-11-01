@@ -222,6 +222,12 @@
 	font-size: clamp(40px, 5.6vw, 88px);
 }
 
+/* long button titles may wrap: keep the lines readable and the button inside the viewport */
+.cta-band .btn {
+	max-width: 100%;
+	line-height: 1.25;
+}
+
 /* --- src/blocks/error-404.css --- */
 /* 404 page: a large brand-shaped code, the headline, two ways back and a short list of main pages */
 .error-404 {

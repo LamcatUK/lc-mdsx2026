@@ -12,3 +12,9 @@
 	max-width: 9em;
 	font-size: clamp(40px, 5.6vw, 88px);
 }
+
+/* long button titles may wrap: keep the lines readable and the button inside the viewport */
+.cta-band .btn {
+	max-width: 100%;
+	line-height: 1.25;
+}

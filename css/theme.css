@@ -1231,6 +1231,7 @@ select {
 	font: var(--fw-600) 16px / 1 var(--f-display);
 	text-decoration: none;
 	color: var(--btn-fg);
+	text-wrap: pretty;
 	padding: 18px 30px 18px 26px;
 	border: 0;
 	background: none;
@@ -2716,6 +2717,12 @@ select {
 .cta-band h2 {
 	max-width: 9em;
 	font-size: clamp(40px, 5.6vw, 88px);
+}
+
+/* long button titles may wrap: keep the lines readable and the button inside the viewport */
+.cta-band .btn {
+	max-width: 100%;
+	line-height: 1.25;
 }
 
 /* --- src/blocks/error-404.css --- */

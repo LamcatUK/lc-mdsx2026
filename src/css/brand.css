@@ -155,6 +155,7 @@
 	font: var(--fw-600) 16px / 1 var(--f-display);
 	text-decoration: none;
 	color: var(--btn-fg);
+	text-wrap: pretty;
 	padding: 18px 30px 18px 26px;
 	border: 0;
 	background: none;
