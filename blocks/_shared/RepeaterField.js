@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { MediaUpload, MediaUploadCheck, URLInput } from '@wordpress/block-editor';
 import { BaseControl, TextControl, TextareaControl, ToggleControl, Button, RadioControl } from '@wordpress/components';
 import { useInstanceId } from '@wordpress/compose';
+import useRowMotion from './useRowMotion';
 
 /**
  * Generic repeater UI for a block attribute holding an array of row objects.
@@ -90,29 +91,15 @@ export default function RepeaterField( { label, value, onChange, fields, emptyRo
 		onChange( next );
 	}
 
-	function addRow() {
-		onChange( [ ...rows, { ...emptyRow } ] );
-	}
+	// Adding, moving and removing rows, with a slide and highlight on a move and focus kept on the arrow used.
+	const { keys, setRowRef, movedKey, addRow, moveRow, removeRow } = useRowMotion( rows, onChange );
 
-	function removeRow( index ) {
+	function confirmRemove( index ) {
 		// eslint-disable-next-line no-alert -- a plain confirm() is enough
 		// friction for an irreversible remove; no undo exists for this field.
-		if ( ! window.confirm( __( 'Remove this row?', 'lc-mdsx2026' ) ) ) {
-			return;
+		if ( window.confirm( __( 'Remove this row?', 'lc-mdsx2026' ) ) ) {
+			removeRow( index );
 		}
-		onChange( rows.filter( ( _row, i ) => i !== index ) );
-	}
-
-	function moveRow( index, direction ) {
-		const target = index + direction;
-		if ( target < 0 || target >= rows.length ) {
-			return;
-		}
-		const next = rows.slice();
-		const tmp = next[ index ];
-		next[ index ] = next[ target ];
-		next[ target ] = tmp;
-		onChange( next );
 	}
 
 	return (
@@ -144,7 +131,11 @@ export default function RepeaterField( { label, value, onChange, fields, emptyRo
 			) }
 			<div className="lc-mdsx2026-repeater-field__rows">
 			{ rows.map( ( row, index ) => (
-				<div className="lc-mdsx2026-repeater-field__row" key={ index }>
+				<div
+					className={ 'lc-mdsx2026-repeater-field__row' + ( keys[ index ] === movedKey ? ' is-moved' : '' ) }
+					key={ keys[ index ] }
+					ref={ setRowRef( keys[ index ] ) }
+				>
 					<span className="lc-mdsx2026-repeater-field__number">{ index + 1 }</span>
 					{ fields.map( ( field ) => {
 						if ( 'image' === field.type ) {
@@ -293,6 +284,7 @@ export default function RepeaterField( { label, value, onChange, fields, emptyRo
 					<div className="lc-mdsx2026-repeater-field__row-actions">
 						<Button
 							size="small"
+							data-move="up"
 							label={ __( 'Move up', 'lc-mdsx2026' ) }
 							onClick={ () => moveRow( index, -1 ) }
 							disabled={ 0 === index }
@@ -301,6 +293,7 @@ export default function RepeaterField( { label, value, onChange, fields, emptyRo
 						</Button>
 						<Button
 							size="small"
+							data-move="down"
 							label={ __( 'Move down', 'lc-mdsx2026' ) }
 							onClick={ () => moveRow( index, 1 ) }
 							disabled={ index === rows.length - 1 }
@@ -311,7 +304,7 @@ export default function RepeaterField( { label, value, onChange, fields, emptyRo
 							size="small"
 							isDestructive
 							label={ __( 'Remove', 'lc-mdsx2026' ) }
-							onClick={ () => removeRow( index ) }
+							onClick={ () => confirmRemove( index ) }
 						>
 							&times;
 						</Button>
@@ -319,7 +312,7 @@ export default function RepeaterField( { label, value, onChange, fields, emptyRo
 				</div>
 			) ) }
 			</div>
-			<Button variant="primary" onClick={ addRow }>
+			<Button variant="primary" onClick={ () => addRow( emptyRow ) }>
 				{ __( 'Add row', 'lc-mdsx2026' ) }
 			</Button>
 		</div>

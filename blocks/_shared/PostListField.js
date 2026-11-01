@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
 import PostTypePicker from './PostTypePicker';
+import useRowMotion from './useRowMotion';
 
 /**
  * Ordered picklist of posts for a block attribute holding an array of post
@@ -26,15 +27,8 @@ export default function PostListField( { label, postType, value, onChange, help,
 		onChange( next );
 	}
 
-	function move( index, direction ) {
-		const target = index + direction;
-		if ( target < 0 || target >= ids.length ) {
-			return;
-		}
-		const next = ids.slice();
-		[ next[ index ], next[ target ] ] = [ next[ target ], next[ index ] ];
-		onChange( next );
-	}
+	// Moving a row slides and highlights it, and keeps focus on the arrow that was used.
+	const { keys, setRowRef, movedKey, moveRow, removeRow } = useRowMotion( ids, onChange );
 
 	return (
 		<div className="lc-mdsx2026-editor-field lc-mdsx2026-repeater-field">
@@ -42,19 +36,23 @@ export default function PostListField( { label, postType, value, onChange, help,
 			{ help && <p className="lc-mdsx2026-editor-field__help">{ help }</p> }
 			<div className="lc-mdsx2026-repeater-field__rows">
 				{ ids.map( ( id, index ) => (
-					<div className="lc-mdsx2026-repeater-field__row" key={ index }>
+					<div
+						className={ 'lc-mdsx2026-repeater-field__row' + ( keys[ index ] === movedKey ? ' is-moved' : '' ) }
+						key={ keys[ index ] }
+						ref={ setRowRef( keys[ index ] ) }
+					>
 						<span className="lc-mdsx2026-repeater-field__number">{ index + 1 }</span>
 						<div style={ { flex: '1 1 auto' } }>
 							<PostTypePicker label={ __( 'Project', 'lc-mdsx2026' ) } postType={ postType } value={ id } onChange={ ( v ) => update( index, v ) } />
 						</div>
 						<div className="lc-mdsx2026-repeater-field__row-actions">
-							<Button size="small" label={ __( 'Move up', 'lc-mdsx2026' ) } onClick={ () => move( index, -1 ) } disabled={ 0 === index }>
+							<Button size="small" data-move="up" label={ __( 'Move up', 'lc-mdsx2026' ) } onClick={ () => moveRow( index, -1 ) } disabled={ 0 === index }>
 								&#9650;
 							</Button>
-							<Button size="small" label={ __( 'Move down', 'lc-mdsx2026' ) } onClick={ () => move( index, 1 ) } disabled={ index === ids.length - 1 }>
+							<Button size="small" data-move="down" label={ __( 'Move down', 'lc-mdsx2026' ) } onClick={ () => moveRow( index, 1 ) } disabled={ index === ids.length - 1 }>
 								&#9660;
 							</Button>
-							<Button size="small" isDestructive label={ __( 'Remove', 'lc-mdsx2026' ) } onClick={ () => onChange( ids.filter( ( _id, i ) => i !== index ) ) }>
+							<Button size="small" isDestructive label={ __( 'Remove', 'lc-mdsx2026' ) } onClick={ () => removeRow( index ) }>
 								&times;
 							</Button>
 						</div>

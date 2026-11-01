@@ -524,4 +524,29 @@
 	font-family: inherit;
 }
 
+/*
+ * A row that has just been moved (blocks/_shared/useRowMotion.js): a tint that fades out, so you can
+ * keep track of which row went where. With reduced motion it shows for the same time with no fade.
+ */
+.lc-mdsx2026-repeater-field__row.is-moved {
+	animation: lc-mdsx2026-row-moved 1.2s ease-out;
+}
+
+@keyframes lc-mdsx2026-row-moved {
+	from {
+		background-color: rgb(255 180 34 / 0.4);
+	}
+
+	to {
+		background-color: transparent;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lc-mdsx2026-repeater-field__row.is-moved {
+		animation: none;
+		background-color: rgb(255 180 34 / 0.4);
+	}
+}
+
 /*# sourceMappingURL=editor.css.map */
