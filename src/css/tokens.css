@@ -114,6 +114,9 @@
     --fs-base: 19px;
     --fs-small: 17px;
     --fs-meta: 15px;
+    /* sized so a ten-letter word like "management" fits one line at about 330px */
+    --fs-display: clamp(46px, 11vw, 52px);
+    --fs-h1: clamp(46px, 11vw, 52px);
     --container-padding: 16px;
   }
 }

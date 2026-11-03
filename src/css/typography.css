@@ -72,6 +72,11 @@ p {
 	max-width: 70ch;
 }
 
+/* last resort for a long word on a very narrow screen */
+h1 {
+	overflow-wrap: break-word;
+}
+
 /* avoid orphans in titles and body copy */
 h1,
 h2,

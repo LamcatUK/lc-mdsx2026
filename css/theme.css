@@ -150,6 +150,9 @@
     --fs-base: 19px;
     --fs-small: 17px;
     --fs-meta: 15px;
+    /* sized so a ten-letter word like "management" fits one line at about 330px */
+    --fs-display: clamp(46px, 11vw, 52px);
+    --fs-h1: clamp(46px, 11vw, 52px);
     --container-padding: 16px;
   }
 }
@@ -353,6 +356,11 @@ h4,
 
 p {
 	max-width: 70ch;
+}
+
+/* last resort for a long word on a very narrow screen */
+h1 {
+	overflow-wrap: break-word;
 }
 
 /* avoid orphans in titles and body copy */
@@ -1532,8 +1540,8 @@ select {
 .fw-f-sub { font-weight: "Quicksand", system-ui, sans-serif; }
 .fw-f-body { font-weight: "Fenix", Georgia, serif; }
 .fw-font-family-base { font-weight: var(--f-body); }
-.fw-fs-display { font-weight: clamp(52px, 8.4vw, 136px); }
-.fw-fs-h1 { font-weight: clamp(52px, 8vw, 128px); }
+.fw-fs-display { font-weight: clamp(46px, 11vw, 52px); }
+.fw-fs-h1 { font-weight: clamp(46px, 11vw, 52px); }
 .fw-fs-h2 { font-weight: clamp(36px, 4.6vw, 68px); }
 .fw-fs-h3 { font-weight: clamp(24px, 2.2vw, 30px); }
 .fw-fs-h4 { font-weight: 20px; }

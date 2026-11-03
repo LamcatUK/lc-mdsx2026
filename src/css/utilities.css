@@ -41,8 +41,8 @@
 .fw-f-sub { font-weight: "Quicksand", system-ui, sans-serif; }
 .fw-f-body { font-weight: "Fenix", Georgia, serif; }
 .fw-font-family-base { font-weight: var(--f-body); }
-.fw-fs-display { font-weight: clamp(52px, 8.4vw, 136px); }
-.fw-fs-h1 { font-weight: clamp(52px, 8vw, 128px); }
+.fw-fs-display { font-weight: clamp(46px, 11vw, 52px); }
+.fw-fs-h1 { font-weight: clamp(46px, 11vw, 52px); }
 .fw-fs-h2 { font-weight: clamp(36px, 4.6vw, 68px); }
 .fw-fs-h3 { font-weight: clamp(24px, 2.2vw, 30px); }
 .fw-fs-h4 { font-weight: 20px; }
