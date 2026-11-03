@@ -111,7 +111,9 @@
 
 @media (max-width: 640px) {
   :root {
-    --fs-base: 17px;
+    --fs-base: 19px;
+    --fs-small: 17px;
+    --fs-meta: 15px;
     --container-padding: 16px;
   }
 }

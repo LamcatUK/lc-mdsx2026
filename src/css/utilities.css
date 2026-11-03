@@ -50,9 +50,9 @@
 .fw-fs-h6 { font-weight: 16px; }
 .fw-fs-statement { font-weight: clamp(26px, 2.4vw, 36px); }
 .fw-fs-lede { font-weight: clamp(20px, 1.6vw, 23px); }
-.fw-fs-base { font-weight: 17px; }
-.fw-fs-small { font-weight: 16px; }
-.fw-fs-meta { font-weight: 14px; }
+.fw-fs-base { font-weight: 19px; }
+.fw-fs-small { font-weight: 17px; }
+.fw-fs-meta { font-weight: 15px; }
 .fw-fw-400 { font-weight: 400; }
 .fw-fw-500 { font-weight: 500; }
 .fw-fw-600 { font-weight: 600; }
