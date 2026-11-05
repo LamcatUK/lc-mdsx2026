@@ -23,7 +23,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 			</InspectorControls>
 		<EditorBlockShell blockProps={ blockProps } clientId={ clientId } title="Press Names" textDomain="lc-mdsx2026">
 			<TextControl label={ __( "Heading", 'lc-mdsx2026' ) } value={ heading } onChange={ ( value ) => setAttributes( { heading: value } ) } />
-			<RepeaterField label={ __( "Outlets", 'lc-mdsx2026' ) } value={ items } onChange={ ( rows ) => setAttributes( { items: rows } ) } fields={ [ { name: "name", label: "Outlet", type: "text" }, { name: "link", label: "Article (title and URL)", type: "link" } ] } emptyRow={ { name: '', link: '' } } layout="column" />
+			<RepeaterField label={ __( "Outlets", 'lc-mdsx2026' ) } value={ items } onChange={ ( rows ) => setAttributes( { items: rows } ) } fields={ [ { name: "name", label: "Outlet", type: "text" }, { name: "logo", label: "Logo (optional, replaces the name)", type: "image" }, { name: "link", label: "Article (title and URL)", type: "link" } ] } emptyRow={ { name: '', logo: '', link: '' } } layout="column" />
 		</EditorBlockShell>
 		</>
 	);

@@ -4277,6 +4277,34 @@ a.link-list__row:hover .arrow {
 	text-decoration-color: var(--accent);
 }
 
+/* outlet logos: grey, like the marquee's. On dark surfaces they are inverted to white and screen-blended
+   (on the list, not the images, because the revealing list is its own stacking context). */
+.press-names__list img {
+	display: block;
+	height: clamp(28px, 3vw, 40px);
+	width: auto;
+	max-width: 12rem;
+	object-fit: contain;
+	filter: grayscale(1);
+	opacity: 0.75;
+	transition: opacity var(--t-fast);
+}
+.press-names__list a:hover img,
+.press-names__list a:focus-visible img {
+	opacity: 1;
+}
+.press-names.s-nero .press-names__list,
+.press-names.s-charcoal .press-names__list {
+	mix-blend-mode: screen;
+}
+.press-names.s-nero .press-names__list img,
+.press-names.s-charcoal .press-names__list img {
+	filter: grayscale(1) invert(1) contrast(1.4);
+}
+.press-names:is(.s-solitude, .s-sea, .s-crusta) .press-names__list {
+	mix-blend-mode: multiply;
+}
+
 /* --- src/blocks/process-steps.css --- */
 .process-steps .t-subhead {
 	margin-top: 24px;
