@@ -23,7 +23,7 @@
 	<nav class="navbar container" aria-label="<?php esc_attr_e( 'Primary navigation', 'lc-mdsx2026' ); ?>">
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar-brand" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 			<img class="logo-light" src="<?php echo esc_url( lc_mdsx2026_img_url( 'logos/mdsx-badge-solitude.svg' ) ); ?>" alt="MDSX" width="64" height="46">
-			<img class="logo-dark" src="<?php echo esc_url( lc_mdsx2026_img_url( 'logos/mdsx-badge-solitude-on-solitude.svg' ) ); ?>" alt="" width="64" height="46" aria-hidden="true">
+			<img class="logo-dark" src="<?php echo esc_url( lc_mdsx2026_img_url( 'logos/mdsx-badge-primary.svg' ) ); ?>" alt="" width="64" height="46" aria-hidden="true">
 		</a>
 
 		<button class="navbar-toggler" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="<?php esc_attr_e( 'Open menu', 'lc-mdsx2026' ); ?>" data-label-open="<?php esc_attr_e( 'Open menu', 'lc-mdsx2026' ); ?>" data-label-close="<?php esc_attr_e( 'Close menu', 'lc-mdsx2026' ); ?>">

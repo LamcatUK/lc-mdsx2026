@@ -5,11 +5,15 @@
 	"title": "Logo Marquee",
 	"category": "lc-mdsx2026",
 	"icon": "images-alt2",
-	"description": "Scrolling strip of client logos.",
+	"description": "Client logos as a scrolling strip or a static grid.",
 	"attributes": {
 		"label": {
 			"type": "string",
 			"default": "Clients"
+		},
+		"layout": {
+			"type": "string",
+			"default": "marquee"
 		},
 		"logos": {
 			"type": "array",

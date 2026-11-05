@@ -1063,6 +1063,44 @@ a.link-list__row:hover .arrow {
 	}
 }
 
+/* grid variant: static, wrapping, centred rows of logos */
+.logo-marquee--grid {
+	overflow: visible;
+	padding-block: var(--space-section);
+}
+.logo-marquee__grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 48px 40px;
+	align-items: center;
+	justify-items: center;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+@media (min-width: 640px) {
+	.logo-marquee__grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+@media (min-width: 992px) {
+	.logo-marquee__grid {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+/* The screen blend sits on the li, not the img: a revealing li (opacity, transform) is its own
+   stacking context, so a blend on the img inside it has no backdrop until the fade finishes. */
+.logo-marquee__grid li {
+	mix-blend-mode: screen;
+}
+.logo-marquee__grid img {
+	mix-blend-mode: normal;
+	height: auto;
+	max-height: 90px;
+	max-width: 100%;
+	object-fit: contain;
+}
+
 /* --- src/blocks/news-article.css --- */
 /*
  * News article (single.php): runs of core blocks sit in a reading column between the theme blocks.

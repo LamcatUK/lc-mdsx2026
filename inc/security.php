@@ -283,6 +283,8 @@ function lc_mdsx2026_send_security_headers() {
 	header( 'X-Frame-Options: SAMEORIGIN' );
 	header( 'X-Content-Type-Options: nosniff' );
 	header( 'Referrer-Policy: strict-origin-when-cross-origin' );
+	// Same value as lcp-blog-options' opt-in checkbox. Nothing on this site needs the camera, microphone or location.
+	header( 'Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()' );
 }
 add_action( 'send_headers', 'lc_mdsx2026_send_security_headers' );
 
