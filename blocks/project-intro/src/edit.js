@@ -5,7 +5,7 @@ import EditorBlockShell from '../../_shared/EditorBlockShell';
 import RepeaterField from '../../_shared/RepeaterField';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { statement, body, meta, tags, backgroundShape } = attributes;
+	const { statement, body, meta, tags, backgroundShape, backgroundShapeColor } = attributes;
 	const blockProps = useBlockProps( { className: 'container lc-mdsx2026-editor-block' } );
 
 	return (
@@ -18,6 +18,12 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						options={ [ { label: __( 'None', 'lc-mdsx2026' ), value: '' }, { label: __( 'From the right', 'lc-mdsx2026' ), value: 'right' }, { label: __( 'From the left', 'lc-mdsx2026' ), value: 'left' } ] }
 						onChange={ ( value ) => setAttributes( { backgroundShape: value } ) }
 						help={ __( 'A large, subtle brand parallelogram behind the content, entering from one side. Use it to break up neighbouring blocks with the same background.', 'lc-mdsx2026' ) }
+					/>
+					<SelectControl
+						label={ __( 'Shape colour', 'lc-mdsx2026' ) }
+						value={ backgroundShapeColor }
+						options={ [ { label: __( 'Default', 'lc-mdsx2026' ), value: '' }, { label: __( 'Sea Foam, subtle', 'lc-mdsx2026' ), value: 'sea' }, { label: __( 'Crusta, subtle', 'lc-mdsx2026' ), value: 'crusta' } ] }
+						onChange={ ( value ) => setAttributes( { backgroundShapeColor: value } ) }
 					/>
 				</PanelBody>
 			</InspectorControls>

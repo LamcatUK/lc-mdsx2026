@@ -17,7 +17,7 @@ $team    = get_posts(
 	)
 );
 ?>
-<section <?php echo lc_mdsx2026_wrapper( 'team-grid section', $surface ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?>>
+<section <?php echo lc_mdsx2026_wrapper( 'team-grid section bg-pattern', $surface ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?>>
 	<div class="container">
 		<?php if ( ! empty( $attributes['heading'] ) ) { ?>
 			<h2 class="baseline reveal"><?php echo esc_html( $attributes['heading'] ); ?></h2>

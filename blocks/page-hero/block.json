@@ -19,6 +19,10 @@
 			"type": "string",
 			"default": ""
 		},
+		"backgroundShapeColor": {
+			"type": "string",
+			"default": ""
+		},
 		"crumbText": {
 			"type": "string",
 			"default": ""

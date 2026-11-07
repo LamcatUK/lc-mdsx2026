@@ -15,6 +15,10 @@
 			"type": "string",
 			"default": ""
 		},
+		"backgroundShapeColor": {
+			"type": "string",
+			"default": ""
+		},
 		"statement": {
 			"type": "string",
 			"default": ""
@@ -30,6 +34,14 @@
 		"ctaUrl": {
 			"type": "string",
 			"default": ""
+		},
+		"factsFlag": {
+			"type": "boolean",
+			"default": false
+		},
+		"factsDividers": {
+			"type": "boolean",
+			"default": false
 		},
 		"facts": {
 			"type": "array",

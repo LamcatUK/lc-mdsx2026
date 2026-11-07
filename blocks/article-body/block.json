@@ -15,6 +15,10 @@
 			"type": "string",
 			"default": ""
 		},
+		"backgroundShapeColor": {
+			"type": "string",
+			"default": ""
+		},
 		"imageId": {
 			"type": "number",
 			"default": 0

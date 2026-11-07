@@ -39,7 +39,7 @@
 
   /* Type scale (fluid, 375px to 1440px) */
   --fs-display: clamp(52px, 8.4vw, 136px);
-  --fs-h1: clamp(52px, 8vw, 128px);
+  --fs-h1: clamp(52px, 7.2vw, 116px);
   --fs-h2: clamp(36px, 4.6vw, 68px);
   --fs-h3: clamp(24px, 2.2vw, 30px);
   --fs-h4: 20px;

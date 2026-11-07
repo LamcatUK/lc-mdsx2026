@@ -2135,6 +2135,45 @@ a.link-list__row:hover .arrow {
 	line-height: 1.5;
 	color: var(--muted);
 }
+/* flag: a small brand parallelogram above each fact, cycling through three brand colours per surface */
+.split-intro {
+	--flag-1: var(--col-sea);
+	--flag-2: var(--col-crusta);
+	--flag-3: var(--col-solitude);
+}
+.split-intro.s-solitude {
+	--flag-3: var(--col-nero);
+}
+.split-intro.s-sea {
+	--flag-1: var(--col-crusta);
+	--flag-2: var(--col-nero);
+	--flag-3: var(--col-solitude);
+}
+.split-intro.s-crusta {
+	--flag-1: var(--col-nero);
+	--flag-2: var(--col-solitude);
+	--flag-3: var(--col-sea);
+}
+.split-intro__facts.has-flags > div::before {
+	content: "";
+	display: block;
+	width: 40px;
+	height: 28px;
+	margin-bottom: 18px;
+	background: var(--flag-1);
+	clip-path: shape(from 0 calc(23% + 3px), curve to 3px 21.4% with 0 23%, line to 100% 0, line to 100% calc(77% - 3px), curve to calc(100% - 3px) 78.6% with 100% 77%, line to 0 100%, close);
+}
+.split-intro__facts.has-flags > div:nth-child(3n + 2)::before {
+	background: var(--flag-2);
+}
+.split-intro__facts.has-flags > div:nth-child(3n)::before {
+	background: var(--flag-3);
+}
+/* dividers: a vertical rule between facts on the same row */
+.split-intro__facts.has-dividers > div:not(:nth-child(3n + 1)) {
+	padding-left: 32px;
+	border-left: 1px solid var(--rule);
+}
 @media (max-width: 860px) {
 	.split-intro__grid,
 	.split-intro__facts {
@@ -2143,6 +2182,10 @@ a.link-list__row:hover .arrow {
 	.split-intro__facts > div {
 		padding: 22px 0;
 		border-bottom: 1px solid var(--rule);
+	}
+	.split-intro__facts.has-dividers > div:not(:nth-child(3n + 1)) {
+		padding-left: 0;
+		border-left: 0;
 	}
 }
 
@@ -2217,6 +2260,22 @@ a.link-list__row:hover .arrow {
 	margin-top: 4px;
 	font: var(--fw-700) 15px / 1.35 var(--f-sub);
 	color: var(--accent);
+}
+
+/* A step darker than Nero (not black), so the pattern and headshots sit in a deeper field than the page.
+   Only when the block is on Nero; other surfaces are untouched. */
+.team-grid.s-nero {
+	--team-grid-bg: #1b1b1b;
+	background-color: var(--team-grid-bg) !important; /* beats WordPress's own !important palette-colour rule */
+}
+
+/* Fixed pattern: it stays put in the viewport while the headshots scroll over it. A fixed ::after is
+   clipped to the section by clip-path, so it only shows inside the block. */
+.team-grid.bg-pattern {
+	clip-path: inset(0);
+}
+.team-grid.bg-pattern::after {
+	position: fixed;
 }
 
 /* --- src/blocks/text-chapter.css --- */

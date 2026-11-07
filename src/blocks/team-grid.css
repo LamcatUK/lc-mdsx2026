@@ -34,3 +34,19 @@
 	font: var(--fw-700) 15px / 1.35 var(--f-sub);
 	color: var(--accent);
 }
+
+/* A step darker than Nero (not black), so the pattern and headshots sit in a deeper field than the page.
+   Only when the block is on Nero; other surfaces are untouched. */
+.team-grid.s-nero {
+	--team-grid-bg: #1b1b1b;
+	background-color: var(--team-grid-bg) !important; /* beats WordPress's own !important palette-colour rule */
+}
+
+/* Fixed pattern: it stays put in the viewport while the headshots scroll over it. A fixed ::after is
+   clipped to the section by clip-path, so it only shows inside the block. */
+.team-grid.bg-pattern {
+	clip-path: inset(0);
+}
+.team-grid.bg-pattern::after {
+	position: fixed;
+}

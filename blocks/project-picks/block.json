@@ -15,6 +15,10 @@
 			"type": "string",
 			"default": ""
 		},
+		"backgroundShapeColor": {
+			"type": "string",
+			"default": ""
+		},
 		"heading": {
 			"type": "string",
 			"default": "Selected projects"

@@ -113,6 +113,10 @@ function lc_mdsx2026_wrapper( $name, $surface = '', $extra = '' ) {
 	$shape = isset( WP_Block_Supports::$block_to_render['attrs']['backgroundShape'] ) ? WP_Block_Supports::$block_to_render['attrs']['backgroundShape'] : '';
 	if ( in_array( $shape, array( 'left', 'right' ), true ) ) {
 		$class .= ' has-shape has-shape--' . $shape;
+		$tint   = isset( WP_Block_Supports::$block_to_render['attrs']['backgroundShapeColor'] ) ? WP_Block_Supports::$block_to_render['attrs']['backgroundShapeColor'] : '';
+		if ( in_array( $tint, array( 'sea', 'crusta' ), true ) ) {
+			$class .= ' has-shape--' . $tint;
+		}
 	}
 
 	return get_block_wrapper_attributes( array( 'class' => $class ) );

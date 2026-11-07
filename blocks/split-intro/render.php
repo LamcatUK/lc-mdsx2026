@@ -24,7 +24,7 @@ $facts   = array_filter( (array) ( $attributes['facts'] ?? array() ), static fn(
 			</div>
 		</div>
 		<?php if ( $facts ) { ?>
-			<dl class="split-intro__facts">
+			<dl class="split-intro__facts<?php echo ! empty( $attributes['factsFlag'] ) ? ' has-flags' : ''; ?><?php echo ! empty( $attributes['factsDividers'] ) ? ' has-dividers' : ''; ?>">
 				<?php foreach ( $facts as $i => $fact ) { ?>
 					<div class="reveal" style="--i:<?php echo (int) $i; ?>">
 						<dt><?php echo esc_html( $fact['title'] ?? '' ); ?></dt>
