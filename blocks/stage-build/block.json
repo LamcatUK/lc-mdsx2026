@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/stage-build",
+	"title": "Stage: Build (Behind the scenes)",
+	"category": "lc-mdsx2026",
+	"icon": "hammer",
+	"description": "Build stage: staggered behind-the-scenes stills and portrait clips with tape labels.",
+	"attributes": {
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"caption": {
+			"type": "string",
+			"default": ""
+		},
+		"items": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"anchor": false,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

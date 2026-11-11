@@ -1,11 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, SelectControl, TextControl } from '@wordpress/components';
+import { PanelBody, SelectControl, TextControl, ToggleControl } from '@wordpress/components';
 import EditorBlockShell from '../../_shared/EditorBlockShell';
 import RepeaterField from '../../_shared/RepeaterField';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { label, layout, logos } = attributes;
+	const { label, layout, invert, logos } = attributes;
 	const blockProps = useBlockProps( { className: 'container lc-mdsx2026-editor-block' } );
 
 	return (
@@ -17,6 +17,12 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 						value={ layout }
 						options={ [ { label: __( 'Scrolling marquee', 'lc-mdsx2026' ), value: 'marquee' }, { label: __( 'Grid', 'lc-mdsx2026' ), value: 'grid' } ] }
 						onChange={ ( value ) => setAttributes( { layout: value } ) }
+					/>
+					<ToggleControl
+						label={ __( 'Dark logos on a light background', 'lc-mdsx2026' ) }
+						help={ __( 'Off: light logos on Nero. On: dark logos on Solitude. Either way the logo files are recoloured automatically, so supply them as dark or full-colour artwork on a transparent background.', 'lc-mdsx2026' ) }
+						checked={ !! invert }
+						onChange={ ( value ) => setAttributes( { invert: value } ) }
 					/>
 				</PanelBody>
 			</InspectorControls>

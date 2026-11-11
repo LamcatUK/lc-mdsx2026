@@ -586,6 +586,420 @@
 	  }));
 	}
 
+	/**
+	 * Project page motion helpers.
+	 *
+	 * - isStatic(): true for prefers-reduced-motion or a `?static` query (used for design capture).
+	 *   Switches off the hero push-in, the pinned sketchbook strip (falls back to native scroll), the compare
+	 *   sweep, parallax and autoplaying loops; `html.is-static` mirrors it for CSS.
+	 * - Reel arrows: scroll the "on the floor" row by 60% of its width.
+	 * - Cinematic image: light scrubbed parallax (the image is 120% tall inside a clipped box).
+	 */
+	const isStatic = () => /[?&]static/.test(window.location.search) || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	function initProjectMotion() {
+	  if (isStatic()) document.documentElement.classList.add('is-static');
+	  document.querySelectorAll('[data-reel-row]').forEach(row => {
+	    const root = row.closest('.floor');
+	    root?.querySelectorAll('[data-reel]').forEach(button => {
+	      button.addEventListener('click', () => {
+	        row.scrollBy({
+	          left: Number(button.dataset.reel) * row.clientWidth * 0.6,
+	          behavior: isStatic() ? 'auto' : 'smooth'
+	        });
+	      });
+	    });
+	  });
+	  if (isStatic()) return;
+	  const cines = [...document.querySelectorAll('[data-cine]')];
+	  if (!cines.length) return;
+	  let ticking = false;
+	  const update = () => {
+	    const vh = window.innerHeight;
+	    cines.forEach(cine => {
+	      const rect = cine.getBoundingClientRect();
+	      if (rect.bottom < 0 || rect.top > vh) return;
+	      const progress = (vh - rect.top) / (vh + rect.height);
+	      const img = cine.querySelector('[data-cine-img]');
+	      if (img) img.style.transform = `translate3d(0, ${((progress - 0.5) * 10).toFixed(2)}%, 0)`;
+	    });
+	    ticking = false;
+	  };
+	  window.addEventListener('scroll', () => {
+	    if (!ticking) {
+	      ticking = true;
+	      window.requestAnimationFrame(update);
+	    }
+	  }, {
+	    passive: true
+	  });
+	  update();
+	}
+
+	/**
+	 * Video handling shared by the project hero, the film block and the reels.
+	 *
+	 * Loops (data-video="loop"): muted, looping, autoplaying; paused when scrolled offscreen; a visible pause
+	 * control on any clip over 5 seconds (WCAG 2.2.2). In static mode (reduced motion / ?static) they show the poster.
+	 *
+	 * Films ([data-film]): click the play button to play in place, with sound and controls. A Vimeo ID
+	 * (data-vimeo) loads the Vimeo player only after that click, so nothing third-party loads before interaction.
+	 * The hero also has a Close button that restores the page copy.
+	 */
+	function initVideo() {
+	  const loops = [...document.querySelectorAll('video[data-video="loop"]')];
+	  const still = isStatic();
+	  loops.forEach(video => {
+	    const pause = video.parentElement.querySelector('[data-video-pause]');
+	    let userPaused = false;
+	    if (still) {
+	      video.removeAttribute('autoplay');
+	      video.pause();
+	      return;
+	    }
+	    const sync = () => {
+	      if (pause) {
+	        pause.setAttribute('aria-pressed', String(userPaused));
+	        pause.querySelector('.visually-hidden').textContent = userPaused ? 'Play video' : 'Pause video';
+	      }
+	    };
+	    const reveal = () => {
+	      if (pause && video.duration > 5) pause.hidden = false;
+	    };
+	    if (video.readyState >= 1) reveal();else video.addEventListener('loadedmetadata', reveal, {
+	      once: true
+	    });
+	    pause?.addEventListener('click', () => {
+	      userPaused = !userPaused;
+	      if (userPaused) video.pause();else video.play().catch(() => {});
+	      sync();
+	    });
+	    if ('IntersectionObserver' in window) {
+	      new IntersectionObserver(entries => {
+	        entries.forEach(entry => {
+	          if (entry.isIntersecting && !userPaused) video.play().catch(() => {});else video.pause();
+	        });
+	      }, {
+	        threshold: 0.15
+	      }).observe(video);
+	    }
+	  });
+	  document.querySelectorAll('[data-film]').forEach(root => {
+	    const play = root.querySelector('[data-film-play]');
+	    const close = root.querySelector('[data-film-close]');
+	    const media = root.querySelector('[data-film-media]');
+	    const video = media?.querySelector('video[data-video="film"]');
+	    const vimeo = root.dataset.vimeo;
+	    let frame = null;
+	    play?.addEventListener('click', () => {
+	      root.classList.add('is-playing');
+	      if (vimeo) {
+	        frame = document.createElement('iframe');
+	        frame.src = `https://player.vimeo.com/video/${encodeURIComponent(vimeo)}?dnt=1&title=0&byline=0&portrait=0&autoplay=1`;
+	        frame.allow = 'autoplay; fullscreen; picture-in-picture';
+	        frame.allowFullscreen = true;
+	        frame.title = root.getAttribute('aria-label') || 'Film';
+	        media.appendChild(frame);
+	      } else if (video) {
+	        video.controls = true;
+	        video.play().catch(() => {});
+	      }
+	      (close || video || frame)?.focus?.();
+	    });
+	    close?.addEventListener('click', () => {
+	      video?.pause();
+	      if (video) video.controls = false;
+	      frame?.remove();
+	      frame = null;
+	      root.classList.remove('is-playing');
+	      play?.focus();
+	    });
+	  });
+	}
+
+	/**
+	 * Compare slider (idea to reality): pointer drag anywhere on the image, arrow keys (5% steps) on the grip.
+	 * The first time it scrolls into view it sweeps once from 85% to 50% so people see it moves.
+	 */
+	function initCompare() {
+	  document.querySelectorAll('[data-compare]').forEach(box => {
+	    const grip = box.querySelector('[data-compare-grip]');
+	    let pos = 50;
+	    let dragging = false;
+	    let touched = false;
+	    const set = value => {
+	      pos = Math.max(0, Math.min(100, value));
+	      box.style.setProperty('--pos', `${pos}%`);
+	      grip?.setAttribute('aria-valuenow', String(Math.round(pos)));
+	    };
+	    const fromPointer = event => {
+	      const rect = box.getBoundingClientRect();
+	      set((event.clientX - rect.left) / rect.width * 100);
+	    };
+	    box.addEventListener('pointerdown', event => {
+	      dragging = touched = true;
+	      box.setPointerCapture(event.pointerId);
+	      fromPointer(event);
+	    });
+	    box.addEventListener('pointermove', event => dragging && fromPointer(event));
+	    box.addEventListener('pointerup', () => dragging = false);
+	    box.addEventListener('pointercancel', () => dragging = false);
+	    grip?.addEventListener('keydown', event => {
+	      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+	        touched = true;
+	        set(pos + (event.key === 'ArrowLeft' ? -5 : 5));
+	        event.preventDefault();
+	      }
+	    });
+	    if (isStatic() || !('IntersectionObserver' in window)) return;
+	    const sweep = new IntersectionObserver(entries => {
+	      if (!entries[0].isIntersecting) return;
+	      sweep.disconnect();
+	      const start = performance.now();
+	      const step = now => {
+	        if (touched) return;
+	        const t = Math.min(1, (now - start) / 1400);
+	        const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+	        set(85 - 35 * eased);
+	        if (t < 1) window.requestAnimationFrame(step);
+	      };
+	      set(85);
+	      window.requestAnimationFrame(step);
+	    }, {
+	      rootMargin: '0px 0px -30% 0px'
+	    });
+	    sweep.observe(box);
+	  });
+	}
+
+	/**
+	 * Concept sketchbook strip. On desktop (761px up) the strip is pinned with position: sticky and
+	 * scrubbed sideways by the page scroll, with a "03 / 08" counter and progress track. Below that, or with
+	 * reduced motion, the strip stays a native scroll-snap row. No scroll library: sticky + one rAF handler
+	 * keeps it compatible with the Lenis smooth scroll.
+	 */
+	function initSketchbook() {
+	  const tracks = [...document.querySelectorAll('[data-sketchbook]')];
+	  if (!tracks.length) return;
+	  const wide = window.matchMedia('(min-width: 761px)');
+	  const setup = track => {
+	    const pin = track.querySelector('.sketchbook__pin');
+	    const scroller = track.querySelector('[data-sketchbook-scroller]');
+	    const strip = track.querySelector('[data-sketchbook-strip]');
+	    const bar = track.querySelector('[data-sketchbook-bar]');
+	    const count = track.querySelector('[data-sketchbook-count]');
+	    const total = strip.children.length;
+	    let dist = 0;
+	    let top = 0;
+	    let ticking = false;
+	    const measure = () => {
+	      if (!track.classList.contains('is-pinned')) return;
+	      dist = Math.max(0, strip.scrollWidth - scroller.clientWidth);
+	      top = parseFloat(window.getComputedStyle(pin).top) || 0;
+	      track.style.height = `${pin.offsetHeight + dist}px`;
+	      update();
+	    };
+	    const update = () => {
+	      ticking = false;
+	      if (!track.classList.contains('is-pinned') || !dist) return;
+	      const progress = Math.max(0, Math.min(1, (top - track.getBoundingClientRect().top) / dist));
+	      strip.style.transform = `translate3d(${(-progress * dist).toFixed(1)}px, 0, 0)`;
+	      if (bar) bar.style.width = `${(100 / total + progress * (100 - 100 / total)).toFixed(1)}%`;
+	      if (count) count.textContent = `${String(Math.min(total, 1 + Math.round(progress * (total - 1)))).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+	    };
+	    const onScroll = () => {
+	      if (!ticking) {
+	        ticking = true;
+	        window.requestAnimationFrame(update);
+	      }
+	    };
+	    const meta = track.querySelector('.sketchbook__meta');
+	    const apply = () => {
+	      // a strip that fits the page (or just one or two sketches) is laid out as a static row: no pin, no counter
+	      const fits = track.classList.contains('sketchbook__track--few') || strip.scrollWidth <= scroller.clientWidth + 8;
+	      track.classList.toggle('is-fit', fits);
+	      if (meta) meta.hidden = fits;
+	      const on = wide.matches && !isStatic() && !fits;
+	      track.classList.toggle('is-pinned', on);
+	      if (!on) {
+	        track.style.height = '';
+	        strip.style.transform = '';
+	      }
+	      measure();
+	    };
+
+	    // not pinned (phone, reduced motion): the counter and progress bar follow the strip's own scrolling
+	    const onStripScroll = () => {
+	      if (track.classList.contains('is-pinned')) return;
+	      const max = scroller.scrollWidth - scroller.clientWidth;
+	      if (max <= 0) return;
+	      const progress = Math.max(0, Math.min(1, scroller.scrollLeft / max));
+	      if (bar) bar.style.width = `${(100 / total + progress * (100 - 100 / total)).toFixed(1)}%`;
+	      if (count) count.textContent = `${String(Math.min(total, 1 + Math.round(progress * (total - 1)))).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+	    };
+	    scroller.addEventListener('scroll', onStripScroll, {
+	      passive: true
+	    });
+	    window.addEventListener('scroll', onScroll, {
+	      passive: true
+	    });
+	    window.addEventListener('resize', measure);
+	    window.addEventListener('load', measure);
+	    wide.addEventListener('change', apply);
+	    apply();
+	  };
+	  tracks.forEach(setup);
+	}
+
+	/**
+	 * Journey nav: marks the active stage, marks earlier ones done, and fills the progress bar across the whole
+	 * journey (first stage's top to last stage's bottom).
+	 */
+	function initJourneyNav() {
+	  const nav = document.querySelector('[data-journey-nav]');
+	  const stages = [...document.querySelectorAll('[data-stage]')];
+	  if (!nav || !stages.length) return;
+	  const links = [...nav.querySelectorAll('[data-journey-link]')];
+	  const bar = nav.querySelector('[data-journey-bar]');
+	  let ticking = false;
+	  const update = () => {
+	    ticking = false;
+	    const y = window.scrollY;
+	    const line = window.innerHeight * 0.35;
+	    let active = -1;
+	    stages.forEach((stage, i) => {
+	      if (stage.getBoundingClientRect().top <= line) active = i;
+	    });
+	    links.forEach((link, i) => {
+	      link.classList.toggle('on', i === active);
+	      link.classList.toggle('done', i < active);
+	      if (i === active) link.setAttribute('aria-current', 'step');else link.removeAttribute('aria-current');
+	    });
+	    const first = stages[0].getBoundingClientRect().top + y;
+	    const last = stages[stages.length - 1];
+	    const end = last.getBoundingClientRect().bottom + y - window.innerHeight;
+	    const progress = end > first ? Math.max(0, Math.min(1, (y - first + line) / (end - first + line))) : 0;
+	    if (bar) bar.style.width = `${(progress * 100).toFixed(1)}%`;
+
+	    // keep the active step in view in the horizontally scrolling mobile bar
+	    const current = links[active];
+	    if (current && current.offsetParent && nav.scrollWidth > nav.clientWidth) current.scrollIntoView({
+	      inline: 'nearest',
+	      block: 'nearest'
+	    });
+	  };
+	  window.addEventListener('scroll', () => {
+	    if (!ticking) {
+	      ticking = true;
+	      window.requestAnimationFrame(update);
+	    }
+	  }, {
+	    passive: true
+	  });
+	  update();
+	}
+
+	/**
+	 * Global lightbox. Every img[data-lb] on the page opens it; arrows, Escape and the left / right keys work,
+	 * with a counter, the stage label and the alt text. Focus moves to Close on open and back to the image on close.
+	 *
+	 * Looping clips in the sliders and grids (video[data-lb-video]) join the same sequence. On phones, tapping
+	 * one opens it in the lightbox with controls and sound, uncropped; on larger screens it keeps playing inline.
+	 */
+	function initLightbox() {
+	  const box = document.getElementById('lb');
+	  const items = [...document.querySelectorAll('img[data-lb], video[data-lb-video]')];
+	  if (!box || !items.length) return;
+	  const full = box.querySelector('[data-lb-img]');
+	  const player = box.querySelector('[data-lb-video-el]');
+	  const stage = box.querySelector('[data-lb-stage]');
+	  const caption = box.querySelector('[data-lb-cap]');
+	  const count = box.querySelector('[data-lb-count]');
+	  const closeButton = box.querySelector('[data-lb-close]');
+	  const phone = window.matchMedia('(max-width: 760px)');
+	  let current = 0;
+	  let opener = null;
+	  const stopPlayer = () => {
+	    player.pause();
+	    player.removeAttribute('src');
+	    player.removeAttribute('poster');
+	    player.load();
+	  };
+	  const show = index => {
+	    current = (index + items.length) % items.length;
+	    const item = items[current];
+	    const isVideo = item.tagName === 'VIDEO';
+	    stopPlayer();
+	    full.hidden = isVideo;
+	    player.hidden = !isVideo;
+	    if (isVideo) {
+	      player.src = item.currentSrc || item.querySelector('source')?.src || '';
+	      if (item.poster) player.poster = item.poster;
+	      player.style.aspectRatio = item.style.getPropertyValue('--ar') || '';
+	      player.play().catch(() => {});
+	    } else {
+	      full.src = item.currentSrc || item.src;
+	      full.alt = item.alt;
+	    }
+	    stage.textContent = item.dataset.lbStage || '';
+	    caption.textContent = isVideo ? item.getAttribute('aria-label') || '' : item.alt;
+	    count.textContent = `${current + 1} / ${items.length}`;
+	  };
+	  const open = index => {
+	    opener = items[index];
+	    show(index);
+	    box.hidden = false;
+	    document.documentElement.classList.add('lb-open');
+	    window.lenis?.stop();
+	    closeButton.focus();
+	  };
+	  const close = () => {
+	    stopPlayer();
+	    box.hidden = true;
+	    document.documentElement.classList.remove('lb-open');
+	    window.lenis?.start();
+	    opener?.focus();
+	  };
+	  items.forEach((item, index) => {
+	    const inline = () => item.tagName === 'VIDEO' && !phone.matches; // clips keep playing inline on larger screens
+	    item.tabIndex = 0;
+	    item.setAttribute('role', 'button');
+	    item.addEventListener('click', () => {
+	      if (!inline()) open(index);
+	    });
+	    item.addEventListener('keydown', event => {
+	      if ((event.key === 'Enter' || event.key === ' ') && !inline()) {
+	        event.preventDefault();
+	        open(index);
+	      }
+	    });
+	  });
+	  closeButton.addEventListener('click', close);
+	  box.querySelector('[data-lb-prev]').addEventListener('click', () => show(current - 1));
+	  box.querySelector('[data-lb-next]').addEventListener('click', () => show(current + 1));
+	  box.addEventListener('click', event => {
+	    if (event.target === box) close();
+	  });
+	  document.addEventListener('keydown', event => {
+	    if (box.hidden) return;
+	    if (event.key === 'Escape') close();
+	    if (event.key === 'ArrowLeft') show(current - 1);
+	    if (event.key === 'ArrowRight') show(current + 1);
+	    if (event.key === 'Tab') {
+	      // keep focus inside the dialog
+	      const focusable = [...box.querySelectorAll('button, video[controls]:not([hidden])')];
+	      const first = focusable[0];
+	      const last = focusable[focusable.length - 1];
+	      if (event.shiftKey && document.activeElement === first) {
+	        event.preventDefault();
+	        last.focus();
+	      } else if (!event.shiftKey && document.activeElement === last) {
+	        event.preventDefault();
+	        first.focus();
+	      }
+	    }
+	  });
+	}
+
 	document.addEventListener('DOMContentLoaded', () => {
 	  // tells the failsafe in header.php that the script ran; if it never does, content is revealed anyway
 	  document.documentElement.classList.add('js-ready');
@@ -600,6 +1014,12 @@
 	  initLenis();
 	  initSiteSearch();
 	  initProjectGate();
+	  initProjectMotion();
+	  initVideo();
+	  initCompare();
+	  initSketchbook();
+	  initJourneyNav();
+	  initLightbox();
 	});
 
 })();

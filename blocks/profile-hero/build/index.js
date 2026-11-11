@@ -1,1 +1,524 @@
-(()=>{"use strict";const e=window.wp.blocks,l=window.wp.i18n,o=window.wp.blockEditor,t=window.wp.components,n=window.wp.compose,a=window.wp.data,s=window.wp.element,i=window.ReactJSXRuntime;function d(e){e.shiftKey&&!e.ctrlKey&&!e.metaKey&&e.key.startsWith("Arrow")&&e.stopPropagation()}function c({blockProps:e,clientId:t,classPrefix:r="lc-mdsx2026",textDomain:m="lc-mdsx2026",storageNamespace:x="block",title:h,children:p,defaultOpen:u=!0}){const[_,b]=(0,s.useState)(u),w=(0,n.useInstanceId)(c),g=`${r}-editor-block-content-${w}`,k=(0,a.useSelect)(e=>{if(!t)return"";const{getBlockIndex:l,getBlockRootClientId:n}=e(o.store),a=[];let s=t;for(;s;){const e=n(s)||"";a.unshift(String(l(s,e))),s=e||null}return a.join(".")},[t]),f=(0,s.useMemo)(()=>t&&k&&"undefined"!=typeof window?[r,"editor-block-state",x,window.location.pathname,window.location.search,k].join(":"):"",[k,r,t,x]);return(0,s.useEffect)(()=>{if(!f||"undefined"==typeof window)return;const e=window.localStorage.getItem(f);"closed"===e?b(!1):"open"===e&&b(!0)},[f]),(0,s.useEffect)(()=>{f&&"undefined"!=typeof window&&window.localStorage.setItem(f,_?"open":"closed")},[_,f]),(0,i.jsxs)("div",{...e,children:[(0,i.jsxs)("div",{className:`${r}-editor-block__title`,children:[(0,i.jsx)("span",{children:h}),(0,i.jsx)("button",{type:"button",className:`${r}-editor-block__toggle`,onClick:()=>b(e=>!e),"aria-expanded":_,"aria-controls":g,"aria-label":_?(0,l.__)("Hide block fields",m):(0,l.__)("Show block fields",m),children:(0,i.jsx)("span",{"aria-hidden":"true",children:_?"−":"+"})})]}),(0,i.jsx)("div",{id:g,className:`${r}-editor-block__content`,hidden:!_,onKeyDown:d,children:p})]})}const r=JSON.parse('{"UU":"lc-mdsx2026/profile-hero"}');(0,e.registerBlockType)(r.UU,{edit:function({attributes:e,setAttributes:n,clientId:a}){const{crumbText:s,crumbUrl:d,name:r,role:m,email:x,linkedin:h,photoId:p,photoUrl:u,photoAlt:_,bio:b,backgroundShape:w,backgroundShapeColor:g}=e,k=(0,o.useBlockProps)({className:"container lc-mdsx2026-editor-block"});return(0,i.jsxs)(i.Fragment,{children:[(0,i.jsx)(o.InspectorControls,{children:(0,i.jsxs)(t.PanelBody,{title:(0,l.__)("Background shape","lc-mdsx2026"),initialOpen:!1,children:[(0,i.jsx)(t.SelectControl,{label:(0,l.__)("Parallelogram","lc-mdsx2026"),value:w,options:[{label:(0,l.__)("None","lc-mdsx2026"),value:""},{label:(0,l.__)("From the right","lc-mdsx2026"),value:"right"},{label:(0,l.__)("From the left","lc-mdsx2026"),value:"left"}],onChange:e=>n({backgroundShape:e}),help:(0,l.__)("A large, subtle brand parallelogram behind the content, entering from one side. Use it to break up neighbouring blocks with the same background.","lc-mdsx2026")}),(0,i.jsx)(t.SelectControl,{label:(0,l.__)("Shape colour","lc-mdsx2026"),value:g,options:[{label:(0,l.__)("Default","lc-mdsx2026"),value:""},{label:(0,l.__)("Sea Foam, subtle","lc-mdsx2026"),value:"sea"},{label:(0,l.__)("Crusta, subtle","lc-mdsx2026"),value:"crusta"}],onChange:e=>n({backgroundShapeColor:e})})]})}),(0,i.jsxs)(c,{blockProps:k,clientId:a,title:"Profile Hero",textDomain:"lc-mdsx2026",children:[(0,i.jsx)(t.TextControl,{label:(0,l.__)("Breadcrumb text","lc-mdsx2026"),value:s,onChange:e=>n({crumbText:e})}),(0,i.jsx)(t.TextControl,{label:(0,l.__)("Breadcrumb URL","lc-mdsx2026"),value:d,onChange:e=>n({crumbUrl:e})}),(0,i.jsx)(t.TextControl,{label:(0,l.__)("Name (blank = page title)","lc-mdsx2026"),value:r,onChange:e=>n({name:e})}),(0,i.jsx)(t.TextControl,{label:(0,l.__)("Role","lc-mdsx2026"),value:m,onChange:e=>n({role:e})}),(0,i.jsx)(t.TextControl,{label:(0,l.__)("Email","lc-mdsx2026"),type:"email",value:x,onChange:e=>n({email:e}),help:(0,l.__)("Shown under the role as a mailto link. Leave blank to hide.","lc-mdsx2026")}),(0,i.jsx)(t.TextControl,{label:(0,l.__)("LinkedIn profile URL","lc-mdsx2026"),type:"url",value:h,onChange:e=>n({linkedin:e}),help:(0,l.__)("Their personal profile, e.g. https://www.linkedin.com/in/name. Leave blank to hide.","lc-mdsx2026")}),(0,i.jsxs)("div",{className:"lc-mdsx2026-editor-field",children:[(0,i.jsx)("label",{className:"lc-mdsx2026-editor-field__label",children:(0,l.__)("Headshot","lc-mdsx2026")}),(0,i.jsx)(o.MediaUploadCheck,{children:(0,i.jsx)(o.MediaUpload,{onSelect:e=>n({photoId:e.id,photoUrl:e.url,photoAlt:e.alt||""}),allowedTypes:["image"],value:p,render:({open:e})=>(0,i.jsxs)("div",{className:"lc-mdsx2026-editor-field__control",children:[u&&(0,i.jsx)("img",{src:u,alt:_,style:{maxWidth:"200px",display:"block",marginBottom:"8px"}}),(0,i.jsx)(t.Button,{variant:"secondary",onClick:e,children:u?(0,l.__)("Replace image","lc-mdsx2026"):(0,l.__)("Select image","lc-mdsx2026")}),u&&(0,i.jsx)(t.Button,{variant:"link",isDestructive:!0,onClick:()=>n({photoId:0,photoUrl:"",photoAlt:""}),children:(0,l.__)("Remove","lc-mdsx2026")})]})})}),(0,i.jsx)("p",{className:"lc-mdsx2026-editor-field__help",children:(0,l.__)("Use the masked PNG; it is displayed without clipping.","lc-mdsx2026")})]}),(0,i.jsxs)("div",{className:"lc-mdsx2026-editor-field",children:[(0,i.jsx)("label",{className:"lc-mdsx2026-editor-field__label",children:(0,l.__)("Bio","lc-mdsx2026")}),(0,i.jsx)(o.RichText,{tagName:"div",className:"lc-mdsx2026-editor-field__control","aria-label":(0,l.__)("Bio","lc-mdsx2026"),placeholder:(0,l.__)("Bio","lc-mdsx2026"),value:b,onChange:e=>n({bio:e})})]})]})]})},save:()=>null})})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./blocks/_shared/EditorBlockShell.js"
+/*!********************************************!*\
+  !*** ./blocks/_shared/EditorBlockShell.js ***!
+  \********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ EditorBlockShell)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+/**
+ * Wraps a block's edit.js output in a collapsible section with a title bar
+ * and open/closed toggle, persisting the toggle state per block-instance
+ * (keyed by the block's position path within the post plus the current
+ * URL) in localStorage — so a page with many blocks stays scannable in the
+ * editor instead of every block's full field set staying expanded at once.
+ *
+ * @param {Object}   props
+ * @param {Object}   props.blockProps       Result of useBlockProps().
+ * @param {string}   props.clientId         The block's clientId, for deriving its position path.
+ * @param {string}   [props.classPrefix]    Class/prefix root, matches editor.css.
+ * @param {string}   [props.textDomain]     i18n text domain for the toggle's aria-label.
+ * @param {string}   [props.storageNamespace] Extra localStorage key segment, in case two shells need independent state on the same path.
+ * @param {string}   props.title            Block name shown in the title bar.
+ * @param {boolean}  [props.defaultOpen]    Initial state before localStorage is read.
+ * @param {*}        props.children         The block's own field controls.
+ */
+/**
+ * Keep Shift+Arrow inside the field being edited. Gutenberg's writing flow
+ * listens for keydown on an ancestor and, when the caret is at the edge of a
+ * field, turns Shift+Arrow into a block-level multi-selection — so extending
+ * a text selection in one of this block's inputs jumps to selecting the whole
+ * block. Stopping the React event here means the browser's native text
+ * selection handles it and the writing flow never sees it.
+ *
+ * @param {KeyboardEvent} event React keydown event.
+ */
+
+function keepShiftArrowInField(event) {
+  if (event.shiftKey && !event.ctrlKey && !event.metaKey && event.key.startsWith('Arrow')) {
+    event.stopPropagation();
+  }
+}
+function EditorBlockShell({
+  blockProps,
+  clientId,
+  classPrefix = 'lc-mdsx2026',
+  textDomain = 'lc-mdsx2026',
+  storageNamespace = 'block',
+  title,
+  children,
+  defaultOpen = true
+}) {
+  const [isOpen, setIsOpen] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)(defaultOpen);
+  const instanceId = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__.useInstanceId)(EditorBlockShell);
+  const contentId = `${classPrefix}-editor-block-content-${instanceId}`;
+  const blockPath = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => {
+    if (!clientId) {
+      return '';
+    }
+    const {
+      getBlockIndex,
+      getBlockRootClientId
+    } = select(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.store);
+    const path = [];
+    let currentId = clientId;
+    while (currentId) {
+      const parentId = getBlockRootClientId(currentId) || '';
+      path.unshift(String(getBlockIndex(currentId, parentId)));
+      currentId = parentId || null;
+    }
+    return path.join('.');
+  }, [clientId]);
+  const storageKey = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useMemo)(() => {
+    if (!clientId || !blockPath || typeof window === 'undefined') {
+      return '';
+    }
+    return [classPrefix, 'editor-block-state', storageNamespace, window.location.pathname, window.location.search, blockPath].join(':');
+  }, [blockPath, classPrefix, clientId, storageNamespace]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
+    if (!storageKey || typeof window === 'undefined') {
+      return;
+    }
+    const storedValue = window.localStorage.getItem(storageKey);
+    if (storedValue === 'closed') {
+      setIsOpen(false);
+    } else if (storedValue === 'open') {
+      setIsOpen(true);
+    }
+  }, [storageKey]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
+    if (!storageKey || typeof window === 'undefined') {
+      return;
+    }
+    window.localStorage.setItem(storageKey, isOpen ? 'open' : 'closed');
+  }, [isOpen, storageKey]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    ...blockProps,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: `${classPrefix}-editor-block__title`,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        children: title
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+        type: "button",
+        className: `${classPrefix}-editor-block__toggle`,
+        onClick: () => setIsOpen(open => !open),
+        "aria-expanded": isOpen,
+        "aria-controls": contentId,
+        "aria-label": isOpen ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Hide block fields', textDomain) : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Show block fields', textDomain),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          "aria-hidden": "true",
+          children: isOpen ? '−' : '+'
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      id: contentId,
+      className: `${classPrefix}-editor-block__content`,
+      hidden: !isOpen,
+      onKeyDown: keepShiftArrowInField,
+      children: children
+    })]
+  });
+}
+
+/***/ },
+
+/***/ "./blocks/profile-hero/src/edit.js"
+/*!*****************************************!*\
+  !*** ./blocks/profile-hero/src/edit.js ***!
+  \*****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Edit)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _shared_EditorBlockShell__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../_shared/EditorBlockShell */ "./blocks/_shared/EditorBlockShell.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+function Edit({
+  attributes,
+  setAttributes,
+  clientId
+}) {
+  const {
+    crumbText,
+    crumbUrl,
+    name,
+    role,
+    email,
+    linkedin,
+    photoId,
+    photoUrl,
+    photoAlt,
+    bio,
+    backgroundShape,
+    backgroundShapeColor
+  } = attributes;
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
+    className: 'container lc-mdsx2026-editor-block'
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Background shape', 'lc-mdsx2026'),
+        initialOpen: false,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Parallelogram', 'lc-mdsx2026'),
+          value: backgroundShape,
+          options: [{
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('None', 'lc-mdsx2026'),
+            value: ''
+          }, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('From the right', 'lc-mdsx2026'),
+            value: 'right'
+          }, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('From the left', 'lc-mdsx2026'),
+            value: 'left'
+          }],
+          onChange: value => setAttributes({
+            backgroundShape: value
+          }),
+          help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('A large, subtle brand parallelogram behind the content, entering from one side. Use it to break up neighbouring blocks with the same background.', 'lc-mdsx2026')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Shape colour', 'lc-mdsx2026'),
+          value: backgroundShapeColor,
+          options: [{
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Default', 'lc-mdsx2026'),
+            value: ''
+          }, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Sea Foam, subtle', 'lc-mdsx2026'),
+            value: 'sea'
+          }, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Crusta, subtle', 'lc-mdsx2026'),
+            value: 'crusta'
+          }],
+          onChange: value => setAttributes({
+            backgroundShapeColor: value
+          })
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_shared_EditorBlockShell__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      blockProps: blockProps,
+      clientId: clientId,
+      title: "Profile Hero",
+      textDomain: "lc-mdsx2026",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Breadcrumb text", 'lc-mdsx2026'),
+        value: crumbText,
+        onChange: value => setAttributes({
+          crumbText: value
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Breadcrumb URL", 'lc-mdsx2026'),
+        value: crumbUrl,
+        onChange: value => setAttributes({
+          crumbUrl: value
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Name (blank = page title)", 'lc-mdsx2026'),
+        value: name,
+        onChange: value => setAttributes({
+          name: value
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Role", 'lc-mdsx2026'),
+        value: role,
+        onChange: value => setAttributes({
+          role: value
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Email", 'lc-mdsx2026'),
+        type: "email",
+        value: email,
+        onChange: value => setAttributes({
+          email: value
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Shown under the role as a mailto link. Leave blank to hide.', 'lc-mdsx2026')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("LinkedIn profile URL", 'lc-mdsx2026'),
+        type: "url",
+        value: linkedin,
+        onChange: value => setAttributes({
+          linkedin: value
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Their personal profile, e.g. https://www.linkedin.com/in/name. Leave blank to hide.', 'lc-mdsx2026')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "lc-mdsx2026-editor-field",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+          className: "lc-mdsx2026-editor-field__label",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Headshot", 'lc-mdsx2026')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
+            onSelect: media => setAttributes({
+              photoId: media.id,
+              photoUrl: media.url,
+              photoAlt: media.alt || ''
+            }),
+            allowedTypes: ['image'],
+            value: photoId,
+            render: ({
+              open
+            }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "lc-mdsx2026-editor-field__control",
+              children: [photoUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+                src: photoUrl,
+                alt: photoAlt,
+                style: {
+                  maxWidth: '200px',
+                  display: 'block',
+                  marginBottom: '8px'
+                }
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                variant: "secondary",
+                onClick: open,
+                children: photoUrl ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Replace image', 'lc-mdsx2026') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Select image', 'lc-mdsx2026')
+              }), photoUrl && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                variant: "link",
+                isDestructive: true,
+                onClick: () => setAttributes({
+                  photoId: 0,
+                  photoUrl: '',
+                  photoAlt: ''
+                }),
+                children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Remove', 'lc-mdsx2026')
+              })]
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+          className: "lc-mdsx2026-editor-field__help",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Use the masked PNG; it is displayed without clipping.", 'lc-mdsx2026')
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "lc-mdsx2026-editor-field",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+          className: "lc-mdsx2026-editor-field__label",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Bio", 'lc-mdsx2026')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+          tagName: "div",
+          className: "lc-mdsx2026-editor-field__control",
+          "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Bio", 'lc-mdsx2026'),
+          placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Bio", 'lc-mdsx2026'),
+          value: bio,
+          onChange: value => setAttributes({
+            bio: value
+          })
+        })]
+      })]
+    })]
+  });
+}
+
+/***/ },
+
+/***/ "react/jsx-runtime"
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+(module) {
+
+module.exports = window["ReactJSXRuntime"];
+
+/***/ },
+
+/***/ "@wordpress/block-editor"
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+(module) {
+
+module.exports = window["wp"]["blockEditor"];
+
+/***/ },
+
+/***/ "@wordpress/blocks"
+/*!********************************!*\
+  !*** external ["wp","blocks"] ***!
+  \********************************/
+(module) {
+
+module.exports = window["wp"]["blocks"];
+
+/***/ },
+
+/***/ "@wordpress/components"
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ },
+
+/***/ "@wordpress/compose"
+/*!*********************************!*\
+  !*** external ["wp","compose"] ***!
+  \*********************************/
+(module) {
+
+module.exports = window["wp"]["compose"];
+
+/***/ },
+
+/***/ "@wordpress/data"
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["data"];
+
+/***/ },
+
+/***/ "@wordpress/element"
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+(module) {
+
+module.exports = window["wp"]["element"];
+
+/***/ },
+
+/***/ "@wordpress/i18n"
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ },
+
+/***/ "./blocks/profile-hero/block.json"
+/*!****************************************!*\
+  !*** ./blocks/profile-hero/block.json ***!
+  \****************************************/
+(module) {
+
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"lc-mdsx2026/profile-hero","title":"Profile Hero","category":"lc-mdsx2026","icon":"id","description":"Team member introduction: headshot (shown as supplied), name, role, email, LinkedIn and bio.","attributes":{"backgroundColor":{"type":"string","default":"nero"},"backgroundShape":{"type":"string","default":""},"backgroundShapeColor":{"type":"string","default":""},"crumbText":{"type":"string","default":"Team"},"crumbUrl":{"type":"string","default":"/team/"},"name":{"type":"string","default":""},"linkedin":{"type":"string","default":""},"email":{"type":"string","default":""},"role":{"type":"string","default":""},"photoId":{"type":"number","default":0},"photoUrl":{"type":"string","default":""},"photoAlt":{"type":"string","default":""},"bio":{"type":"string","default":""}},"supports":{"anchor":true,"className":true,"align":false,"color":{"background":true,"text":false,"gradients":false,"link":false,"heading":false,"button":false}},"editorScript":"file:./build/index.js","render":"file:./render.php"}');
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	const __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		const cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		const module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			const e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = (module) => {
+/******/ 		const getter = module && module.__esModule ?
+/******/ 			() => (module['default']) :
+/******/ 			() => (module);
+/******/ 		__webpack_require__.d(getter, { a: getter });
+/******/ 		return getter;
+/******/ 	};
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	// define getter/value functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			}
+/******/ 		}
+/******/ 	};
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.hasOwn(obj, prop));
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = (exports) => {
+/******/ 		Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/ 	
+/************************************************************************/
+let __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!******************************************!*\
+  !*** ./blocks/profile-hero/src/index.js ***!
+  \******************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit */ "./blocks/profile-hero/src/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../block.json */ "./blocks/profile-hero/block.json");
+
+
+
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_2__.name, {
+  edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
+  save: () => null
+});
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=index.js.map

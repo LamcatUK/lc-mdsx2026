@@ -82,15 +82,16 @@ function lc_mdsx2026_link( $text, $url, $class = 'btn btn--primary' ) {
  * @param string $size    Image size.
  * @param string $loading 'lazy' or 'eager'.
  * @param bool   $decorative True to force an empty alt (purely decorative or repeated images), ignoring the library's.
+ * @param array  $extra  Extra attributes for the tag (e.g. sizes, class).
  * @return void
  */
-function lc_mdsx2026_image( $id, $url, $alt = '', $size = 'large', $loading = 'lazy', $decorative = false ) {
+function lc_mdsx2026_image( $id, $url, $alt = '', $size = 'large', $loading = 'lazy', $decorative = false, $extra = array() ) {
 	if ( $decorative ) {
 		$alt = '';
 	}
 	if ( $id ) {
 		$alt_text = '' !== $alt ? $alt : ( $decorative ? '' : (string) get_post_meta( $id, '_wp_attachment_image_alt', true ) );
-		echo wp_get_attachment_image( $id, $size, false, array_merge( array( 'alt' => $alt_text, 'loading' => $loading ), 'eager' === $loading ? array( 'fetchpriority' => 'high' ) : array() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped markup.
+		echo wp_get_attachment_image( $id, $size, false, array_merge( array( 'alt' => $alt_text, 'loading' => $loading ), 'eager' === $loading ? array( 'fetchpriority' => 'high' ) : array(), $extra ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped markup.
 	} elseif ( $url ) {
 		printf( '<img src="%s" alt="%s" loading="%s" decoding="async"%s>', esc_url( $url ), esc_attr( $alt ), esc_attr( $loading ), 'eager' === $loading ? ' fetchpriority="high"' : '' );
 	}

@@ -1,0 +1,70 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/project-film",
+	"title": "Project Film",
+	"category": "lc-mdsx2026",
+	"icon": "video-alt3",
+	"description": "The full film in a 16:9 (or letterbox) frame; plays inline with sound.",
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": "The film"
+		},
+		"duration": {
+			"type": "string",
+			"default": ""
+		},
+		"playLabel": {
+			"type": "string",
+			"default": "Play the film"
+		},
+		"aspect": {
+			"type": "string",
+			"default": "16-9"
+		},
+		"webm": {
+			"type": "number",
+			"default": 0
+		},
+		"webmName": {
+			"type": "string",
+			"default": ""
+		},
+		"mp4": {
+			"type": "number",
+			"default": 0
+		},
+		"mp4Name": {
+			"type": "string",
+			"default": ""
+		},
+		"vimeoId": {
+			"type": "string",
+			"default": ""
+		},
+		"poster": {
+			"type": "number",
+			"default": 0
+		},
+		"posterUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"captions": {
+			"type": "number",
+			"default": 0
+		},
+		"captionsName": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

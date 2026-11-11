@@ -5,7 +5,7 @@
 	"title": "Project Intro",
 	"category": "lc-mdsx2026",
 	"icon": "editor-alignleft",
-	"description": "Statement and lead on the left, meta list and tags on the right.",
+	"description": "Statement and meta list on the left; lead paragraph, description and discipline tags on the right.",
 	"attributes": {
 		"backgroundColor": {
 			"type": "string",
@@ -24,6 +24,10 @@
 			"default": ""
 		},
 		"body": {
+			"type": "string",
+			"default": ""
+		},
+		"copy": {
 			"type": "string",
 			"default": ""
 		},

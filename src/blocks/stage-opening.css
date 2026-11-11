@@ -1,0 +1,230 @@
+.stage-opening {
+	padding-bottom: 0;
+}
+.stage-opening .stage-head {
+	margin-bottom: clamp(40px, 5vw, 72px);
+}
+
+/* cinematic image */
+.cine {
+	position: relative;
+	height: min(90svh, 880px);
+	overflow: hidden;
+}
+.cine img {
+	position: absolute;
+	left: 0;
+	top: -10%;
+	width: 100%;
+	height: 120%;
+	object-fit: cover;
+	cursor: zoom-in;
+	will-change: transform;
+}
+.cine::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, rgb(39 39 39 / 0) 50%, rgb(39 39 39 / 0.9));
+	pointer-events: none;
+}
+.cine__copy {
+	position: absolute;
+	inset: auto 0 56px;
+	z-index: 2;
+}
+.cine__copy p {
+	max-width: 16em;
+	margin: 0;
+	font: var(--fw-700) clamp(28px, 3.4vw, 52px) / 1.2 var(--f-sub);
+}
+
+/* "on the floor" reel */
+.floor {
+	padding-block: clamp(64px, 7vw, 110px);
+}
+.floor__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 24px;
+	margin-bottom: 28px;
+}
+.floor__head h3 {
+	margin: 0;
+	font-size: clamp(26px, 2.6vw, 38px);
+}
+.reel {
+	display: flex;
+	gap: 16px;
+	padding: 0 max(var(--container-padding), calc((100vw - var(--container-max-width)) / 2 + var(--container-padding))) 12px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: thin;
+	scrollbar-color: var(--col-sea) #3a3a3a;
+	padding-bottom: 22px;
+}
+/* a slim brand track and thumb for engines that style the scrollbar this way */
+.reel::-webkit-scrollbar {
+	height: 6px;
+}
+.reel::-webkit-scrollbar-track {
+	background: #3a3a3a;
+}
+.reel::-webkit-scrollbar-thumb {
+	background: var(--col-sea);
+}
+.reel::-webkit-scrollbar-thumb:hover {
+	background: var(--col-solitude);
+}
+.reel > * {
+	position: relative;
+	flex: none;
+	margin: 0;
+	scroll-snap-align: start;
+}
+.reel img,
+.reel video {
+	display: block;
+	width: auto;
+	max-width: none;
+	height: clamp(320px, 52vh, 560px);
+	object-fit: cover;
+	cursor: zoom-in;
+}
+.reel video {
+	cursor: auto;
+}
+.reel__clip video {
+	aspect-ratio: var(--ar, 406 / 720);
+}
+.reel__clip--wide video {
+	width: min(85vw, 960px);
+	height: auto;
+}
+.reel-ctrl {
+	display: flex;
+	gap: 10px;
+}
+.reel-ctrl button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 56px;
+	height: 46px;
+	padding: 0;
+	border: 0;
+	color: var(--col-solitude);
+	background: #3a3a3a;
+	clip-path: polygon(0 23%, 100% 0, 100% 77%, 0 100%);
+	cursor: pointer;
+}
+.reel-ctrl button:hover,
+.reel-ctrl button:focus-visible {
+	color: var(--col-nero);
+	background: var(--col-sea);
+}
+.reel-ctrl button i {
+	width: 10px;
+	height: 14px;
+	background: currentcolor;
+	clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.reel-ctrl button:first-child i {
+	transform: scaleX(-1);
+}
+
+/* phone: every slide is the same box (4:5, cropped to fill) so the row reads as one consistent slider */
+@media (max-width: 760px) {
+	.reel {
+		gap: 12px;
+	}
+	.reel > * {
+		width: 74vw;
+	}
+	.reel video[data-lb-video] {
+		cursor: zoom-in;
+	}
+	.reel img,
+	.reel video,
+	.reel .reel__clip video,
+	.reel .reel__clip--wide video {
+		display: block;
+		width: 100%;
+		height: auto;
+		max-width: none;
+		max-height: none;
+		aspect-ratio: 4 / 5;
+		object-fit: cover;
+	}
+}
+
+/* mosaic */
+.mosaic {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	grid-auto-rows: clamp(140px, 14vw, 220px);
+	gap: 16px;
+	margin-bottom: clamp(64px, 7vw, 110px);
+}
+.mosaic figure {
+	margin: 0;
+	overflow: hidden;
+}
+.mosaic img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	cursor: zoom-in;
+	transition: transform 0.6s var(--ease-out);
+}
+.mosaic figure:hover img {
+	transform: scale(1.04);
+}
+@media (max-width: 760px) {
+	.mosaic {
+		grid-template-columns: 1fr 1fr;
+		grid-auto-rows: 160px;
+	}
+	.mosaic figure {
+		grid-column: span 1 !important;
+		grid-row: span 1 !important;
+	}
+	.mosaic figure:first-child,
+	.mosaic figure:last-child:nth-child(odd) {
+		grid-column: span 2 !important;
+	}
+}
+
+/* in development: "Opening [date]" panel instead of the opening-day images */
+.opening__panel {
+	display: flex;
+	align-items: center;
+	gap: clamp(24px, 4vw, 56px);
+	padding-block: clamp(40px, 6vw, 88px);
+	margin-bottom: var(--space-section);
+	border-top: 1px solid var(--col-rule);
+}
+.opening__marker {
+	flex: none;
+	width: 96px;
+	height: 84px;
+	background: var(--col-crusta);
+	clip-path: shape(from 0 calc(23% + 7px), curve to 7px 21% with 0 23%, line to 100% 0, line to 100% calc(77% - 7px), curve to calc(100% - 7px) 79% with 100% 77%, line to 0 100%, close);
+}
+.opening__date {
+	margin: 0 0 12px;
+}
+.opening__panel .t-lede {
+	margin: 0 0 24px;
+	color: var(--col-text-muted);
+}
+@media (max-width: 640px) {
+	.opening__panel {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}

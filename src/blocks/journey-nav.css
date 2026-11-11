@@ -1,0 +1,93 @@
+.journey-nav {
+	position: sticky;
+	top: var(--header-h);
+	z-index: 20;
+	background: rgb(39 39 39 / 0.94);
+	backdrop-filter: blur(8px);
+	border-block: 1px solid var(--col-rule);
+	color: var(--col-solitude);
+}
+.journey-nav__list {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 1fr;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.journey-nav__link {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 18px 12px 18px 0;
+	font: var(--fw-600) 15px / 1.2 var(--f-display);
+	color: var(--col-text-subtle);
+	text-decoration: none;
+	transition: color var(--t-fast);
+}
+.journey-nav__n {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: none;
+	width: 36px;
+	height: 30px;
+	font-size: 13px;
+	color: var(--col-nero);
+	background: #555;
+	clip-path: shape(from 0 calc(23% + 4px), curve to 4px 21% with 0 23%, line to 100% 0, line to 100% calc(77% - 4px), curve to calc(100% - 4px) 79% with 100% 77%, line to 0 100%, close);
+	transition: background-color var(--t-fast);
+}
+.journey-nav__link.on {
+	color: var(--col-solitude);
+}
+.journey-nav__link.on .journey-nav__n {
+	background: var(--col-sea);
+}
+.journey-nav__link.done .journey-nav__n {
+	background: var(--col-solitude);
+}
+.journey-nav__link.is-upcoming {
+	opacity: 0.7;
+}
+.journey-nav__link small {
+	display: block;
+	margin-top: 3px;
+	font: var(--fw-500) 12px / 1 var(--f-sub);
+}
+.journey-nav__bar {
+	position: relative;
+	height: 3px;
+	background: #3a3a3a;
+}
+.journey-nav__bar i {
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: 0;
+	background: var(--col-sea);
+}
+/* phone: the steps are hidden; only the sticky progress meter stays */
+@media (max-width: 760px) {
+	:root {
+		--journey-h: 4px;
+	}
+	.journey-nav {
+		background: none;
+		backdrop-filter: none;
+		border-block: 0;
+	}
+	.journey-nav .container {
+		display: none;
+	}
+	.journey-nav__bar {
+		height: 4px;
+	}
+}
+.admin-bar .journey-nav {
+	top: calc(var(--header-h) + 32px);
+}
+@media (max-width: 782px) {
+	.admin-bar .journey-nav {
+		top: calc(var(--header-h) + 46px);
+	}
+}

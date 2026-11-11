@@ -1,0 +1,90 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/project-hero",
+	"title": "Project Hero",
+	"category": "lc-mdsx2026",
+	"icon": "format-image",
+	"description": "Full-bleed best finished shot with the title, a lede and an in-place film player. Media-led projects use a muted looping video instead.",
+	"attributes": {
+		"imageId": {
+			"type": "number",
+			"default": 0
+		},
+		"imageUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"imageAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"lede": {
+			"type": "string",
+			"default": ""
+		},
+		"crumbText": {
+			"type": "string",
+			"default": ""
+		},
+		"crumbUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"filmDuration": {
+			"type": "string",
+			"default": ""
+		},
+		"mode": {
+			"type": "string",
+			"default": "film"
+		},
+		"webm": {
+			"type": "number",
+			"default": 0
+		},
+		"webmName": {
+			"type": "string",
+			"default": ""
+		},
+		"mp4": {
+			"type": "number",
+			"default": 0
+		},
+		"mp4Name": {
+			"type": "string",
+			"default": ""
+		},
+		"vimeoId": {
+			"type": "string",
+			"default": ""
+		},
+		"poster": {
+			"type": "number",
+			"default": 0
+		},
+		"posterUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"captions": {
+			"type": "number",
+			"default": 0
+		},
+		"captionsName": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

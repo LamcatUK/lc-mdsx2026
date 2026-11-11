@@ -5,7 +5,7 @@ import EditorBlockShell from '../../_shared/EditorBlockShell';
 import RepeaterField from '../../_shared/RepeaterField';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { statement, body, meta, tags, backgroundShape, backgroundShapeColor } = attributes;
+	const { statement, body, copy, meta, tags, backgroundShape, backgroundShapeColor } = attributes;
 	const blockProps = useBlockProps( { className: 'container lc-mdsx2026-editor-block' } );
 
 	return (
@@ -33,6 +33,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				<label className="lc-mdsx2026-editor-field__label">{ __( "Lead paragraph", 'lc-mdsx2026' ) }</label>
 				<RichText tagName="div" className="lc-mdsx2026-editor-field__control" aria-label={ __( "Lead paragraph", 'lc-mdsx2026' ) } placeholder={ __( "Lead paragraph", 'lc-mdsx2026' ) } value={ body } onChange={ ( value ) => setAttributes( { body: value } ) } />
 			</div>
+			<TextareaControl label={ __( "Description (right panel, above the disciplines)", 'lc-mdsx2026' ) } value={ copy } onChange={ ( value ) => setAttributes( { copy: value } ) } help={ __( 'Plain text; a blank line starts a new paragraph.', 'lc-mdsx2026' ) } />
 			<RepeaterField label={ __( "Meta (client, location, year, awards…)", 'lc-mdsx2026' ) } value={ meta } onChange={ ( rows ) => setAttributes( { meta: rows } ) } fields={ [ { name: "label", label: "Label", type: "text" }, { name: "value", label: "Value", type: "text" } ] } emptyRow={ { label: '', value: '' } } layout="row" />
 			<TextareaControl label={ __( "Discipline tags (one per line)", 'lc-mdsx2026' ) } value={ tags } onChange={ ( value ) => setAttributes( { tags: value } ) } />
 		</EditorBlockShell>

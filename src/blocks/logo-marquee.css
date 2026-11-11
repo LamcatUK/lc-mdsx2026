@@ -1,80 +1,101 @@
 .logo-marquee {
-	overflow: hidden;
-	padding: 30px 0;
-	border-block: 1px solid var(--col-rule);
+  overflow: hidden;
+  padding: 30px 0;
+  border-block: 1px solid var(--rule, var(--col-rule));
 }
 .logo-marquee__track {
-	display: flex;
-	width: max-content;
-	/* The animated track is its own stacking context, so the logos' screen blend needs a
+  display: flex;
+  width: max-content;
+  /* The animated track is its own stacking context, so the logos' screen blend needs a
 	   backdrop inside it: Nero, so the inverted logos' black becomes invisible against the section. */
-	background: var(--col-nero);
+  background: var(--logo-bg, var(--col-nero));
 }
 .logo-marquee__set {
-	display: flex;
-	flex: none;
-	align-items: center;
-	gap: 72px;
-	margin: 0;
-	padding: 0 36px;
-	list-style: none;
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 72px;
+  margin: 0;
+  padding: 0 36px;
+  list-style: none;
 }
 .logo-marquee img {
-	height: 58px;
-	width: auto;
-	max-width: none;
-	filter: grayscale(1) invert(1) contrast(1.4);
-	mix-blend-mode: screen;
-	opacity: 0.82;
+  height: 58px;
+  width: auto;
+  max-width: none;
+  filter: grayscale(1) invert(1) contrast(1.4);
+  mix-blend-mode: screen;
+  opacity: 0.82;
 }
 @media (prefers-reduced-motion: no-preference) {
-	.logo-marquee__track {
-		animation: logo-marquee 60s linear infinite;
-	}
+  .logo-marquee__track {
+    animation: logo-marquee 60s linear infinite;
+  }
 }
 @keyframes logo-marquee {
-	to { transform: translateX(-50%); }
+  to {
+    transform: translateX(-50%);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-	.logo-marquee {
-		overflow-x: auto;
-	}
+  .logo-marquee {
+    overflow-x: auto;
+  }
 }
 
 /* grid variant: static, wrapping, centred rows of logos */
 .logo-marquee--grid {
-	overflow: visible;
-	padding-block: var(--space-section);
+  overflow: visible;
+  padding-block: var(--space-section);
 }
 .logo-marquee__grid {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: 48px 40px;
-	align-items: center;
-	justify-items: center;
-	margin: 0;
-	padding: 0;
-	list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px 40px;
+  align-items: center;
+  justify-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 @media (min-width: 640px) {
-	.logo-marquee__grid {
-		grid-template-columns: repeat(3, 1fr);
-	}
+  .logo-marquee__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 @media (min-width: 992px) {
-	.logo-marquee__grid {
-		grid-template-columns: repeat(4, 1fr);
-	}
+  .logo-marquee__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 /* The screen blend sits on the li, not the img: a revealing li (opacity, transform) is its own
    stacking context, so a blend on the img inside it has no backdrop until the fade finishes. */
 .logo-marquee__grid li {
-	mix-blend-mode: screen;
+  mix-blend-mode: screen;
 }
 .logo-marquee__grid img {
-	mix-blend-mode: normal;
-	height: auto;
-	max-height: 90px;
-	max-width: 100%;
-	object-fit: contain;
+  mix-blend-mode: normal;
+  height: auto;
+  max-height: 120px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/*
+ * Light variant ("Dark logos on a light background"): Solitude surface, logos greyed and darkened,
+ * multiplied onto the background so any white or light plate in the artwork drops out.
+ */
+.logo-marquee--light {
+  --logo-bg: var(--col-solitude);
+}
+.logo-marquee--light img {
+  filter: grayscale(1) contrast(1.4);
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+}
+.logo-marquee--light .logo-marquee__grid li {
+  mix-blend-mode: multiply;
+}
+.logo-marquee--light .logo-marquee__grid img {
+  mix-blend-mode: normal;
 }

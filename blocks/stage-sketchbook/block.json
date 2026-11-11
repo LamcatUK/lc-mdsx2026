@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/stage-sketchbook",
+	"title": "Stage: Concept (Sketchbook)",
+	"category": "lc-mdsx2026",
+	"icon": "images-alt",
+	"description": "Concept stage: sketches in a strip that scrolls sideways as the page scrolls.",
+	"attributes": {
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"caption": {
+			"type": "string",
+			"default": ""
+		},
+		"images": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"anchor": false,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

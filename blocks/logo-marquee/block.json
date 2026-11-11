@@ -5,7 +5,7 @@
 	"title": "Logo Marquee",
 	"category": "lc-mdsx2026",
 	"icon": "images-alt2",
-	"description": "Client logos as a scrolling strip or a static grid.",
+	"description": "Client logos as a scrolling strip or a static grid, on a dark background with light logos or inverted: dark logos on a light background.",
 	"attributes": {
 		"label": {
 			"type": "string",
@@ -14,6 +14,10 @@
 		"layout": {
 			"type": "string",
 			"default": "marquee"
+		},
+		"invert": {
+			"type": "boolean",
+			"default": false
 		},
 		"logos": {
 			"type": "array",

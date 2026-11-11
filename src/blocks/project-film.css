@@ -1,0 +1,63 @@
+.project-film {
+	padding-bottom: var(--space-section);
+}
+.project-film__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 24px;
+	margin-bottom: 28px;
+}
+.project-film__head h3 {
+	margin: 0;
+	font-size: clamp(26px, 2.6vw, 38px);
+}
+.project-film__box {
+	position: relative;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+	background: #000;
+}
+.project-film__box--wide {
+	aspect-ratio: 1280 / 370;
+}
+.project-film__box--portrait {
+	aspect-ratio: 406 / 720;
+	max-width: 420px;
+	margin-inline: auto;
+}
+.project-film__media,
+.project-film__media video,
+.project-film__media img,
+.project-film__media iframe {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	object-fit: cover;
+}
+.project-film__box::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, rgb(39 39 39 / 0) 50%, rgb(39 39 39 / 0.8));
+	pointer-events: none;
+	transition: opacity 0.4s;
+}
+.project-film__box .play {
+	position: absolute;
+	left: clamp(20px, 4vw, 56px);
+	bottom: clamp(20px, 4vw, 56px);
+	z-index: 2;
+	color: var(--col-solitude);
+}
+.project-film__box.is-playing::after,
+.project-film__box.is-playing .play {
+	opacity: 0;
+	pointer-events: none;
+}
+.project-film__box.is-playing .project-film__media img {
+	opacity: 0;
+}

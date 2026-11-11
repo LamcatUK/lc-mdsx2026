@@ -78,7 +78,8 @@ function lc_mdsx2026_register_post_types() {
 				'show_in_rest'    => true,
 				'menu_position'   => $t[4],
 				'menu_icon'       => $t[3],
-				'supports'        => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes' ),
+				// custom-fields: lets the block editor read and save the Yeast SEO meta (REST only exposes registered meta for types that support it).
+				'supports'        => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'custom-fields' ),
 				'capability_type' => 'post',
 				'map_meta_cap'    => true,
 				'rewrite'         => array(
@@ -91,6 +92,20 @@ function lc_mdsx2026_register_post_types() {
 
 }
 add_action( 'init', 'lc_mdsx2026_register_post_types' );
+
+/**
+ * Yeast SEO registers its per-post fields on init at priority 10, which runs before this theme registers
+ * Portfolio and Team (same priority, plugin loads first), so those types got no SEO fields and the editor
+ * showed them empty. Register them again once the types exist.
+ *
+ * @return void
+ */
+function lc_mdsx2026_register_seo_meta_for_theme_types() {
+	if ( function_exists( 'lcp_yeast_seo_register_meta' ) ) {
+		lcp_yeast_seo_register_meta();
+	}
+}
+add_action( 'init', 'lc_mdsx2026_register_seo_meta_for_theme_types', 20 );
 
 /**
  * Serve page.php for singular views of any custom post type that has no

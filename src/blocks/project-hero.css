@@ -1,0 +1,105 @@
+.project-hero {
+	position: relative;
+	height: min(100svh, 1000px);
+	min-height: 620px;
+	overflow: hidden;
+	background: #000;
+}
+.project-hero__media {
+	position: absolute;
+	inset: 0;
+}
+.project-hero__media img,
+.project-hero__media video {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.project-hero__media video[data-video="film"] {
+	opacity: 0;
+	transition: opacity 0.6s;
+}
+.project-hero.is-playing .project-hero__media video {
+	opacity: 1;
+}
+.project-hero__shade {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, rgb(39 39 39 / 0.75) 0, rgb(39 39 39 / 0) 25%, rgb(39 39 39 / 0) 45%, rgb(39 39 39 / 0.95) 100%);
+	pointer-events: none;
+	transition: opacity 0.6s;
+}
+.project-hero__copy {
+	position: absolute;
+	inset: auto 0 clamp(40px, 7vh, 88px);
+	z-index: 2;
+	transition: opacity 0.6s;
+}
+.project-hero.is-playing .project-hero__copy,
+.project-hero.is-playing .project-hero__shade {
+	opacity: 0;
+	pointer-events: none;
+}
+.project-hero__crumb {
+	display: table;
+	margin-bottom: 18px;
+	font: var(--fw-600) 15px / 1 var(--f-sub);
+	color: var(--col-sea);
+	text-decoration: none;
+}
+.project-hero h1 {
+	max-width: 9em;
+}
+.project-hero__row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px 48px;
+	align-items: center;
+	margin-top: 28px;
+}
+.project-hero__lede {
+	max-width: 30em;
+	margin: 0;
+	color: #e3e7e8;
+}
+.project-hero__close {
+	position: absolute;
+	top: calc(var(--header-h) + 24px);
+	right: max(var(--container-padding), calc((100% - var(--container-max-width)) / 2 + var(--container-padding)));
+	z-index: 5;
+	display: none;
+}
+.project-hero.is-playing .project-hero__close {
+	display: inline-flex;
+}
+.project-hero .video-pause {
+	right: max(var(--container-padding), calc((100% - var(--container-max-width)) / 2 + var(--container-padding)));
+	bottom: 24px;
+}
+
+/* the one orchestrated moment on the page: a slow push-in and the title rising on load */
+@media (prefers-reduced-motion: no-preference) {
+	html:not(.is-static) .project-hero [data-hero-img] {
+		animation: project-hero-push 2.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+	html:not(.is-static) .project-hero [data-hero-title] {
+		animation: project-hero-rise 1s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+	html:not(.is-static) .project-hero [data-hero-row] {
+		animation: project-hero-fade 0.8s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+}
+@keyframes project-hero-push {
+	from { transform: scale(1.12); }
+	to { transform: scale(1); }
+}
+@keyframes project-hero-rise {
+	from { opacity: 0; transform: translateY(30%); }
+	to { opacity: 1; transform: none; }
+}
+@keyframes project-hero-fade {
+	from { opacity: 0; transform: translateY(24px); }
+	to { opacity: 1; transform: none; }
+}

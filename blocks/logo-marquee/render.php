@@ -12,8 +12,9 @@ if ( ! $logos ) {
 	return;
 }
 $is_grid = 'grid' === ( $attributes['layout'] ?? 'marquee' );
+$invert  = ! empty( $attributes['invert'] );
 ?>
-<section <?php echo lc_mdsx2026_wrapper( 'logo-marquee' . ( $is_grid ? ' logo-marquee--grid section' : '' ), 'nero' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?> aria-label="<?php echo esc_attr( $attributes['label'] ?? __( 'Clients', 'lc-mdsx2026' ) ); ?>">
+<section <?php echo lc_mdsx2026_wrapper( 'logo-marquee' . ( $is_grid ? ' logo-marquee--grid section' : '' ) . ( $invert ? ' logo-marquee--light' : '' ), $invert ? 'solitude' : 'nero' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?> aria-label="<?php echo esc_attr( $attributes['label'] ?? __( 'Clients', 'lc-mdsx2026' ) ); ?>">
 	<?php if ( $is_grid ) { ?>
 		<div class="container">
 			<ul class="logo-marquee__grid">

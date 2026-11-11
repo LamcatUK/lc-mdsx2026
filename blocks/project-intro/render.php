@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 $surface = lc_mdsx2026_surface( $attributes['backgroundColor'] ?? 'nero' );
 $meta    = array_filter( (array) ( $attributes['meta'] ?? array() ), static fn( $r ) => ! lc_mdsx2026_row_empty( $r ) );
 $tags    = lc_mdsx2026_lines( $attributes['tags'] ?? '' );
+$copy    = trim( $attributes['copy'] ?? '' );
 ?>
 <section <?php echo lc_mdsx2026_wrapper( 'project-intro section', $surface ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core-escaped attributes. ?>>
 	<div class="container project-intro__grid">
@@ -25,16 +26,23 @@ $tags    = lc_mdsx2026_lines( $attributes['tags'] ?? '' );
 					<?php } ?>
 				</dl>
 			<?php } ?>
-			<?php if ( $tags ) { ?>
-				<ul class="project-intro__tags">
-					<?php foreach ( $tags as $tag ) { ?>
-						<li class="tag"><?php echo esc_html( $tag ); ?></li>
-					<?php } ?>
-				</ul>
-			<?php } ?>
 		</div>
-		<?php if ( ! empty( $attributes['body'] ) ) { ?>
-			<div class="project-intro__body t-lede reveal" style="--i:1"><?php echo wp_kses_post( $attributes['body'] ); ?></div>
+		<?php if ( ! empty( $attributes['body'] ) || $copy || $tags ) { ?>
+			<div class="project-intro__aside reveal" style="--i:1">
+				<?php if ( ! empty( $attributes['body'] ) ) { ?>
+					<div class="project-intro__body t-lede"><?php echo wp_kses_post( $attributes['body'] ); ?></div>
+				<?php } ?>
+				<?php if ( $copy ) { ?>
+					<div class="project-intro__copy"><?php echo wpautop( esc_html( $copy ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?></div>
+				<?php } ?>
+				<?php if ( $tags ) { ?>
+					<ul class="project-intro__tags">
+						<?php foreach ( $tags as $tag ) { ?>
+							<li class="tag"><?php echo esc_html( $tag ); ?></li>
+						<?php } ?>
+					</ul>
+				<?php } ?>
+			</div>
 		<?php } ?>
 	</div>
 </section>

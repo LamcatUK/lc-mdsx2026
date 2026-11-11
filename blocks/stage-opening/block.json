@@ -1,0 +1,74 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/stage-opening",
+	"title": "Stage: Opening day",
+	"category": "lc-mdsx2026",
+	"icon": "star-filled",
+	"description": "Opening day stage: cinematic image, 'on the floor' reel and mosaic. Or an upcoming-opening panel for projects in development.",
+	"attributes": {
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"caption": {
+			"type": "string",
+			"default": ""
+		},
+		"state": {
+			"type": "string",
+			"default": "open"
+		},
+		"openingDate": {
+			"type": "string",
+			"default": ""
+		},
+		"upcomingLine": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaText": {
+			"type": "string",
+			"default": ""
+		},
+		"ctaUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"cineId": {
+			"type": "number",
+			"default": 0
+		},
+		"cineUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"cineAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"cineLine": {
+			"type": "string",
+			"default": ""
+		},
+		"reelHeading": {
+			"type": "string",
+			"default": "On the floor"
+		},
+		"reel": {
+			"type": "array",
+			"default": []
+		},
+		"mosaic": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"anchor": false,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

@@ -99,12 +99,12 @@
         {
           "name": "display",
           "slug": "display",
-          "size": "clamp(52px, 8.4vw, 136px)"
+          "size": "clamp(46px, 11vw, 52px)"
         },
         {
           "name": "h1",
           "slug": "h1",
-          "size": "clamp(52px, 8vw, 128px)"
+          "size": "clamp(46px, 11vw, 52px)"
         },
         {
           "name": "h2",
@@ -144,21 +144,101 @@
         {
           "name": "base",
           "slug": "base",
-          "size": "17px"
+          "size": "19px"
         },
         {
           "name": "small",
           "slug": "small",
-          "size": "16px"
+          "size": "17px"
         },
         {
           "name": "meta",
           "slug": "meta",
-          "size": "14px"
+          "size": "15px"
         }
       ]
     },
     "blocks": {
+      "lc-mdsx2026/article-body": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/contact-form": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
       "lc-mdsx2026/credits-list": {
         "color": {
           "palette": [
@@ -359,6 +439,46 @@
           "defaultGradients": false
         }
       },
+      "lc-mdsx2026/news-list": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
       "lc-mdsx2026/page-hero": {
         "color": {
           "palette": [
@@ -439,7 +559,87 @@
           "defaultGradients": false
         }
       },
+      "lc-mdsx2026/press-names": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
       "lc-mdsx2026/process-steps": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/profile-hero": {
         "color": {
           "palette": [
             {
@@ -519,7 +719,87 @@
           "defaultGradients": false
         }
       },
+      "lc-mdsx2026/project-picks": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
       "lc-mdsx2026/quote-block": {
+        "color": {
+          "palette": [
+            {
+              "name": "sea",
+              "slug": "sea",
+              "color": "#70cdc3",
+              "origin": "theme"
+            },
+            {
+              "name": "crusta",
+              "slug": "crusta",
+              "color": "#f77352",
+              "origin": "theme"
+            },
+            {
+              "name": "nero",
+              "slug": "nero",
+              "color": "#272727",
+              "origin": "theme"
+            },
+            {
+              "name": "charcoal",
+              "slug": "charcoal",
+              "color": "#464646",
+              "origin": "theme"
+            },
+            {
+              "name": "solitude",
+              "slug": "solitude",
+              "color": "#f1f3f4",
+              "origin": "theme"
+            }
+          ],
+          "custom": false,
+          "customGradient": false,
+          "defaultPalette": false,
+          "defaultGradients": false
+        }
+      },
+      "lc-mdsx2026/site-search": {
         "color": {
           "palette": [
             {

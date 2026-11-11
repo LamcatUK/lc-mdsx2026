@@ -1,0 +1,184 @@
+.stage-sketchbook {
+	overflow: clip; /* clip, not hidden: hidden would stop the strip's position: sticky */
+}
+.stage-sketchbook .stage-head__caption {
+	color: var(--col-charcoal);
+}
+.sketchbook__scroller {
+	overflow-x: auto;
+	overflow-y: hidden;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: thin;
+	scrollbar-color: var(--col-nero) #dfe3e4;
+}
+.sketchbook__scroller::-webkit-scrollbar {
+	height: 6px;
+}
+.sketchbook__scroller::-webkit-scrollbar-track {
+	background: #dfe3e4;
+}
+.sketchbook__scroller::-webkit-scrollbar-thumb {
+	background: var(--col-nero);
+}
+.sketchbook__strip {
+	display: flex;
+	align-items: flex-end;
+	gap: 28px;
+	width: max-content;
+	padding-inline: max(var(--container-padding), calc((100vw - var(--container-max-width)) / 2 + var(--container-padding)));
+}
+.sketchbook__strip figure {
+	flex: none;
+	margin: 0;
+	scroll-snap-align: start;
+}
+.sketchbook__strip img {
+	display: block;
+	width: auto;
+	max-width: none;
+	height: clamp(260px, 46vh, 520px);
+	background: #fff;
+	box-shadow: 0 0 0 1px #dfe3e4;
+	cursor: zoom-in;
+}
+.sketchbook__strip figcaption {
+	display: flex;
+	gap: 12px;
+	margin-top: 14px;
+	font: var(--fw-600) 14px / 1.3 var(--f-sub);
+	color: var(--col-charcoal);
+}
+.sketchbook__strip figcaption b {
+	font-family: var(--f-display);
+	color: var(--col-nero);
+}
+.sketchbook__meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 36px;
+	font: var(--fw-600) 14px / 1 var(--f-display);
+	color: var(--col-charcoal);
+}
+.sketchbook__hint-m {
+	display: none;
+}
+.sketchbook__meta[hidden] {
+	display: none;
+}
+.sketchbook__track-bar {
+	position: relative;
+	flex: 1;
+	height: 3px;
+	margin-inline: 24px;
+	background: #dfe3e4;
+}
+.sketchbook__track-bar i {
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: 8%;
+	background: var(--col-nero);
+}
+
+/* desktop, motion allowed (class set by src/js/sketchbook.js): pin the strip and scrub it with the page scroll */
+.sketchbook__track.is-pinned .sketchbook__pin {
+	position: sticky;
+	top: calc(var(--header-h) + var(--journey-h));
+	display: grid;
+	align-content: center;
+	height: calc(100svh - var(--header-h) - var(--journey-h));
+}
+.sketchbook__track.is-pinned .sketchbook__scroller {
+	overflow: hidden;
+	scroll-snap-type: none;
+}
+.sketchbook__track.is-pinned .sketchbook__strip {
+	will-change: transform;
+}
+/* phone: sketches sized by width so the next one peeks in, a live counter and progress bar, no native scrollbar */
+@media (max-width: 760px) {
+	.sketchbook__scroller {
+		scrollbar-width: none;
+	}
+	.sketchbook__scroller::-webkit-scrollbar {
+		display: none;
+	}
+	.sketchbook__strip {
+		gap: 16px;
+	}
+	.sketchbook__track:not(.sketchbook__track--few) .sketchbook__strip figure {
+		width: 82vw;
+	}
+	.sketchbook__track:not(.sketchbook__track--few) .sketchbook__strip img {
+		width: 100%;
+		height: auto;
+		max-width: none;
+		max-height: none;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+	}
+	.sketchbook__meta {
+		margin-top: 24px;
+	}
+	.sketchbook__track-bar {
+		margin-inline: 16px;
+	}
+	.sketchbook__hint-d {
+		display: none;
+	}
+	.sketchbook__hint-m {
+		display: inline;
+	}
+}
+
+/*
+ * one or two sketches, or a strip that fits the page: a static row, no pin, no counter, laid out in exactly
+ * the same container as the stage head and the Design images
+ */
+.sketchbook__track--few .sketchbook__scroller {
+	max-width: var(--container-max-width);
+	margin-inline: auto;
+	padding-inline: var(--container-padding);
+	overflow: visible;
+	scroll-snap-type: none;
+}
+.sketchbook__track--few .sketchbook__strip {
+	display: grid;
+	grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr));
+	align-items: start;
+	width: auto;
+	padding-inline: 0;
+}
+.sketchbook__track--n1 {
+	--n: 1;
+}
+.sketchbook__track--n2 {
+	--n: 2;
+}
+.sketchbook__track--few .sketchbook__strip figure {
+	min-width: 0;
+}
+.sketchbook__track--few .sketchbook__strip img {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	margin-inline: auto;
+}
+.sketchbook__track--n2 .sketchbook__strip img {
+	object-fit: contain;
+}
+.sketchbook__track--tall .sketchbook__strip img {
+	width: auto;
+	max-height: min(72vh, 760px);
+}
+.sketchbook__track--tall .sketchbook__strip figure {
+	justify-self: center;
+}
+.sketchbook__track--few .sketchbook__strip figcaption {
+	justify-content: center;
+}
+@media (max-width: 760px) {
+	.sketchbook__track--n2 .sketchbook__strip {
+		grid-template-columns: 1fr;
+	}
+}

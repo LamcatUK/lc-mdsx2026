@@ -1,0 +1,39 @@
+.community__grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: clamp(40px, 6vw, 96px);
+	align-items: center;
+}
+.community__quote {
+	margin: 0;
+	font: var(--fw-700) clamp(28px, 3vw, 44px) / 1.25 var(--f-sub);
+}
+.community__quote p {
+	margin: 0;
+}
+.community__quote footer {
+	margin-top: 20px;
+}
+.community__pics {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+.community__pics img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 1;
+	object-fit: cover;
+	cursor: zoom-in;
+}
+.community__lead {
+	grid-column: 1 / -1;
+}
+.community__lead img {
+	aspect-ratio: 16 / 9;
+}
+@media (max-width: 860px) {
+	.community__grid {
+		grid-template-columns: 1fr;
+	}
+}

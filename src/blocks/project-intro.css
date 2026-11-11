@@ -23,11 +23,24 @@
 	margin: 0;
 	line-height: 1.6;
 }
+.project-intro__body {
+	margin-bottom: 36px;
+}
+.project-intro__copy {
+	margin-bottom: 36px;
+	max-width: 38em;
+}
+.project-intro__copy p {
+	margin: 0 0 1em;
+}
+.project-intro__copy p:last-child {
+	margin-bottom: 0;
+}
 .project-intro__tags {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
-	margin: 28px 0 0;
+	margin: 0;
 	padding: 0;
 	list-style: none;
 }

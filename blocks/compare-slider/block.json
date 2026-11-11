@@ -1,0 +1,58 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lc-mdsx2026/compare-slider",
+	"title": "Compare Slider",
+	"category": "lc-mdsx2026",
+	"icon": "leftright",
+	"description": "Drag-to-compare before / after image (idea to reality).",
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": "From render to reality"
+		},
+		"intro": {
+			"type": "string",
+			"default": "Drag to compare the concept render with the finished space."
+		},
+		"beforeId": {
+			"type": "number",
+			"default": 0
+		},
+		"beforeUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"beforeAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"afterId": {
+			"type": "number",
+			"default": 0
+		},
+		"afterUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"afterAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"beforeLabel": {
+			"type": "string",
+			"default": "Concept render"
+		},
+		"afterLabel": {
+			"type": "string",
+			"default": "Opening day"
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": false
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

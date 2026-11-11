@@ -1,0 +1,1174 @@
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./blocks/_shared/EditorBlockShell.js"
+/*!********************************************!*\
+  !*** ./blocks/_shared/EditorBlockShell.js ***!
+  \********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ EditorBlockShell)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+/**
+ * Wraps a block's edit.js output in a collapsible section with a title bar
+ * and open/closed toggle, persisting the toggle state per block-instance
+ * (keyed by the block's position path within the post plus the current
+ * URL) in localStorage — so a page with many blocks stays scannable in the
+ * editor instead of every block's full field set staying expanded at once.
+ *
+ * @param {Object}   props
+ * @param {Object}   props.blockProps       Result of useBlockProps().
+ * @param {string}   props.clientId         The block's clientId, for deriving its position path.
+ * @param {string}   [props.classPrefix]    Class/prefix root, matches editor.css.
+ * @param {string}   [props.textDomain]     i18n text domain for the toggle's aria-label.
+ * @param {string}   [props.storageNamespace] Extra localStorage key segment, in case two shells need independent state on the same path.
+ * @param {string}   props.title            Block name shown in the title bar.
+ * @param {boolean}  [props.defaultOpen]    Initial state before localStorage is read.
+ * @param {*}        props.children         The block's own field controls.
+ */
+/**
+ * Keep Shift+Arrow inside the field being edited. Gutenberg's writing flow
+ * listens for keydown on an ancestor and, when the caret is at the edge of a
+ * field, turns Shift+Arrow into a block-level multi-selection — so extending
+ * a text selection in one of this block's inputs jumps to selecting the whole
+ * block. Stopping the React event here means the browser's native text
+ * selection handles it and the writing flow never sees it.
+ *
+ * @param {KeyboardEvent} event React keydown event.
+ */
+
+function keepShiftArrowInField(event) {
+  if (event.shiftKey && !event.ctrlKey && !event.metaKey && event.key.startsWith('Arrow')) {
+    event.stopPropagation();
+  }
+}
+function EditorBlockShell({
+  blockProps,
+  clientId,
+  classPrefix = 'lc-mdsx2026',
+  textDomain = 'lc-mdsx2026',
+  storageNamespace = 'block',
+  title,
+  children,
+  defaultOpen = true
+}) {
+  const [isOpen, setIsOpen] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useState)(defaultOpen);
+  const instanceId = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__.useInstanceId)(EditorBlockShell);
+  const contentId = `${classPrefix}-editor-block-content-${instanceId}`;
+  const blockPath = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => {
+    if (!clientId) {
+      return '';
+    }
+    const {
+      getBlockIndex,
+      getBlockRootClientId
+    } = select(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.store);
+    const path = [];
+    let currentId = clientId;
+    while (currentId) {
+      const parentId = getBlockRootClientId(currentId) || '';
+      path.unshift(String(getBlockIndex(currentId, parentId)));
+      currentId = parentId || null;
+    }
+    return path.join('.');
+  }, [clientId]);
+  const storageKey = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useMemo)(() => {
+    if (!clientId || !blockPath || typeof window === 'undefined') {
+      return '';
+    }
+    return [classPrefix, 'editor-block-state', storageNamespace, window.location.pathname, window.location.search, blockPath].join(':');
+  }, [blockPath, classPrefix, clientId, storageNamespace]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
+    if (!storageKey || typeof window === 'undefined') {
+      return;
+    }
+    const storedValue = window.localStorage.getItem(storageKey);
+    if (storedValue === 'closed') {
+      setIsOpen(false);
+    } else if (storedValue === 'open') {
+      setIsOpen(true);
+    }
+  }, [storageKey]);
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
+    if (!storageKey || typeof window === 'undefined') {
+      return;
+    }
+    window.localStorage.setItem(storageKey, isOpen ? 'open' : 'closed');
+  }, [isOpen, storageKey]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    ...blockProps,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: `${classPrefix}-editor-block__title`,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        children: title
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+        type: "button",
+        className: `${classPrefix}-editor-block__toggle`,
+        onClick: () => setIsOpen(open => !open),
+        "aria-expanded": isOpen,
+        "aria-controls": contentId,
+        "aria-label": isOpen ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Hide block fields', textDomain) : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Show block fields', textDomain),
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          "aria-hidden": "true",
+          children: isOpen ? '−' : '+'
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      id: contentId,
+      className: `${classPrefix}-editor-block__content`,
+      hidden: !isOpen,
+      onKeyDown: keepShiftArrowInField,
+      children: children
+    })]
+  });
+}
+
+/***/ },
+
+/***/ "./blocks/_shared/MediaField.js"
+/*!**************************************!*\
+  !*** ./blocks/_shared/MediaField.js ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MediaField)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+/**
+ * A single media-library field (image, or a video / caption file) for a block attribute pair.
+ * Stores the attachment ID in `idKey` and, for images, the URL in `urlKey` (so the editor can show a
+ * thumbnail). Files without a URL key store the file name in `nameKey` instead.
+ *
+ * @param {Object}   props
+ * @param {string}   props.label        Field label.
+ * @param {Object}   props.attributes   Block attributes.
+ * @param {Function} props.setAttributes
+ * @param {string}   props.idKey        Attribute holding the attachment ID.
+ * @param {string}   [props.urlKey]     Attribute holding the URL (images).
+ * @param {string}   [props.nameKey]    Attribute holding the file name (non-images).
+ * @param {string}   [props.altKey]     Attribute to fill with the library alt text (images).
+ * @param {string[]} [props.types]      Allowed types or MIME types, default [ 'image' ].
+ * @param {string}   [props.help]       Help text.
+ */
+
+function MediaField({
+  label,
+  attributes,
+  setAttributes,
+  idKey,
+  urlKey,
+  nameKey,
+  altKey,
+  types = ['image'],
+  help
+}) {
+  const id = attributes[idKey];
+  const url = urlKey ? attributes[urlKey] : '';
+  const name = nameKey ? attributes[nameKey] : '';
+  const clear = {
+    [idKey]: 0
+  };
+  if (urlKey) {
+    clear[urlKey] = '';
+  }
+  if (nameKey) {
+    clear[nameKey] = '';
+  }
+  if (altKey) {
+    clear[altKey] = '';
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "lc-mdsx2026-editor-field",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+      className: "lc-mdsx2026-editor-field__label",
+      children: label
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
+        onSelect: media => {
+          const next = {
+            [idKey]: media.id
+          };
+          if (urlKey) {
+            next[urlKey] = media.url;
+          }
+          if (nameKey) {
+            next[nameKey] = media.filename || media.title || '';
+          }
+          if (altKey) {
+            next[altKey] = media.alt || '';
+          }
+          setAttributes(next);
+        },
+        allowedTypes: types,
+        value: id,
+        render: ({
+          open
+        }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "lc-mdsx2026-editor-field__control",
+          children: [url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            src: url,
+            alt: "",
+            style: {
+              maxWidth: '200px',
+              display: 'block',
+              marginBottom: '8px'
+            }
+          }), name && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            style: {
+              display: 'block',
+              marginBottom: '8px'
+            },
+            children: name
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            variant: "secondary",
+            onClick: open,
+            children: id ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Replace', 'lc-mdsx2026') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Select', 'lc-mdsx2026')
+          }), id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            variant: "link",
+            isDestructive: true,
+            onClick: () => setAttributes(clear),
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Remove', 'lc-mdsx2026')
+          }) : null]
+        })
+      })
+    }), help && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+      className: "components-base-control__help",
+      children: help
+    })]
+  });
+}
+
+/***/ },
+
+/***/ "./blocks/_shared/RepeaterField.js"
+/*!*****************************************!*\
+  !*** ./blocks/_shared/RepeaterField.js ***!
+  \*****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ RepeaterField)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _useRowMotion__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./useRowMotion */ "./blocks/_shared/useRowMotion.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+/**
+ * Generic repeater UI for a block attribute holding an array of row objects.
+ * The block-editor equivalent of the `repeater` field type in
+ * inc/options.php — same sub-field vocabulary (text/textarea/image), separate
+ * implementation since one runs in wp-admin and the other inside the block
+ * editor's React tree.
+ *
+ * Rows lay out inline by default (`layout: 'row'`): each sub-field takes an
+ * equal-width slot, with compact move-up/move-down/remove icon buttons at
+ * the row's end. Sub-field labels render once, as column headers above the
+ * rows, rather than repeating per row — `hideLabelFromVision` keeps them
+ * screen-reader accessible on each control without rendering visually
+ * twice.
+ *
+ * `layout: 'column'` stacks each row's sub-fields vertically instead —
+ * there's no shared column header in that layout (it wouldn't line up with
+ * anything), so each sub-field's own label renders visibly above its
+ * control instead of being screen-reader-only.
+ *
+ * @param {Object}   props
+ * @param {string}   props.label    Field group label.
+ * @param {Object[]} props.value    Current rows.
+ * @param {Function} props.onChange ( rows ) => void
+ * @param {Object[]} props.fields   [ { name, label, type: 'text'|'number'|'textarea'|'image'|'file'|'link'|'radio', help, mimeTypes, linkTarget, options } ]
+ *                                  `linkTarget` (link fields only) adds an "open in new tab" toggle,
+ *                                  storing `{name}Target` on the row — same opt-in shape as the
+ *                                  top-level `link` field type's `link_target` option. `options`
+ *                                  (radio fields only) is `[ { label, value } ]`, mirroring the
+ *                                  top-level `select`/`radio` field types' options shape.
+ * @param {Object}   props.emptyRow Shape of a freshly-added row, e.g. { stat: '', title: '' }.
+ * @param {string}   [props.layout] 'row' (default) or 'column'.
+ */
+/**
+ * A link sub-field: title and URL side by side. The URL box is core's URLInput, which searches the
+ * site's own pages, projects and posts as you type (or accepts any pasted address). Addresses on
+ * this site are stored as relative paths so they survive a domain change.
+ */
+
+function LinkField({
+  field,
+  row,
+  isColumn,
+  onChange
+}) {
+  const id = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__.useInstanceId)(LinkField, 'lc-mdsx2026-link');
+  const origin = window.location.origin;
+  const toRelative = url => url && url.startsWith(origin + '/') ? url.slice(origin.length) : url;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: "lc-mdsx2026-repeater-field__link",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)(`${field.label} Title`, 'lc-mdsx2026'),
+      hideLabelFromVision: !isColumn,
+      value: row[`${field.name}Text`] || '',
+      onChange: v => onChange({
+        [`${field.name}Text`]: v
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.BaseControl, {
+      __nextHasNoMarginBottom: true,
+      id: id,
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)(`${field.label} URL`, 'lc-mdsx2026'),
+      hideLabelFromVision: !isColumn,
+      help: field.help,
+      className: "lc-mdsx2026-repeater-field__url",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.URLInput, {
+        id: id,
+        value: row[field.name] || '',
+        onChange: v => onChange({
+          [field.name]: toRelative(v)
+        }),
+        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Search pages or paste a URL', 'lc-mdsx2026')
+      })
+    }), field.linkTarget && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+      className: "lc-mdsx2026-repeater-field__link-target",
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)(`Open ${field.label} in a new tab`, 'lc-mdsx2026'),
+      checked: !!row[`${field.name}Target`],
+      onChange: v => onChange({
+        [`${field.name}Target`]: v
+      })
+    })]
+  });
+}
+function RepeaterField({
+  label,
+  value,
+  onChange,
+  fields,
+  emptyRow,
+  layout = 'row'
+}) {
+  const isColumn = 'column' === layout;
+  const rows = value || [];
+  function updateRow(index, patch) {
+    const next = rows.slice();
+    next[index] = {
+      ...next[index],
+      ...patch
+    };
+    onChange(next);
+  }
+
+  // Adding, moving and removing rows, with a slide and highlight on a move and focus kept on the arrow used.
+  const {
+    keys,
+    setRowRef,
+    movedKey,
+    addRow,
+    moveRow,
+    removeRow
+  } = (0,_useRowMotion__WEBPACK_IMPORTED_MODULE_4__["default"])(rows, onChange);
+  function confirmRemove(index) {
+    // eslint-disable-next-line no-alert -- a plain confirm() is enough
+    // friction for an irreversible remove; no undo exists for this field.
+    if (window.confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Remove this row?', 'lc-mdsx2026'))) {
+      removeRow(index);
+    }
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: isColumn ? 'lc-mdsx2026-repeater-field lc-mdsx2026-repeater-field--column' : 'lc-mdsx2026-repeater-field',
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+      className: "lc-mdsx2026-editor-field__label",
+      children: label
+    }), !isColumn && rows.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "lc-mdsx2026-repeater-field__header",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        className: "lc-mdsx2026-repeater-field__number-spacer"
+      }), fields.map(field => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        className: 'image' === field.type || 'file' === field.type ? 'lc-mdsx2026-repeater-field__header-cell lc-mdsx2026-repeater-field__header-cell--image' : 'lc-mdsx2026-repeater-field__header-cell',
+        children: field.label
+      }, field.name)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        className: "lc-mdsx2026-repeater-field__row-actions-spacer"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "lc-mdsx2026-repeater-field__rows",
+      children: rows.map((row, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: 'lc-mdsx2026-repeater-field__row' + (keys[index] === movedKey ? ' is-moved' : ''),
+        ref: setRowRef(keys[index]),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          className: "lc-mdsx2026-repeater-field__number",
+          children: index + 1
+        }), fields.map(field => {
+          if ('image' === field.type) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
+                onSelect: media => updateRow(index, {
+                  [field.name]: media.id,
+                  [`${field.name}Url`]: media.url
+                }),
+                allowedTypes: ['image'],
+                value: row[field.name],
+                render: ({
+                  open
+                }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                  className: "lc-mdsx2026-repeater-field__image",
+                  children: [row[`${field.name}Url`] && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+                    src: row[`${field.name}Url`],
+                    alt: ""
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                    variant: "secondary",
+                    size: "small",
+                    onClick: open,
+                    children: row[field.name] ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Replace', 'lc-mdsx2026') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Select', 'lc-mdsx2026')
+                  }), row[field.name] && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                    variant: "link",
+                    size: "small",
+                    isDestructive: true,
+                    onClick: () => updateRow(index, {
+                      [field.name]: '',
+                      [`${field.name}Url`]: ''
+                    }),
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Remove', 'lc-mdsx2026')
+                  })]
+                })
+              })
+            }, field.name);
+          }
+          if ('link' === field.type) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(LinkField, {
+              field: field,
+              row: row,
+              isColumn: isColumn,
+              onChange: patch => updateRow(index, patch)
+            }, field.name);
+          }
+          if ('file' === field.type) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
+                onSelect: media => updateRow(index, {
+                  [field.name]: media.id,
+                  [`${field.name}Name`]: media.filename || media.title || ''
+                }),
+                allowedTypes: field.mimeTypes || [],
+                value: row[field.name],
+                render: ({
+                  open
+                }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                  className: "lc-mdsx2026-repeater-field__image",
+                  children: [row[`${field.name}Name`] && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                    className: "lc-mdsx2026-repeater-field__file-name",
+                    children: row[`${field.name}Name`]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                    variant: "secondary",
+                    size: "small",
+                    onClick: open,
+                    children: row[field.name] ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Replace', 'lc-mdsx2026') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Select', 'lc-mdsx2026')
+                  }), row[field.name] && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+                    variant: "link",
+                    size: "small",
+                    isDestructive: true,
+                    onClick: () => updateRow(index, {
+                      [field.name]: '',
+                      [`${field.name}Name`]: ''
+                    }),
+                    children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Remove', 'lc-mdsx2026')
+                  })]
+                })
+              })
+            }, field.name);
+          }
+          if ('textarea' === field.type) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextareaControl, {
+              label: field.label,
+              hideLabelFromVision: !isColumn,
+              value: row[field.name] || '',
+              onChange: v => updateRow(index, {
+                [field.name]: v
+              }),
+              help: field.help
+            }, field.name);
+          }
+          if ('radio' === field.type) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RadioControl, {
+              label: field.label,
+              hideLabelFromVision: !isColumn,
+              selected: row[field.name] || '',
+              options: field.options || [],
+              onChange: v => updateRow(index, {
+                [field.name]: v
+              })
+            }, field.name);
+          }
+          if ('number' === field.type) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+              type: "number",
+              label: field.label,
+              hideLabelFromVision: !isColumn,
+              value: row[field.name] ?? '',
+              onChange: v => updateRow(index, {
+                [field.name]: '' === v ? '' : Number(v)
+              }),
+              help: field.help
+            }, field.name);
+          }
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+            label: field.label,
+            hideLabelFromVision: !isColumn,
+            value: row[field.name] || '',
+            onChange: v => updateRow(index, {
+              [field.name]: v
+            }),
+            help: field.help
+          }, field.name);
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "lc-mdsx2026-repeater-field__row-actions",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            size: "small",
+            "data-move": "up",
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Move up', 'lc-mdsx2026'),
+            onClick: () => moveRow(index, -1),
+            disabled: 0 === index,
+            children: "\u25B2"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            size: "small",
+            "data-move": "down",
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Move down', 'lc-mdsx2026'),
+            onClick: () => moveRow(index, 1),
+            disabled: index === rows.length - 1,
+            children: "\u25BC"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+            size: "small",
+            isDestructive: true,
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Remove', 'lc-mdsx2026'),
+            onClick: () => confirmRemove(index),
+            children: "\xD7"
+          })]
+        })]
+      }, keys[index]))
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+      variant: "primary",
+      onClick: () => addRow(emptyRow),
+      children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Add row', 'lc-mdsx2026')
+    })]
+  });
+}
+
+/***/ },
+
+/***/ "./blocks/_shared/useRowMotion.js"
+/*!****************************************!*\
+  !*** ./blocks/_shared/useRowMotion.js ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useRowMotion)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * Shared row behaviour for repeater-style fields (RepeaterField,
+ * PostListField): add, move and remove rows, and make a move obvious.
+ *
+ *  - Stable keys: each row keeps an identity as it moves, so React moves its
+ *    DOM node instead of rewriting rows in place.
+ *  - Slide: the two swapped rows animate past each other (FLIP), skipped when
+ *    the visitor prefers reduced motion.
+ *  - Highlight: the moved row gets .is-moved for a moment (CSS fades it).
+ *  - Focus: stays on the same up/down button of the moved row, so pressing it
+ *    again keeps moving the same row.
+ *
+ * The row element needs ref={ setRowRef( keys[ index ] ) }, key={ keys[ index ] },
+ * the class is-moved when keys[ index ] === movedKey, and its move buttons
+ * data-move="up" / data-move="down".
+ *
+ * @param {Object[]} rows     Current rows.
+ * @param {Function} onChange ( rows ) => void
+ * @return {Object} keys, setRowRef, movedKey, addRow( emptyRow ), moveRow( index, direction ), removeRow( index ).
+ */
+let counter = 0;
+const newKey = () => `row-${++counter}`;
+const HIGHLIGHT_MS = 1200;
+const SLIDE_MS = 220;
+function useRowMotion(rows, onChange) {
+  const list = rows || [];
+  const keysRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)([]);
+  const elementsRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Map());
+  const beforeRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const [moved, setMoved] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+
+  // Rows can change from outside (undo, redo): keep one key per row.
+  while (keysRef.current.length < list.length) {
+    keysRef.current.push(newKey());
+  }
+  keysRef.current.length = list.length;
+  const setRowRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(key => element => {
+    if (element) {
+      elementsRef.current.set(key, element);
+    } else {
+      elementsRef.current.delete(key);
+    }
+  }, []);
+
+  // Slide: compare each row's position before and after a move.
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(() => {
+    const before = beforeRef.current;
+    if (!before) {
+      return;
+    }
+    beforeRef.current = null;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+    keysRef.current.forEach(key => {
+      const element = elementsRef.current.get(key);
+      const oldTop = before.get(key);
+      if (!element || undefined === oldTop) {
+        return;
+      }
+      const delta = oldTop - element.getBoundingClientRect().top;
+      if (delta) {
+        element.animate([{
+          transform: `translateY(${delta}px)`
+        }, {
+          transform: 'none'
+        }], {
+          duration: SLIDE_MS,
+          easing: 'ease-out'
+        });
+      }
+    });
+  }, [list]);
+
+  // Highlight for a moment, and put focus back on the button that was used.
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!moved) {
+      return undefined;
+    }
+    const element = elementsRef.current.get(moved.key);
+    if (element) {
+      const button = element.querySelector(`[data-move="${moved.direction}"]:not([disabled])`) || element.querySelector('[data-move]:not([disabled])');
+      if (button) {
+        button.focus({
+          preventScroll: true
+        });
+      }
+    }
+    const timer = window.setTimeout(() => setMoved(null), HIGHLIGHT_MS);
+    return () => window.clearTimeout(timer);
+  }, [moved]);
+  const addRow = emptyRow => {
+    onChange([...list, {
+      ...emptyRow
+    }]);
+  };
+  const moveRow = (index, direction) => {
+    const target = index + direction;
+    if (target < 0 || target >= list.length) {
+      return;
+    }
+    const keys = keysRef.current;
+    const positions = new Map();
+    keys.forEach(key => {
+      const element = elementsRef.current.get(key);
+      if (element) {
+        positions.set(key, element.getBoundingClientRect().top);
+      }
+    });
+    beforeRef.current = positions;
+    const movedKey = keys[index];
+    [keys[index], keys[target]] = [keys[target], keys[index]];
+    const next = list.slice();
+    [next[index], next[target]] = [next[target], next[index]];
+    setMoved({
+      key: movedKey,
+      direction: direction < 0 ? 'up' : 'down'
+    });
+    onChange(next);
+  };
+  const removeRow = index => {
+    keysRef.current.splice(index, 1);
+    onChange(list.filter((_row, i) => i !== index));
+  };
+  return {
+    keys: keysRef.current,
+    setRowRef,
+    movedKey: moved ? moved.key : null,
+    addRow,
+    moveRow,
+    removeRow
+  };
+}
+
+/***/ },
+
+/***/ "./blocks/stage-opening/src/edit.js"
+/*!******************************************!*\
+  !*** ./blocks/stage-opening/src/edit.js ***!
+  \******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Edit)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _shared_EditorBlockShell__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../_shared/EditorBlockShell */ "./blocks/_shared/EditorBlockShell.js");
+/* harmony import */ var _shared_MediaField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../_shared/MediaField */ "./blocks/_shared/MediaField.js");
+/* harmony import */ var _shared_RepeaterField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../_shared/RepeaterField */ "./blocks/_shared/RepeaterField.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+
+
+
+
+
+
+
+function Edit({
+  attributes,
+  setAttributes,
+  clientId
+}) {
+  const {
+    label,
+    caption,
+    state,
+    openingDate,
+    upcomingLine,
+    ctaText,
+    ctaUrl,
+    cineLine,
+    reelHeading,
+    reel,
+    mosaic
+  } = attributes;
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
+    className: 'container lc-mdsx2026-editor-block'
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_shared_EditorBlockShell__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    blockProps: blockProps,
+    clientId: clientId,
+    title: "Stage: Opening day",
+    textDomain: "lc-mdsx2026",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      style: {
+        display: 'flex',
+        gap: '12px'
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        style: {
+          flex: '1 1 0'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Stage label', 'lc-mdsx2026'),
+          value: label,
+          onChange: value => setAttributes({
+            label: value
+          }),
+          help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Blank = "Opening day". Media-led projects: "Show".', 'lc-mdsx2026')
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        style: {
+          flex: '1 1 0'
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('State', 'lc-mdsx2026'),
+          value: state,
+          options: [{
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Open: show the opening-day images', 'lc-mdsx2026'),
+            value: 'open'
+          }, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Upcoming: show an "Opening [date]" panel (in development)', 'lc-mdsx2026'),
+            value: 'upcoming'
+          }],
+          onChange: value => setAttributes({
+            state: value
+          })
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextareaControl, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Caption', 'lc-mdsx2026'),
+      value: caption,
+      onChange: value => setAttributes({
+        caption: value
+      })
+    }), 'upcoming' === state ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Opening date', 'lc-mdsx2026'),
+        value: openingDate,
+        onChange: value => setAttributes({
+          openingDate: value
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Shown as "Opening [date]" and in the Journey Nav. Never guess a date.', 'lc-mdsx2026')
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('One line', 'lc-mdsx2026'),
+        value: upcomingLine,
+        onChange: value => setAttributes({
+          upcomingLine: value
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        style: {
+          display: 'flex',
+          gap: '12px'
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          style: {
+            flex: '1 1 0'
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Button text (optional)', 'lc-mdsx2026'),
+            value: ctaText,
+            onChange: value => setAttributes({
+              ctaText: value
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          style: {
+            flex: '1 1 0'
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+            type: "url",
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Button URL', 'lc-mdsx2026'),
+            value: ctaUrl,
+            onChange: value => setAttributes({
+              ctaUrl: value
+            })
+          })
+        })]
+      })]
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_shared_MediaField__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        attributes: attributes,
+        setAttributes: setAttributes,
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Cinematic image (full-bleed, light parallax)', 'lc-mdsx2026'),
+        idKey: "cineId",
+        urlKey: "cineUrl",
+        altKey: "cineAlt"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        style: {
+          display: 'flex',
+          gap: '12px'
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          style: {
+            flex: '1 1 0'
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Cinematic image alt text', 'lc-mdsx2026'),
+            value: attributes.cineAlt,
+            onChange: value => setAttributes({
+              cineAlt: value
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          style: {
+            flex: '1 1 0'
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('One line over the image', 'lc-mdsx2026'),
+            value: cineLine,
+            onChange: value => setAttributes({
+              cineLine: value
+            })
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Reel heading', 'lc-mdsx2026'),
+        value: reelHeading,
+        onChange: value => setAttributes({
+          reelHeading: value
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_shared_RepeaterField__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Reel (stills and portrait phone clips, up to 8)', 'lc-mdsx2026'),
+        value: reel,
+        onChange: rows => setAttributes({
+          reel: rows
+        }),
+        fields: [{
+          name: 'image',
+          label: 'Image (or clip poster)',
+          type: 'image'
+        }, {
+          name: 'alt',
+          label: 'Alt text',
+          type: 'text'
+        }, {
+          name: 'webm',
+          label: 'Clip WebM',
+          type: 'file',
+          mimeTypes: ['video/webm']
+        }, {
+          name: 'mp4',
+          label: 'Clip MP4',
+          type: 'file',
+          mimeTypes: ['video/mp4']
+        }, {
+          name: 'tape',
+          label: 'Clip tape label (default Live)',
+          type: 'text'
+        }],
+        emptyRow: {
+          image: 0,
+          imageUrl: '',
+          alt: '',
+          webm: 0,
+          mp4: 0,
+          tape: ''
+        },
+        layout: "column"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_shared_RepeaterField__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Mosaic (up to 8; sizes are automatic, event photos go last)', 'lc-mdsx2026'),
+        value: mosaic,
+        onChange: rows => setAttributes({
+          mosaic: rows
+        }),
+        fields: [{
+          name: 'image',
+          label: 'Image',
+          type: 'image'
+        }, {
+          name: 'alt',
+          label: 'Alt text',
+          type: 'text'
+        }],
+        emptyRow: {
+          image: 0,
+          imageUrl: '',
+          alt: ''
+        },
+        layout: "row"
+      })]
+    })]
+  });
+}
+
+/***/ },
+
+/***/ "react/jsx-runtime"
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+(module) {
+
+module.exports = window["ReactJSXRuntime"];
+
+/***/ },
+
+/***/ "@wordpress/block-editor"
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+(module) {
+
+module.exports = window["wp"]["blockEditor"];
+
+/***/ },
+
+/***/ "@wordpress/blocks"
+/*!********************************!*\
+  !*** external ["wp","blocks"] ***!
+  \********************************/
+(module) {
+
+module.exports = window["wp"]["blocks"];
+
+/***/ },
+
+/***/ "@wordpress/components"
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ },
+
+/***/ "@wordpress/compose"
+/*!*********************************!*\
+  !*** external ["wp","compose"] ***!
+  \*********************************/
+(module) {
+
+module.exports = window["wp"]["compose"];
+
+/***/ },
+
+/***/ "@wordpress/data"
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["data"];
+
+/***/ },
+
+/***/ "@wordpress/element"
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+(module) {
+
+module.exports = window["wp"]["element"];
+
+/***/ },
+
+/***/ "@wordpress/i18n"
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ },
+
+/***/ "./blocks/stage-opening/block.json"
+/*!*****************************************!*\
+  !*** ./blocks/stage-opening/block.json ***!
+  \*****************************************/
+(module) {
+
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"lc-mdsx2026/stage-opening","title":"Stage: Opening day","category":"lc-mdsx2026","icon":"star-filled","description":"Opening day stage: cinematic image, \'on the floor\' reel and mosaic. Or an upcoming-opening panel for projects in development.","attributes":{"label":{"type":"string","default":""},"caption":{"type":"string","default":""},"state":{"type":"string","default":"open"},"openingDate":{"type":"string","default":""},"upcomingLine":{"type":"string","default":""},"ctaText":{"type":"string","default":""},"ctaUrl":{"type":"string","default":""},"cineId":{"type":"number","default":0},"cineUrl":{"type":"string","default":""},"cineAlt":{"type":"string","default":""},"cineLine":{"type":"string","default":""},"reelHeading":{"type":"string","default":"On the floor"},"reel":{"type":"array","default":[]},"mosaic":{"type":"array","default":[]}},"supports":{"anchor":false,"className":true,"align":false},"editorScript":"file:./build/index.js","render":"file:./render.php"}');
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	const __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		const cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		const module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			const e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = (module) => {
+/******/ 		const getter = module && module.__esModule ?
+/******/ 			() => (module['default']) :
+/******/ 			() => (module);
+/******/ 		__webpack_require__.d(getter, { a: getter });
+/******/ 		return getter;
+/******/ 	};
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	// define getter/value functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			}
+/******/ 		}
+/******/ 	};
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.hasOwn(obj, prop));
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = (exports) => {
+/******/ 		Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/ 	
+/************************************************************************/
+let __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!*******************************************!*\
+  !*** ./blocks/stage-opening/src/index.js ***!
+  \*******************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit */ "./blocks/stage-opening/src/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../block.json */ "./blocks/stage-opening/block.json");
+
+
+
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_2__.name, {
+  edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
+  save: () => null
+});
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=index.js.map
