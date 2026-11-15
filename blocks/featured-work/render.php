@@ -1,27 +1,42 @@
 <?php
 /**
  * Block template for Featured Work. Shows the newest published portfolio
- * projects automatically, in groups of three (one large + two stacked),
- * alternating which side the large tile is on.
+ * projects automatically, or a hand-picked list in the chosen order, in
+ * groups of three (one large + two stacked), alternating which side the
+ * large tile is on.
  *
  * @package lc-mdsx2026
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$count      = max( 1, min( 12, (int) ( $attributes['count'] ?? 6 ) ) );
-$discipline = sanitize_title( $attributes['discipline'] ?? '' );
-$query_args = array(
-	'post_type'      => 'portfolio',
-	'post_status'    => 'publish',
-	'posts_per_page' => $count,
-	'meta_key'       => '_thumbnail_id', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- only projects with an image make a tile.
-	'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
-);
-if ( $discipline ) {
-	$query_args['tax_query'] = array( array( 'taxonomy' => 'discipline', 'field' => 'slug', 'terms' => $discipline ) ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- small, filtered portfolio set.
+$picked = 'picked' === ( $attributes['source'] ?? 'latest' );
+if ( $picked ) {
+	// Hand-picked: exactly the chosen projects, in the chosen order, skipping any that are unpublished, hidden or without an image.
+	$projects = array();
+	foreach ( array_unique( array_filter( array_map( 'intval', (array) ( $attributes['projects'] ?? array() ) ) ) ) as $project_id ) {
+		if ( 'publish' === get_post_status( $project_id ) && 'portfolio' === get_post_type( $project_id ) && has_post_thumbnail( $project_id ) && ! lc_mdsx2026_is_unlisted( $project_id ) ) {
+			$projects[] = get_post( $project_id );
+		}
+	}
+} else {
+	$count      = max( 1, min( 12, (int) ( $attributes['count'] ?? 6 ) ) );
+	$discipline = sanitize_title( $attributes['discipline'] ?? '' );
+	$query_args = array(
+		'post_type'      => 'portfolio',
+		'post_status'    => 'publish',
+		'posts_per_page' => $count,
+		'meta_key'       => '_thumbnail_id', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- only projects with an image make a tile.
+		'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
+	);
+	if ( $discipline ) {
+		$query_args['tax_query'] = array( array( 'taxonomy' => 'discipline', 'field' => 'slug', 'terms' => $discipline ) ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- small, filtered portfolio set.
+	}
+	$projects = get_posts( lc_mdsx2026_listing_args( $query_args ) );
 }
-$projects = get_posts( lc_mdsx2026_listing_args( $query_args ) );
+if ( ! $projects ) {
+	return;
+}
 
 $tile = static function ( $project, $extra = '', $i = 0 ) {
 	?>
